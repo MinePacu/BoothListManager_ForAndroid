@@ -9,12 +9,10 @@
     <TextView
         android:id="@+id/text_BoothNumber"
         android:layout_width="116dp"
-        android:layout_height="29dp"
+        android:layout_height="25dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,14 +21,56 @@
         app:layout_constraintVertical_bias="0.054" />
 
     <EditText
-        android:id="@+id/editBoothNameText"
-        android:layout_width="385dp"
-        android:layout_height="39dp"
+        android:id="@+id/edit_BoothNumber"
+        android:layout_width="384dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="9dp"
         android:ems="10"
         android:inputType="text"
-        android:text="@string/basic_boothname"
+        android:hint="ex:) A13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_BoothNumber" />
+
+    <TextView
+        android:id="@+id/text_BoothName"
+        android:layout_width="116dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_BoothNumber" />
+
+    <EditText
+        android:id="@+id/edit_BoothName"
+        android:layout_width="384dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="@string/basic_boothname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_BoothName" />
+
+    <TextView
+        android:id="@+id/text_BoothGenre"
+        android:layout_width="120dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_BoothName" />
+
+    <EditText
+        android:id="@+id/edit_Genre"
+        android:layout_width="382dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="부스 장르"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_BoothGenre" />
 </androidx.constraintlayout.widget.ConstraintLayout>

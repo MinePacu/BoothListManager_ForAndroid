@@ -30,12 +30,18 @@ class AddBoothFragment : Fragment() {
         val root: View = binding.root
 
         val textView: TextView = binding.textBoothNumber
-        addboothViewModel.text.observe(viewLifecycleOwner) {
+        addboothViewModel.boothnumberText.observe(viewLifecycleOwner) {
             textView.text = it
         }
 
-        val editText: EditText = binding.editBoothNameText
-        addboothViewModel.text.observe(viewLifecycleOwner) {
+        val text_BoothName_View: TextView = binding.textBoothName
+        addboothViewModel.boothnameText.observe(viewLifecycleOwner) {
+            text_BoothName_View.text = it
+        }
+
+        val text_Genre_View: TextView = binding.textBoothGenre
+        addboothViewModel.GenreText.observe(viewLifecycleOwner) {
+            text_Genre_View.text = it
         }
         return root
     }
