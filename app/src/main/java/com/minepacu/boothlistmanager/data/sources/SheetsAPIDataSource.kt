@@ -32,7 +32,7 @@ class SheetsAPIDataSource(private val authManager: AuthenticationManager,
             .map {  BoothInformation(it[0].toString(), it[1].toString(),
                                     it[2].toString(), it[3].toString(),
                                     it[4].toString(), it[5].toString(),
-                                    it[6].toString(), it[7].toString() }
+                                    it[6].toString(), it[7].toString(), it[8].toString()) }
             .toList()
         }
 }
