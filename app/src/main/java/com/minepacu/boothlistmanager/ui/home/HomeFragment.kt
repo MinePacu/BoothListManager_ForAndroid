@@ -21,8 +21,6 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    val RQ_GOOGLE_SIGN_IN = 1
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
