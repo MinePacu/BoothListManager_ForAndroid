@@ -28,9 +28,14 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textServiceConnection
+        homeViewModel.text_ServiceConnection.observe(viewLifecycleOwner) {
             textView.text = it
+        }
+
+        val textView_ServiceConnectionStatus: TextView = binding.textServiceConnectionStatus
+        homeViewModel.text_ServiceConnectionStatus.observe(viewLifecycleOwner) {
+            textView_ServiceConnectionStatus.text = it
         }
         return root
     }
