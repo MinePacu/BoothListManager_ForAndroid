@@ -9,7 +9,7 @@ interface ReadSpreadsheetContract {
     interface View : BaseView {
         fun initList(booth: MutableList<BoothInformation>)
         fun showBooth()
-        fun showUserName(username : String)
+        fun showStatus(status : String)
         fun _startAuthentication(client : GoogleSignInClient)
     }
 

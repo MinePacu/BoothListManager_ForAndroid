@@ -30,7 +30,7 @@ class ReadSpreadSheetPresenter(private val view: ReadSpreadsheetContract.View,
     }
 
     override fun loginSuccessful() {
-        view.showUserName(authenticationManager.getLastSignedAccount()?.displayName!!)
+        view.showStatus(authenticationManager.getLastSignedAccount()?.displayName!!)
         authenticationManager.setUpGoogleAccountCredential()
 
     }

@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.google.android.gms:play-services-drive:17.0.0")
     implementation("com.google.api-client:google-api-client-android:1.23.0") {
         exclude(group = "org.apache.httpscomponents")
     }
