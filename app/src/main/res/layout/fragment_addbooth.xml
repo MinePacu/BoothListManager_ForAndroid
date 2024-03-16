@@ -1,76 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".ui.Booth.AddBoothFragment">
 
-    <TextView
-        android:id="@+id/text_BoothNumber"
-        android:layout_width="116dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.054" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        >
 
-    <EditText
-        android:id="@+id/edit_BoothNumber"
-        android:layout_width="384dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="9dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="ex:) A13"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_BoothNumber" />
+        <TextView
+            android:id="@+id/text_BoothNumber"
+            android:layout_width="116dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.054" />
 
-    <TextView
-        android:id="@+id/text_BoothName"
-        android:layout_width="116dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_BoothNumber" />
+        <EditText
+            android:id="@+id/edit_BoothNumber"
+            android:layout_width="384dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="9dp"
+            android:ems="10"
+            android:hint="@string/hint_boothnumber"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_BoothNumber" />
 
-    <EditText
-        android:id="@+id/edit_BoothName"
-        android:layout_width="384dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="@string/basic_boothname"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_BoothName" />
+        <TextView
+            android:id="@+id/text_BoothName"
+            android:layout_width="116dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_BoothNumber" />
 
-    <TextView
-        android:id="@+id/text_BoothGenre"
-        android:layout_width="120dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_BoothName" />
+        <EditText
+            android:id="@+id/edit_BoothName"
+            android:layout_width="384dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="@string/basic_boothname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_BoothName" />
 
-    <EditText
-        android:id="@+id/edit_Genre"
-        android:layout_width="382dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="부스 장르"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_BoothGenre" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/text_BoothGenre"
+            android:layout_width="120dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_BoothName" />
+
+        <EditText
+            android:id="@+id/edit_Genre"
+            android:layout_width="382dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:inputType="text"
+            android:hint="부스 장르"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_BoothGenre" />
+
+        <TextView
+            android:id="@+id/text_Yoil"
+            android:layout_width="121dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/label_Yoil"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_Genre" />
+
+        <RadioGroup
+            android:id="@+id/Yoil_Group"
+            android:layout_width="384dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_Yoil">
+
+            <RadioButton
+                android:id="@+id/FesInSaturday"
+                android:layout_width="194dp"
+                android:layout_height="match_parent"
+                android:text="@string/Radio_Saturday" />
+
+            <RadioButton
+                android:id="@+id/FesInSunday"
+                android:layout_width="190dp"
+                android:layout_height="match_parent"
+                android:text="@string/Radio_Sunday" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/text_InfoLabel"
+            android:layout_width="117dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/label_InfoLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Yoil_Group" />
+
+        <EditText
+            android:id="@+id/editInfoLabel"
+            android:layout_width="384dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_InfoLabel" />
+
+        <TextView
+            android:id="@+id/text_InfoLink"
+            android:layout_width="120dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="6dp"
+            android:text="@string/label_InfoLink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editInfoLabel" />
+
+        <EditText
+            android:id="@+id/editInfoLink"
+            android:layout_width="384dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_InfoLink" />
+
+        <TextView
+            android:id="@+id/text_PreOrderLabel"
+            android:layout_width="119dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/label_PreOrderLabel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editInfoLink" />
+
+        <EditText
+            android:id="@+id/editPreOrderLabel"
+            android:layout_width="384dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_PreOrderLabel" />
+
+        <TextView
+            android:id="@+id/text_PreOrderLink"
+            android:layout_width="119dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/label_PreOrderLink"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editPreOrderLabel" />
+
+        <EditText
+            android:id="@+id/editPreOrderLink"
+            android:layout_width="384dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_PreOrderLink" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
