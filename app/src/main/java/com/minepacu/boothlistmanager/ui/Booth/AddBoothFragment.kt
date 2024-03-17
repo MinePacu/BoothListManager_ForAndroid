@@ -1,5 +1,7 @@
 package com.minepacu.boothlistmanager.ui.Booth
 
+import android.app.ProgressDialog
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +10,9 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.databinding.FragmentAddboothBinding
+import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
 
 class AddBoothFragment : Fragment() {
 
@@ -29,20 +33,16 @@ class AddBoothFragment : Fragment() {
         _binding = FragmentAddboothBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textBoothNumber
-        addboothViewModel.boothnumberText.observe(viewLifecycleOwner) {
-            textView.text = it
+        val addboothButton = binding.filledAddBoothButton
+        val customProgressPage = this.context?.let { ProgressPage(it) }
+
+        customProgressPage?.window?.setBackgroundDrawable(
+            ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+        addboothButton.setOnClickListener{
+            customProgressPage?.show()
         }
 
-        val text_BoothName_View: TextView = binding.textBoothName
-        addboothViewModel.boothnameText.observe(viewLifecycleOwner) {
-            text_BoothName_View.text = it
-        }
-
-        val text_Genre_View: TextView = binding.textBoothGenre
-        addboothViewModel.GenreText.observe(viewLifecycleOwner) {
-            text_Genre_View.text = it
-        }
         return root
     }
 

@@ -44,8 +44,8 @@ class HomeFragment : Fragment() {
             getContext()?.let { AndroidPlatform(it) }?.let { Python.start(it) }
         }
 
-        homeViewModel.loginToGoogleAPI()
-        homeViewModel.getSheet()
+        homeViewModel.loginToGoogleAPI(root)
+        homeViewModel.getSheet(root)
         return root
     }
 

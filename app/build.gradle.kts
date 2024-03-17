@@ -39,11 +39,19 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.2"
     }
     flavorDimensions += "pyVersion"
     productFlavors {
         create("py310") { dimension = "pyVersion" }
         create("py311") { dimension = "pyVersion" }
+    }
+
+    viewBinding {
+        enable = true
     }
 }
 
@@ -82,6 +90,10 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.1.8")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
     implementation("com.android.support:recyclerview-v7:28.0.0")
+    //implementation("androidx.compose.material:material:1.6.3")
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.material3:material3-window-size-class:1.2.1")
+    implementation("androidx.compose.material3:material3-adaptive-navigation-suite:1.0.0-alpha05")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
