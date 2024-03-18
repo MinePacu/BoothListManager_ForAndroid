@@ -3,13 +3,17 @@ package com.minepacu.boothlistmanager.ui.Booth
 import android.app.ProgressDialog
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputEditText
 import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.data.model.BoothInfo
 import com.minepacu.boothlistmanager.databinding.FragmentAddboothBinding
@@ -51,7 +55,7 @@ class AddBoothFragment : Fragment() {
             val preorder_label = binding.editPreOrderLabel.editText?.text.toString()
             val preorder_link = binding.editPreOrderLink.editText?.text.toString()
 
-            var new_yoil : String = ""
+            var new_yoil  = ""
             when {
                 yoil == binding.FesInSaturday.id -> new_yoil = "토"
                 yoil == binding.FesInSunday.id -> new_yoil = "일"
@@ -66,7 +70,42 @@ class AddBoothFragment : Fragment() {
             addboothViewModel.addBoothInfoToSheet(root, boothInfo)
         }
 
+        textWatcher()
         return root
+    }
+
+    fun textWatcher() {
+        binding.editTextBoothName.addTextChangedListener (object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.editTextBoothName.text!!.isEmpty()) {
+                    binding.editBoothName.error = "부스 이름을 입력해주세요"
+                } else {
+                    binding.editBoothName.error = null
+                }
+            }
+        })
+
+        binding.editTextGenre.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.editTextGenre.text!!.isEmpty()) {
+                    binding.editGenre.error = "부스가 취급하는 장르를 입력해주세요."
+                } else {
+                    binding.editGenre.error = null
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {
