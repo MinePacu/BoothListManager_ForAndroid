@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.minepacu.boothlistmanager.R
+import com.minepacu.boothlistmanager.data.model.BoothInfo
 import com.minepacu.boothlistmanager.databinding.FragmentAddboothBinding
 import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
 
@@ -40,7 +41,29 @@ class AddBoothFragment : Fragment() {
             ColorDrawable(android.graphics.Color.TRANSPARENT))
 
         addboothButton.setOnClickListener{
+            val boothnumber = binding.editBoothNumber.editText?.text.toString()
+            val boothname = binding.editBoothName.editText?.text.toString()
+            val genre = binding.editGenre.editText?.text.toString()
+            val yoil = binding.YoilGroup.checkedRadioButtonId
+            val infolabel = binding.editInfoLabel.editText?.text.toString()
+            val infolink = binding.editInfoLink.editText?.text.toString()
+            val preorder_date = binding.editPreOrderDate.editText?.text.toString()
+            val preorder_label = binding.editPreOrderLabel.editText?.text.toString()
+            val preorder_link = binding.editPreOrderLink.editText?.text.toString()
+
+            var new_yoil : String = ""
+            when {
+                yoil == binding.FesInSaturday.id -> new_yoil = "토"
+                yoil == binding.FesInSunday.id -> new_yoil = "일"
+                yoil == binding.FesInboth.id -> new_yoil = "토/일"
+            }
+
+            val boothInfo = BoothInfo(boothnumber, boothname, genre, new_yoil,
+                infolabel, infolink,
+                preorder_date, preorder_label, preorder_link)
+
             customProgressPage?.show()
+            addboothViewModel.addBoothInfoToSheet(root, boothInfo)
         }
 
         return root

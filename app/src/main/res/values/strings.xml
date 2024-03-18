@@ -23,10 +23,12 @@
     <string name="label_Yoil">참가 요일</string>
     <string name="Radio_Saturday">토요일</string>
     <string name="Radio_Sunday">일요일</string>
+    <string name="Radio_Both">토/일</string>
 
     <string name="label_InfoLabel">인포 라벨</string>
     <string name="label_InfoLink">인포 링크</string>
 
+    <string name="label_PreOrderDate">선입금 마감 일자</string>
     <string name="label_PreOrderLabel">선입금 링크 라벨</string>
     <string name="label_PreOrderLink">선입금 링크</string>
 </resources>

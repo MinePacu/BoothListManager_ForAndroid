@@ -83,7 +83,7 @@
 
         <RadioGroup
             android:id="@+id/Yoil_Group"
-            android:layout_width="384dp"
+            android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="5dp"
@@ -95,15 +95,24 @@
 
             <RadioButton
                 android:id="@+id/FesInSaturday"
-                android:layout_width="194dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="@string/Radio_Saturday" />
 
             <RadioButton
                 android:id="@+id/FesInSunday"
-                android:layout_width="190dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="@string/Radio_Sunday" />
+
+            <RadioButton
+                android:id="@+id/FesInboth"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/Radio_Both" />
         </RadioGroup>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -145,6 +154,25 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editPreOrderDate"
+            android:layout_width="384dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="@string/label_PreOrderDate"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editInfoLabel">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editPreOrderLabel"
             android:layout_width="384dp"
             android:layout_height="48dp"
@@ -156,7 +184,7 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editInfoLink">
+            app:layout_constraintTop_toBottomOf="@+id/editPreOrderDate">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
