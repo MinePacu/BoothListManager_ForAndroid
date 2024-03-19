@@ -22,7 +22,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             sheetIdPreference = findPreference("sheetId")
         }
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
+        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         if (prefs.getString("sheetId", "") == "") {
             sheetIdPreference?.summary = "현재 값이 설정되어 있지 않습니다."
