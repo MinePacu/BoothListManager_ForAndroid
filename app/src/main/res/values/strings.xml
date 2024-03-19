@@ -31,4 +31,6 @@
     <string name="label_PreOrderDate">선입금 마감 일자</string>
     <string name="label_PreOrderLabel">선입금 링크 라벨</string>
     <string name="label_PreOrderLink">선입금 링크</string>
+
+    <string name="preference_sheetId_Summary">부스를 등록하기 위한 시트이 ID를 설정합니다.</string>
 </resources>
