@@ -5,7 +5,10 @@ import android.os.Bundle
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.chaquo.python.PyException
 import com.minepacu.boothlistmanager.R
+import com.minepacu.boothlistmanager.data.model.Result
+import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 
 class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     lateinit var prefs: SharedPreferences
@@ -20,13 +23,22 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this.requireContext())
+
+        if (prefs.getString("sheetId", "") == "") {
+            sheetIdPreference?.summary = "현재 값이 설정되어 있지 않습니다."
+        }
     }
 
     val prefListener =
         SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
             when (key) {
                 "sheetId" -> {
-
+                    val sheetId_Set = prefs.getString("sheetId", "")
+                    val reuslt = try {
+                        PythonClass.setVariable("sheetId", sheetId_Set)
+                    } catch (e: PyException) {
+                        Result.Error(Exception(e.message))
+                    }
                 }
             }
         }

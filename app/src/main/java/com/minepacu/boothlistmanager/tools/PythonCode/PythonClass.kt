@@ -120,5 +120,9 @@ class PythonClass {
                 }
             }
         }
+
+        fun setVariable(variable_name: String, value: Any?) {
+            boothListManagementModule.put(variable_name, value)
+        }
     }
 }
