@@ -17,7 +17,6 @@ import com.minepacu.boothlistmanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    //private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,25 +26,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.topAppBar)
-        /*
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .setAnchorView(R.id.fab).show()
-        }
+        supportActionBar?.hide()
 
-        */
         val navView: BottomNavigationView = binding.navView
-        /*
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-
-        */
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -54,39 +37,5 @@ class MainActivity : AppCompatActivity() {
             )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        //getSupportActionBar()?.hide()
-
-        /*
-        NavigationBarView.OnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    true
-                }
-                R.id.nav_gallery -> {
-                    true
-                }
-                R.id.nav_slideshow -> {
-                    true
-                }
-                else -> false
-            }
-        }
-
-        navView.setOnItemReselectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    true
-                }
-                R.id.nav_gallery -> {
-                    true
-                }
-                R.id.nav_slideshow -> {
-                    true
-                }
-                else -> false
-            }
-        }
-
-        */
     }
 }
