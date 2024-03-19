@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:key="sheetId"
+        android:title="시트 ID"
+        android:summary="@string/preference_sheetId_Summary" />
+
+
+</androidx.preference.PreferenceScreen>

@@ -16,4 +16,9 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:enabled="true"
             android:title="@string/menu_search" />
+        <item
+            android:id="@+id/preferences"
+            android:icon="@drawable/ic_settings_24dp"
+            android:enabled="true"
+            android:title="@string/menu_settings"/>
 </menu>
