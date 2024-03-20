@@ -39,10 +39,22 @@ class AddBoothFragment : Fragment() {
         val root: View = binding.root
 
         val addboothButton = binding.filledAddBoothButton
+        val emptyTextButton = binding.EmptyTextFieldButton
         val customProgressPage = this.context?.let { ProgressPage(it) }
 
         customProgressPage?.window?.setBackgroundDrawable(
             ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+        emptyTextButton.setOnClickListener {
+            binding.editBoothNumber.editText?.setText("")
+            binding.editBoothName.editText?.setText("")
+            binding.editGenre.editText?.setText("")
+            binding.editInfoLabel.editText?.setText("")
+            binding.editInfoLabel.editText?.setText("")
+            binding.editPreOrderDate.editText?.setText("")
+            binding.editPreOrderLabel.editText?.setText("")
+            binding.editPreOrderLink.editText?.setText("")
+        }
 
         addboothButton.setOnClickListener{
             val boothnumber = binding.editBoothNumber.editText?.text.toString()

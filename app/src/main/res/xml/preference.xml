@@ -5,7 +5,19 @@
     <EditTextPreference
         android:key="sheetId"
         android:title="시트 ID"
-        android:summary="@string/preference_sheetId_Summary" />
+        android:summary="@string/preference_sheetId_Summary"
+        android:defaultValue="1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM"/>
 
+    <EditTextPreference
+        android:key="sheetName"
+        android:title="선입금 링크 시트 이름"
+        android:summary="선입금 링크 또는 인포들을 담은 부스들의 정보를 등록할 시트의 이름입니다."
+        android:defaultValue="선입금 목록"/>
+
+    <EditTextPreference
+        android:key="updateSheetName"
+        android:title="업데이트 시트 이름"
+        android:summary="시트에 부스를 등록하면 로그를 기록할 시트의 이름입니다."
+        android:defaultValue="업데이트 로그"/>
 
 </androidx.preference.PreferenceScreen>

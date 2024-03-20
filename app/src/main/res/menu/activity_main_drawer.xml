@@ -3,19 +3,24 @@
 
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/home_24px"
             android:enabled="true"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_add_24dp"
             android:enabled="true"
             android:title="@string/menu_Add_Booth" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/search_24px"
             android:enabled="true"
             android:title="@string/menu_search" />
+        <item
+            android:id="@+id/nav_hyperlinkgenerator"
+            android:icon="@drawable/ic_hyperlink_24dp"
+            android:enabled="true"
+            android:title="@string/menu_hyperlinkgenerator" />
         <item
             android:id="@+id/nav_preference"
             android:icon="@drawable/ic_settings_24dp"
