@@ -62,10 +62,10 @@ class PythonClass {
         suspend fun getSheetInfo(): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun getsheetInfo is Executed")
+                val sheetId = boothListManagementModule.get("sheetId")
                 sheetInfo =
                     boothListManagementModule.callAttr(
-                        "getSheet",
-                        "1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM"
+                        "getSheet", sheetId
                     )
                 Log.d(
                     "Debug",
