@@ -68,4 +68,9 @@ class HyperLinkGeneratorFragment : Fragment() {
             Toast.makeText(context, textCopied + " 복사됨", Toast.LENGTH_SHORT).show()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
