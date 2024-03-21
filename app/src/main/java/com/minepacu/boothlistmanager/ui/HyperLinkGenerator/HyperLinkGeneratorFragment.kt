@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.minepacu.boothlistmanager.databinding.FragmentHyperlinkgeneratorBinding
 
 class HyperLinkGeneratorFragment : Fragment() {
@@ -35,8 +36,20 @@ class HyperLinkGeneratorFragment : Fragment() {
         val root: View = binding.root
 
         binding.filledCopyToClipBoardButton.setOnClickListener {
-            val copiedstring = "=HYPERLINK(\"" + binding.editLink.text + "\", \"" + binding.editLinklabel.text + "\")"
-            textCopyThenPost(copiedstring)
+            var copiedString = ""
+
+            if ((binding.editLinkSheetnumber.text.toString() != "") &&
+                (binding.editLinkBoothCell.text.toString() != "")) {
+                val gid = 0 //TODO("Add getGid() Function")
+                copiedString = "=HYPERLINK(\"#gid=" + gid + "&range=" + binding.editLinkBoothCell.text.toString() + "\", \"" + binding.editLink.text.toString() + "\")"
+            } else if (binding.editLinklabel.text.toString() != "") {
+                copiedString =
+                    "=HYPERLINK(\"" + binding.editLink.text.toString() + "\", \"" + binding.editLinklabel.text.toString() + "\")"
+            } else {
+                Snackbar.make(root, "하이퍼링크 함수를 만들 수 없습니다. [시트 넘버, 시트 a1 값] 또는 링크 라벨이 빈 칸이 아니여야 합니다.", Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+            textCopyThenPost(copiedString)
         }
 
         textWatcher()
