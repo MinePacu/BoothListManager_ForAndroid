@@ -51,4 +51,6 @@
 
     <string name="label_link">링크</string>
     <string name="explanation_link">연결하려는 링크</string>
+
+    <string name="button_CopyToClipboard">클립보드로 복사</string>
 </resources>
