@@ -29,6 +29,8 @@ class PythonClass {
          */
         var sheetInfo: PyObject? = null
 
+        var now_worksheet: PyObject? = null
+
         /**
          * 구글 API에 로그인하여 반환된 객체를 LoginInfo에 저장합니다.
          * 이 LoginInfo 객체는 파이썬 내부의 boothListManagementModule 객체 안의 gc라는 변수에도
@@ -92,7 +94,7 @@ class PythonClass {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun addBoothInfoToSheet is Executed")
                 var result: PyObject? = null
-                result = boothListManagementModule.callAttrThrows(
+                result = boothListManagementModule.callAttr(
                     "addBoothInfoToSheet",
                     boothInfo.boothnumber,
                     boothInfo.boothnumber,
@@ -121,8 +123,33 @@ class PythonClass {
             }
         }
 
+        suspend fun getwWorksheet(sheetId: String, sheetNumber: Int): Result<Boolean> {
+            return withContext(Dispatchers.IO) {
+                Log.d("Debug", "Fun getGid is Executed")
+                now_worksheet = boothListManagementModule.callAttr("getWorkSheet", sheetId, sheetNumber)
+
+                Log.d(
+                    "Debug",
+                    when {
+                        (now_worksheet == null) -> "IsNull of result from getGid : true"
+                        else -> "IsNull of result from getGid : false"
+                    })
+
+                if (now_worksheet != null) {
+                    //Log.d("Debug", "Result : " + now_worksheet?.get("id").toString())
+                    Result.Success(true)
+                } else {
+                    Result.Error(Exception("시트의 GID 값을 불러오지 못했습니다."))
+                }
+            }
+        }
+
         fun setVariable(variable_name: String, value: Any?) {
             boothListManagementModule.put(variable_name, value)
+        }
+
+        fun getVariable(variable_name: String): PyObject? {
+            return boothListManagementModule.get(variable_name)
         }
     }
 }

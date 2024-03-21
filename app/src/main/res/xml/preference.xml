@@ -9,10 +9,10 @@
         android:defaultValue="1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM"/>
 
     <EditTextPreference
-        android:key="sheetName"
-        android:title="선입금 링크 시트 이름"
-        android:summary="선입금 링크 또는 인포들을 담은 부스들의 정보를 등록할 시트의 이름입니다."
-        android:defaultValue="선입금 목록"/>
+        android:key="sheetNumber"
+        android:title="선입금 링크 시트 인덱스"
+        android:summary="선입금 링크 또는 인포들을 담은 부스들의 정보를 등록할 시트의 인덱스입니다. 이 값은 0부터 시작합니다."
+        android:defaultValue="0"/>
 
     <EditTextPreference
         android:key="updateSheetName"

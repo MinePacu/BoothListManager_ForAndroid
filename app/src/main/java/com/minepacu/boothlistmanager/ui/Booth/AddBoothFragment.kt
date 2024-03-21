@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
+import androidx.compose.material3.Snackbar
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.data.model.BoothInfo
@@ -79,7 +81,14 @@ class AddBoothFragment : Fragment() {
                 preorder_date, preorder_label, preorder_link)
 
             customProgressPage?.show()
-            addboothViewModel.addBoothInfoToSheet(root, boothInfo)
+            val result = addboothViewModel.addBoothInfoToSheet(root, boothInfo)
+            if (result.isCompleted) {
+                customProgressPage?.hide()
+            } else {
+                customProgressPage?.hide()
+                Snackbar.make(root, "부스 정보가 추가되지 못했습니다.", Snackbar.LENGTH_LONG)
+                    .show()
+            }
         }
 
         textWatcher()

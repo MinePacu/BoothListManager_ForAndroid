@@ -9,12 +9,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.minepacu.boothlistmanager.data.model.BoothInfo
 import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 import com.minepacu.boothlistmanager.data.model.Result
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class AddBoothViewModel : ViewModel() {
 
-    fun addBoothInfoToSheet(view : View, boothInfo : BoothInfo) {
-        viewModelScope.launch {
+    fun addBoothInfoToSheet(view : View, boothInfo : BoothInfo): Job {
+        return viewModelScope.launch {
             val result = PythonClass.addBoothInfoToSheet(boothInfo)
 
             when (result) {

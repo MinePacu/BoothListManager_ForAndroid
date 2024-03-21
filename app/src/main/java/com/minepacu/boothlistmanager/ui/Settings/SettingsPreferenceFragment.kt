@@ -15,7 +15,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     lateinit var prefs: SharedPreferences
 
     var sheetIdPreference: Preference? = null
-    var sheetNamePreference: Preference? = null
+    var sheetNumberPreference: Preference? = null
     var updateSheetNamePreference: Preference? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -23,7 +23,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
         if (rootKey == null) {
             sheetIdPreference = findPreference("sheetId")
-            sheetNamePreference = findPreference("sheetName")
+            sheetNumberPreference = findPreference("sheetNumber")
             updateSheetNamePreference = findPreference("updateSheetName")
         }
 
@@ -37,9 +37,9 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         }
 
         if (prefs.getString("sheetName", "") == "") {
-            sheetNamePreference?.summary = "현재 값이 설정되어 있지 않습니다."
+            sheetNumberPreference?.summary = "현재 값이 설정되어 있지 않습니다."
         } else {
-            sheetNamePreference?.summary = "현재 값 : " + prefs.getString("sheetName", "")
+            sheetNumberPreference?.summary = "현재 값 : " + prefs.getString("sheetNumber", "")
         }
 
         if (prefs.getString("updateSheetName", "") == "") {
@@ -62,10 +62,10 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                     }
                 }
 
-                "sheetName" -> {
-                    val sheetName_Set = prefs.getString("sheetName", "")
+                "sheetNumber" -> {
+                    val sheetNumber_Set = prefs.getString("sheetNumber", "")
                     try {
-                        PythonClass.setVariable("sheetName", sheetName_Set)
+                        PythonClass.setVariable("sheetNumber", sheetNumber_Set)
                     } catch (e: PyException) {
                         Result.Error(Exception(e.message))
                     }

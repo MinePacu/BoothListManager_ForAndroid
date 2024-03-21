@@ -15,6 +15,7 @@ credentials = {
 
 gc : gspread.client.Client = None
 sheet : gspread.spreadsheet.Spreadsheet = None
+nowgid = -1
 
 sheetId = "1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM"
 
@@ -108,6 +109,16 @@ def getSheet(sheetId : string):
     sheet = gc.open_by_key(sheetId)
     sheet_ = sheet
     return sheet_
+  except gspread.exceptions.APIError:
+    return None
+
+def getWorkSheet(sheetId : string, sheetNumber : int):
+  try:
+    global gc
+    global nowgid
+    sheet = gc.open_by_key(sheetId)
+    nowgid = sheet.get_worksheet(sheetNumber)
+    return nowgid
   except gspread.exceptions.APIError:
     return None
 
@@ -297,9 +308,9 @@ def getRecommandLocation(booth_list_tmp: list[str], searchBoothNum: str):
           try:
             Index_ = booth_list_tmp[j].index(autoSearchBoothNum)
             Index = j
-            break;
+            break
           except:
-            continue;
+            continue
 
         # 검색 중인 부스가 여러 개의 행을 병합한 경우
         if (booth_list_tmp.count(booth_list_tmp[Index]) > 1):
@@ -311,9 +322,9 @@ def getRecommandLocation(booth_list_tmp: list[str], searchBoothNum: str):
         elif (booth_list_tmp.count(booth_list_tmp[Index]) == 1):
           conclusionLocation = str(Index + 1)  # 0으로 시작해서 + 1
           IsFind = True
-        break;
+        break
       except:
-        continue;
+        continue
 
     # 찾지 못한 경우, 해당 부스의 다음 값으로 탐색
     if IsFind == False:
@@ -326,9 +337,9 @@ def getRecommandLocation(booth_list_tmp: list[str], searchBoothNum: str):
             try:
               Index_ = booth_list_tmp[j].index(autoSearchBoothNum)
               Index = j
-              break;
+              break
             except:
-              continue;
+              continue
 
           # 검색 중인 부스가 여러 개의 행을 병합한 경우
           if (booth_list_tmp.count(booth_list_tmp[Index]) > 1):
@@ -340,9 +351,9 @@ def getRecommandLocation(booth_list_tmp: list[str], searchBoothNum: str):
           elif (booth_list_tmp.count(booth_list_tmp[Index]) == 1):
             conclusionLocation = str(Index + 1)  # 0으로 시작해서 + 1에 새로 한 행을 만들어야하므로 + 1 한 번 더
             IsFind = True
-          break;
+          break
         except:
-          continue;
+          continue
 
     # 그냥 없으면 수동으로 하자.
     if IsFind == False:
