@@ -1,6 +1,8 @@
 package com.minepacu.boothlistmanager.ui.HyperLinkGenerator
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +29,27 @@ class HyperLinkGeneratorFragment : Fragment() {
         _binding = FragmentHyperlinkgeneratorBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        textWatcher()
         return root
+    }
+
+    fun textWatcher() {
+        binding.editLink.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.editLink.text!!.isEmpty()) {
+                    binding.editLinkLayout.error = "연결할 링크(URL)를 입력해주세요."
+                } else {
+                    binding.editLinkLayout.error = null
+                }
+            }
+        })
     }
 }
