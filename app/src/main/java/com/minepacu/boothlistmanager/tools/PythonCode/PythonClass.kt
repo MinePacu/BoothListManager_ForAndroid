@@ -94,7 +94,7 @@ class PythonClass {
                 result = boothListManagementModule.callAttr(
                     "addBoothInfoToSheet",
                     boothInfo.boothnumber,
-                    boothInfo.boothnumber,
+                    boothInfo.boothname,
                     boothInfo.genres,
                     boothInfo.yoil,
                     boothInfo.InfoLabel,
