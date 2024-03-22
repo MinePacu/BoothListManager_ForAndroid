@@ -17,7 +17,7 @@ gc : gspread.client.Client = None
 sheet : gspread.spreadsheet.Spreadsheet = None
 nowgid = -1
 
-sheetId = "1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM"
+sheetId = "16yv58pKn7pQgU3z-SnSXytFp3XWRP57mlMNisc4WAG8"
 
 # 부스들의 열 리스트 설정 (해당 변수들은 예시로 제3회 일러스타 페스의 값들임)
 thrid_illustarfes_alphabet_list = list(ascii_uppercase)
@@ -50,7 +50,7 @@ spreadsheetId = test_illustar_fes_sheet
 
 # 부스 목록 시트 안에서 선입금 시트
 sheetName_illustar_fes = "선입금, 통판, 인포 목록의 사본"
-sheetNumber_illustar_fes = 1
+sheetNumber_illustar_fes = 0
 
 seoul_comic_sheetName = "선입금 목록"
 seoul_comic_sheetNumber = 0
@@ -167,13 +167,14 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
   if (preorder_Link != ''):
     NewPreOrderLink = f'=HYPERLINK("{preorder_Link}", "{preorder_Label}")'
 
-  NewRowData = ['', boothnumber, boothname, NewBoothGenre, yoil, NewInfoLink, NewPreOrderDate, NewPreOrderLink]
   # print(BoothNumber, BoothName, Genre, Yoil, InfoLabel, InfoLink, Pre_Order_label, Pre_Order_Link)
 
+  global gc
   client_ = gc
 
   print("Add_new_BoothData : 셀 전체 데이터를 가져오는 중...")
-  sh = client_.open_by_key(spreadsheetId)
+  sh = client_.open_by_key(sheetId)
+  print(f"sh : {sh}")
 
   booth_list = sh.get_worksheet(sheetNumber).get(f"{BoothNumber_Col_Alphabet}1:{BoothNumber_Col_Alphabet}")
   updatesheet = sh.get_worksheet(UpdateLogSheetNumber)
@@ -202,6 +203,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
       j = j + 1
 
     RecommandLocation = int(getRecommandLocation(booth_list_tmp, boothnumber))
+    NewRowData = ['', boothnumber, boothname, NewBoothGenre, yoil, NewInfoLink, NewPreOrderDate, NewPreOrderLink]
 
     if int(RecommandLocation) == 0:
       sheet.append_row(NewRowData, value_input_option=ValueInputOption.user_entered)
@@ -243,7 +245,9 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 
   else:
     sheet = sh.get_worksheet(sheetNumber)
-    sheet.append_row(NewRowData, value_input_option=ValueInputOption.user_entered)
+    NewRowData = [boothnumber, boothname, NewBoothGenre, yoil, NewInfoLink, NewPreOrderDate, NewPreOrderLink]
+    print(f"RowData : {NewRowData}")
+    sheet.insert_row(NewRowData, 4, value_input_option=ValueInputOption.user_entered)
     gspread_formatting.format_cell_range(sheet,
                                          f"{BoothNumber_Col_Alphabet}{len(booth_list)}:{Etc_Point_Col_Alphabet}{len(booth_list)}",
                                          fmt)

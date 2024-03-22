@@ -23,6 +23,9 @@ class HomeViewModel : ViewModel() {
     }
     var text_sheetTitle: LiveData<String> = _text_sheetTitle
 
+    var isLoginToGoogleAPI = false
+    var isLoadedSheetId = false
+
     fun loginToGoogleAPI(view : View) {
         viewModelScope.launch {
             val result = try {
@@ -32,7 +35,10 @@ class HomeViewModel : ViewModel() {
             }
 
             when (result) {
-                is Result.Success<Boolean> -> _text_ServiceConnectionStatus.value = "로그인 됨"
+                is Result.Success<Boolean> -> {
+                    _text_ServiceConnectionStatus.value = "로그인 됨"
+                    isLoginToGoogleAPI = true
+                }
                 else -> {
                     _text_ServiceConnectionStatus.value = "로그인 불가"
                     Snackbar.make(view, "구글 API에 로그인할 수 없습니다.", Snackbar.LENGTH_LONG)
@@ -42,17 +48,20 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getSheet(view : View) {
+    fun getSheet(view : View, sheetId: String) {
         viewModelScope.launch {
             val result2 = try {
-                PythonClass.getSheetInfo()
+                PythonClass.getSheetInfo(sheetId)
             } catch (e : PyException) {
                 Result.Error(Exception(e.message))
             }
 
             when (result2) {
-                is Result.Success<Boolean> -> _text_sheetTitle.value =
-                    PythonClass.sheetInfo?.get("title").toString()
+                is Result.Success<Boolean> -> {
+                    isLoadedSheetId = true
+                    _text_sheetTitle.value =
+                        PythonClass.sheetInfo?.get("title").toString()
+                }
                 else -> {
                     _text_sheetTitle.value = "시트 없음"
                     Snackbar.make(view, "시트 정보를 불러올 수 없습니다", Snackbar.LENGTH_LONG)

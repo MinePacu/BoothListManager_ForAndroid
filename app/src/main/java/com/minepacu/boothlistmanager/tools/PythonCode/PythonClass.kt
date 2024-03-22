@@ -59,10 +59,9 @@ class PythonClass {
          * 시트 정보를 불러와서 sheetInfo 객체에 저장합니다.
          * @return sheetInfo 객체의 유효 여부
          */
-        suspend fun getSheetInfo(): Result<Boolean> {
+        suspend fun getSheetInfo(sheetId: String): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun getsheetInfo is Executed")
-                val sheetId = boothListManagementModule.get("sheetId")
                 sheetInfo =
                     boothListManagementModule.callAttr(
                         "getSheet", sheetId
@@ -105,6 +104,7 @@ class PythonClass {
                     boothInfo.preorder_Link
                 )
 
+                Log.d("Debug", "boothname : " + boothInfo.boothname)
                 Log.d(
                     "Debug",
                     when {

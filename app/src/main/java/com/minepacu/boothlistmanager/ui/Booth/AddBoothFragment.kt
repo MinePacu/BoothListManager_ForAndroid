@@ -4,15 +4,19 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.minepacu.boothlistmanager.data.model.BoothInfo
 import com.minepacu.boothlistmanager.databinding.FragmentAddboothBinding
+import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
+import kotlinx.coroutines.Job
 
 class AddBoothFragment : Fragment() {
 
@@ -32,6 +36,8 @@ class AddBoothFragment : Fragment() {
 
         _binding = FragmentAddboothBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         val addboothButton = binding.filledAddBoothButton
         val emptyTextButton = binding.EmptyTextFieldButton
@@ -73,15 +79,11 @@ class AddBoothFragment : Fragment() {
                 infolabel, infolink,
                 preorder_date, preorder_label, preorder_link)
 
+            Log.d("Debug", "BoothInfo : " + boothInfo.toString())
             customProgressPage?.show()
-            val result = addboothViewModel.addBoothInfoToSheet(root, boothInfo)
-            if (result.isCompleted) {
-                customProgressPage?.hide()
-            } else {
-                customProgressPage?.hide()
-                Snackbar.make(root, "부스 정보가 추가되지 못했습니다.", Snackbar.LENGTH_LONG)
-                    .show()
-            }
+
+            PythonClass.setVariable("sheetId", prefs.getString("sheetId", ""))
+            addboothViewModel.addBoothInfoToSheet(root, customProgressPage, boothInfo)
         }
 
         textWatcher()
@@ -120,6 +122,15 @@ class AddBoothFragment : Fragment() {
                 }
             }
         })
+    }
+
+    suspend fun printresult(result: Job, progressPage: ProgressPage?, view: View) {
+        if (result.isCompleted) {
+            progressPage?.hide()
+        } else {
+            Snackbar.make(view, "부스 정보가 추가되지 못했습니다.", Snackbar.LENGTH_LONG)
+                .show()
+        }
     }
 
     override fun onDestroyView() {

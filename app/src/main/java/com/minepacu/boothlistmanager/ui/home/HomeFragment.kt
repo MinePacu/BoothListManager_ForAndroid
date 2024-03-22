@@ -1,5 +1,6 @@
 package com.minepacu.boothlistmanager.ui.home
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 import com.minepacu.boothlistmanager.databinding.FragmentHomeBinding
@@ -19,6 +21,8 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    lateinit var prefs: SharedPreferences
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -29,6 +33,7 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         val textView_ServiceConnectionStatus: TextView = binding.textServiceConnectionStatus
         homeViewModel.text_ServiceConnectionStatus.observe(viewLifecycleOwner) {
@@ -44,8 +49,12 @@ class HomeFragment : Fragment() {
             getContext()?.let { AndroidPlatform(it) }?.let { Python.start(it) }
         }
 
-        homeViewModel.loginToGoogleAPI(root)
-        homeViewModel.getSheet(root)
+        if (homeViewModel.isLoginToGoogleAPI == false) {
+            homeViewModel.loginToGoogleAPI(root)
+        }
+        if (homeViewModel.isLoadedSheetId == false) {
+            prefs.getString("sheetId", "")?.let { homeViewModel.getSheet(root, it) }
+        }
         return root
     }
 
