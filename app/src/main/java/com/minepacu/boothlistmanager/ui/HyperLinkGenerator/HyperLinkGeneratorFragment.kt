@@ -1,22 +1,16 @@
 package com.minepacu.boothlistmanager.ui.HyperLinkGenerator
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context.CLIPBOARD_SERVICE
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import com.minepacu.boothlistmanager.databinding.FragmentHyperlinkgeneratorBinding
-import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
 
 class HyperLinkGeneratorFragment : Fragment() {

@@ -2,7 +2,6 @@ package com.minepacu.boothlistmanager.ui.Settings
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
