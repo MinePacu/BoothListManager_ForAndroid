@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class SearchBoothViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
+        value = "개발 중....."
     }
     val text: LiveData<String> = _text
 }

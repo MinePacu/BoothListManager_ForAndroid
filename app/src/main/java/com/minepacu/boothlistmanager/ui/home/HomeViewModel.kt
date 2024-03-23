@@ -1,12 +1,16 @@
 package com.minepacu.boothlistmanager.ui.home
 
+import android.content.Context
 import android.view.View
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chaquo.python.PyException
 import com.google.android.material.snackbar.Snackbar
+import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.data.model.Result
 import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 import kotlinx.coroutines.launch
@@ -23,10 +27,15 @@ class HomeViewModel : ViewModel() {
     }
     var text_sheetTitle: LiveData<String> = _text_sheetTitle
 
+    private var _image_login = MutableLiveData<Int>().apply {
+        value = 0
+    }
+    var image_login: LiveData<Int> = _image_login
+
     var isLoginToGoogleAPI = false
     var isLoadedSheetId = false
 
-    fun loginToGoogleAPI(view : View) {
+    fun loginToGoogleAPI(view : View, context: Context, image_login: ImageView) {
         viewModelScope.launch {
             val result = try {
                 PythonClass.loginToGoogleAPI()
@@ -38,9 +47,13 @@ class HomeViewModel : ViewModel() {
                 is Result.Success<Boolean> -> {
                     _text_ServiceConnectionStatus.value = "로그인 됨"
                     isLoginToGoogleAPI = true
+                    _image_login.value = R.drawable.check_circle_24dp
+                    image_login.setColorFilter(ContextCompat.getColor(context, R.color.green))
                 }
                 else -> {
                     _text_ServiceConnectionStatus.value = "로그인 불가"
+                    _image_login.value = R.drawable.cancel_24dp
+                    image_login.setColorFilter(ContextCompat.getColor(context, R.color.red))
                     Snackbar.make(view, "구글 API에 로그인할 수 없습니다.", Snackbar.LENGTH_LONG)
                         .show()
                 }
