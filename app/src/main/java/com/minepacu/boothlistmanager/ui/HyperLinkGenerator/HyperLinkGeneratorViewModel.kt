@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 class HyperLinkGeneratorViewModel : ViewModel() {
     fun getGid(view :View, context: Context, sheetId: String, sheetNumber: Int, boothcell: String, linkLabel: String): Job {
         return viewModelScope.launch {
-            val result = PythonClass.getwWorksheet(sheetId, sheetNumber)
+            val result = PythonClass.getWorksheet(sheetId, sheetNumber)
 
             when (result) {
                 is Result.Success<Boolean> -> {

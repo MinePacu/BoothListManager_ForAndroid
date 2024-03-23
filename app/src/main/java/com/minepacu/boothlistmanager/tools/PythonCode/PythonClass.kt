@@ -121,7 +121,7 @@ class PythonClass {
             }
         }
 
-        suspend fun getwWorksheet(sheetId: String, sheetNumber: Int): Result<Boolean> {
+        suspend fun getWorksheet(sheetId: String, sheetNumber: Int): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun getGid is Executed")
                 now_worksheet = boothListManagementModule.callAttr("getWorkSheet", sheetId, sheetNumber)
