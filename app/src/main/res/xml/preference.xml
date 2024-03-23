@@ -15,6 +15,12 @@
         android:defaultValue="0"/>
 
     <EditTextPreference
+        android:key="sheetStartIndex"
+        android:title="추가 시작 위치 인덱스"
+        android:summary="부스 번호가 없는 부스의 정보를 추가할 때, 어느 위치에 추가할지 설정합니다. 기본값은 3입니다."
+        android:defaultValue="3"/>
+
+    <EditTextPreference
         android:key="updateSheetName"
         android:title="업데이트 시트 이름"
         android:summary="시트에 부스를 등록하면 로그를 기록할 시트의 이름입니다."

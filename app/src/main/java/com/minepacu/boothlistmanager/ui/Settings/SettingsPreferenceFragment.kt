@@ -15,6 +15,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
     var sheetIdPreference: Preference? = null
     var sheetNumberPreference: Preference? = null
+    var sheetStartIndex: Preference? = null
     var updateSheetNamePreference: Preference? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -23,30 +24,12 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         if (rootKey == null) {
             sheetIdPreference = findPreference("sheetId")
             sheetNumberPreference = findPreference("sheetNumber")
+            sheetStartIndex = findPreference("sheetStartIndex")
             updateSheetNamePreference = findPreference("updateSheetName")
         }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         PreferenceManager.setDefaultValues(requireContext(), R.xml.preference, false)
-
-        if (prefs.getString("sheetId", "") == "") {
-            sheetIdPreference?.summary = "현재 값이 설정되어 있지 않습니다."
-        } else {
-            sheetIdPreference?.summary = "현재 값 : " + prefs.getString("sheetId", "")
-        }
-
-        if (prefs.getString("sheetName", "") == "") {
-            sheetNumberPreference?.summary = "현재 값이 설정되어 있지 않습니다."
-        } else {
-            sheetNumberPreference?.summary = "현재 값 : " + prefs.getString("sheetNumber", "")
-        }
-
-        if (prefs.getString("updateSheetName", "") == "") {
-            updateSheetNamePreference?.summary = "현재 값이 설정되어 있지 않습니다."
-        } else {
-            updateSheetNamePreference?.summary =
-                "현재 값 : " + prefs.getString("updateSheetName", "")
-        }
     }
 
     val prefListener =
@@ -64,7 +47,16 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                 "sheetNumber" -> {
                     val sheetNumber_Set = prefs.getString("sheetNumber", "")
                     try {
-                        PythonClass.setVariable("sheetNumber", sheetNumber_Set)
+                        PythonClass.setVariable("sheetNumber", sheetNumber_Set?.toInt())
+                    } catch (e: PyException) {
+                        Result.Error(Exception(e.message))
+                    }
+                }
+
+                "sheetStartIndex" -> {
+                    val sheetStartIndex_Set = prefs.getString("sheetStartIndex", "")
+                    try {
+                        PythonClass.setVariable("sheetStartIndex", sheetStartIndex_Set?.toInt())
                     } catch (e: PyException) {
                         Result.Error(Exception(e.message))
                     }

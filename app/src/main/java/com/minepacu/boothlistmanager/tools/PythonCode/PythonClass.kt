@@ -121,6 +121,12 @@ class PythonClass {
             }
         }
 
+        /**
+         * 지정한 매개 변수의 값에 해당하는 워크시트를 가져옵니다.
+         * @param sheetId 워크시트가 있는 시트의 ID
+         * @param sheetNumber 워크시트가 해당하는 인덱스 값, 0부터 시작합니다.
+         * @return 함수의 정상 수행 여부
+         */
         suspend fun getWorksheet(sheetId: String, sheetNumber: Int): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun getGid is Executed")

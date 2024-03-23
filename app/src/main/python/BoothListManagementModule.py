@@ -87,6 +87,7 @@ MapSheetNumber = None
 # 기타 비교용 변수
 IsAlredyExisted = False
 
+sheetStartIndex = 3
 
 class LogType(Enum):
   Pre_Order = 1
@@ -245,9 +246,9 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 
   else:
     sheet = sh.get_worksheet(sheetNumber)
-    NewRowData = [boothnumber, boothname, NewBoothGenre, yoil, NewInfoLink, NewPreOrderDate, NewPreOrderLink]
+    NewRowData = ['', boothnumber, boothname, NewBoothGenre, yoil, NewInfoLink, NewPreOrderDate, NewPreOrderLink]
     print(f"RowData : {NewRowData}")
-    sheet.insert_row(NewRowData, 4, value_input_option=ValueInputOption.user_entered)
+    sheet.insert_row(NewRowData, sheetStartIndex, value_input_option=ValueInputOption.user_entered)
     gspread_formatting.format_cell_range(sheet,
                                          f"{BoothNumber_Col_Alphabet}{len(booth_list)}:{Etc_Point_Col_Alphabet}{len(booth_list)}",
                                          fmt)
