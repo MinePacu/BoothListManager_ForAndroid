@@ -1,9 +1,6 @@
 package com.minepacu.boothlistmanager.ui.home
 
-import android.content.Context
 import android.view.View
-import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,7 +32,7 @@ class HomeViewModel : ViewModel() {
     var isLoginToGoogleAPI = false
     var isLoadedSheetId = false
 
-    fun loginToGoogleAPI(view : View, context: Context, image_login: ImageView) {
+    fun loginToGoogleAPI(view : View) {
         viewModelScope.launch {
             val result = try {
                 PythonClass.loginToGoogleAPI()
@@ -48,12 +45,10 @@ class HomeViewModel : ViewModel() {
                     _text_ServiceConnectionStatus.value = "로그인 됨"
                     isLoginToGoogleAPI = true
                     _image_login.value = R.drawable.check_circle_24dp
-                    image_login.setColorFilter(ContextCompat.getColor(context, R.color.green))
                 }
                 else -> {
                     _text_ServiceConnectionStatus.value = "로그인 불가"
                     _image_login.value = R.drawable.cancel_24dp
-                    image_login.setColorFilter(ContextCompat.getColor(context, R.color.red))
                     Snackbar.make(view, "구글 API에 로그인할 수 없습니다.", Snackbar.LENGTH_LONG)
                         .show()
                 }
