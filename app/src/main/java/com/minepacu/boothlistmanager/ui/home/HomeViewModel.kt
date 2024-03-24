@@ -25,10 +25,25 @@ class HomeViewModel : ViewModel() {
     }
     var text_sheetTitle: LiveData<String> = _text_sheetTitle
 
+    private var _text_worksheetTitle = MutableLiveData<String>().apply {
+        value = ""
+    }
+    var text_worksheetTitle: LiveData<String> = _text_worksheetTitle
+
     private var _image_login = MutableLiveData<Int>().apply {
         value = 0
     }
     var image_login: LiveData<Int> = _image_login
+
+    private var _image_loadedsheetInfo = MutableLiveData<Int>().apply {
+        value = 0
+    }
+    var image_loadedsheetInfo: LiveData<Int> = _image_loadedsheetInfo
+
+    private var _image_loadedworksheetInfo = MutableLiveData<Int>().apply {
+        value = 0
+    }
+    var image_loadedworksheetInfo: LiveData<Int> = _image_loadedworksheetInfo
 
     var isLoginToGoogleAPI = false
     var isLoadedSheetId = false
@@ -58,10 +73,10 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun getSheet(view : View, sheetId: String) {
+    fun getSheet(view : View, sheetId: String, sheetNumber: Int) {
         viewModelScope.launch {
             val result2 = try {
-                PythonClass.getSheetInfo(sheetId)
+                PythonClass.getSheet_WorkSheet(sheetId, sheetNumber)
             } catch (e : PyException) {
                 Result.Error(Exception(e.message))
             }
@@ -70,11 +85,38 @@ class HomeViewModel : ViewModel() {
                 is Result.Success<Boolean> -> {
                     isLoadedSheetId = true
                     _text_sheetTitle.value =
-                        PythonClass.sheetInfo?.get("title").toString()
+                        PythonClass.getVariable("sheet")?.get("title").toString()
+                    _image_loadedsheetInfo.value = R.drawable.check_circle_24dp
+
+                    getWorksheetTitle(view)
                 }
                 else -> {
                     _text_sheetTitle.value = "시트 없음"
+                    _image_loadedsheetInfo.value = R.drawable.cancel_24dp
                     Snackbar.make(view, "시트 정보를 불러올 수 없습니다", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
+
+    fun getWorksheetTitle(view: View) {
+        viewModelScope.launch {
+            val result = try {
+                PythonClass.getVariable("worksheet")?.get("title").toString()
+            } catch (e: PyException) {
+                ""
+            }
+
+            when {
+                result != "" || result != "null" -> {
+                    _text_worksheetTitle.value = result
+                    _image_loadedworksheetInfo.value = R.drawable.check_circle_24dp
+                }
+                else -> {
+                    _text_worksheetTitle.value = "없음"
+                    _image_loadedworksheetInfo.value = R.drawable.cancel_24dp
+                    Snackbar.make(view, "워크 시트 정보를 불러올 수 없습니다", Snackbar.LENGTH_LONG)
                         .show()
                 }
             }

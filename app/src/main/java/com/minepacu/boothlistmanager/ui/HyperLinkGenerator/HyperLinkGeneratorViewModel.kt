@@ -17,11 +17,11 @@ import kotlinx.coroutines.launch
 class HyperLinkGeneratorViewModel : ViewModel() {
     fun getGid(view :View, context: Context, sheetId: String, sheetNumber: Int, boothcell: String, linkLabel: String): Job {
         return viewModelScope.launch {
-            val result = PythonClass.getWorksheet(sheetId, sheetNumber)
+            val result = PythonClass.getSheet_WorkSheet(sheetId, sheetNumber)
 
             when (result) {
                 is Result.Success<Boolean> -> {
-                    var gid = PythonClass.now_worksheet?.get("id")!!.toInt()
+                    var gid = PythonClass.now_WorkSheet?.get("id")!!.toInt()
                     val copiedString = "=HYPERLINK(\"#gid=" + gid.toString() + "&range=" + boothcell + "\", \"" + linkLabel + "\")"
                     textCopyThenPost(context, copiedString)
                     Snackbar.make(view, "클립보드에 복사되었습니다.", Snackbar.LENGTH_LONG)

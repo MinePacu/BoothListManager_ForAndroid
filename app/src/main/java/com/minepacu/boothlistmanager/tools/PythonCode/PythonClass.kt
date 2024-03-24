@@ -27,7 +27,7 @@ class PythonClass {
          */
         var sheetInfo: PyObject? = null
 
-        var now_worksheet: PyObject? = null
+        var now_WorkSheet: PyObject? = null
 
         /**
          * 구글 API에 로그인하여 반환된 객체를 LoginInfo에 저장합니다.
@@ -127,19 +127,19 @@ class PythonClass {
          * @param sheetNumber 워크시트가 해당하는 인덱스 값, 0부터 시작합니다.
          * @return 함수의 정상 수행 여부
          */
-        suspend fun getWorksheet(sheetId: String, sheetNumber: Int): Result<Boolean> {
+        suspend fun getSheet_WorkSheet(sheetId: String, sheetNumber: Int): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun getGid is Executed")
-                now_worksheet = boothListManagementModule.callAttr("getWorkSheet", sheetId, sheetNumber)
+                now_WorkSheet = boothListManagementModule.callAttr("getWorkSheet", sheetId, sheetNumber)
 
                 Log.d(
                     "Debug",
                     when {
-                        (now_worksheet == null) -> "IsNull of result from getGid : true"
+                        (now_WorkSheet == null) -> "IsNull of result from getGid : true"
                         else -> "IsNull of result from getGid : false"
                     })
 
-                if (now_worksheet != null) {
+                if (now_WorkSheet != null) {
                     //Log.d("Debug", "Result : " + now_worksheet?.get("id").toString())
                     Result.Success(true)
                 } else {

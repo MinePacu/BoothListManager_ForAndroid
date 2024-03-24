@@ -1,6 +1,7 @@
 package com.minepacu.boothlistmanager.ui.home
 
 import android.content.SharedPreferences
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.preference.PreferenceManager
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
 import com.minepacu.boothlistmanager.databinding.FragmentHomeBinding
+import org.w3c.dom.Text
 
 class HomeFragment : Fragment() {
 
@@ -46,9 +48,24 @@ class HomeFragment : Fragment() {
             textView_SheetTitle.text = it
         }
 
-        var image_Login: ImageView = binding.imageLogin
+        val textView_WorkSheetTitle: TextView = binding.worksheetTitle
+        homeViewModel.text_worksheetTitle.observe(viewLifecycleOwner) {
+            textView_WorkSheetTitle.text = it
+        }
+
+        val image_Login: ImageView = binding.imageLogin
         homeViewModel.image_login.observe(viewLifecycleOwner) {
             image_Login.setImageResource(it)
+        }
+
+        val image_loadedsheetInfo: ImageView = binding.imageLoadedsheetInfo
+        homeViewModel.image_loadedsheetInfo.observe(viewLifecycleOwner) {
+            image_loadedsheetInfo.setImageResource(it)
+        }
+
+        val image_loadedworkSheetInfo: ImageView = binding.imageLoadedworksheetInfo
+        homeViewModel.image_loadedworksheetInfo.observe(viewLifecycleOwner) {
+            image_loadedworkSheetInfo.setImageResource(it)
         }
 
         if (!Python.isStarted()) {
@@ -60,13 +77,19 @@ class HomeFragment : Fragment() {
             homeViewModel.loginToGoogleAPI(root, binding.buttonReloadsheetInfo)
         }
         if (homeViewModel.isLoadedSheetId == false) {
-            prefs.getString("sheetId", "")?.let { homeViewModel.getSheet(root, it) }
+            prefs.getString("sheetId", "")?.let {
+                homeViewModel.getSheet(root,
+                    it, prefs.getString("sheetNumber", "")!!.toInt())
+            }
         }
 
         binding.buttonReloadsheetInfo.setOnClickListener {
             textView_SheetTitle.text = "로드 중....."
             homeViewModel.isLoadedSheetId = false
-            prefs.getString("sheetId", "")?.let { homeViewModel.getSheet(root, it) }
+            prefs.getString("sheetId", "")?.let {
+                homeViewModel.getSheet(root,
+                    it, prefs.getString("sheetNumber", "")!!.toInt())
+            }
         }
 
         return root

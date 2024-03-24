@@ -15,6 +15,7 @@ credentials = {
 
 gc : gspread.client.Client = None
 sheet : gspread.spreadsheet.Spreadsheet = None
+worksheet: gspread.spreadsheet.Worksheet = None
 nowgid = -1
 
 sheetId = "16yv58pKn7pQgU3z-SnSXytFp3XWRP57mlMNisc4WAG8"
@@ -117,9 +118,12 @@ def getWorkSheet(sheetId : string, sheetNumber : int):
   try:
     global gc
     global nowgid
-    sheet = gc.open_by_key(sheetId)
-    nowgid = sheet.get_worksheet(sheetNumber)
-    return nowgid
+    global sheet
+    global worksheet
+    if sheet == None:
+      sheet = gc.open_by_key(sheetId)
+    worksheet = sheet.get_worksheet(sheetNumber)
+    return worksheet
   except gspread.exceptions.APIError:
     return None
 
