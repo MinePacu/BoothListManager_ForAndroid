@@ -74,9 +74,10 @@ class HomeFragment : Fragment() {
 
         if (homeViewModel.isLoginToGoogleAPI == false) {
             binding.buttonReloadsheetInfo.isEnabled = false
-            homeViewModel.loginToGoogleAPI(root, binding.buttonReloadsheetInfo)
+            homeViewModel.loginToGoogleAPI(root, binding.buttonReloadsheetInfo, binding.buttonReloadworksheetInfo)
         }
         if (homeViewModel.isLoadedSheetId == false) {
+            binding.buttonReloadworksheetInfo.isEnabled = false
             prefs.getString("sheetId", "")?.let {
                 homeViewModel.getSheet(root,
                     it, prefs.getString("sheetNumber", "")!!.toInt())
@@ -85,9 +86,21 @@ class HomeFragment : Fragment() {
 
         binding.buttonReloadsheetInfo.setOnClickListener {
             textView_SheetTitle.text = "로드 중....."
+            textView_WorkSheetTitle.text = "로드 중....."
             homeViewModel.isLoadedSheetId = false
             prefs.getString("sheetId", "")?.let {
                 homeViewModel.getSheet(root,
+                    it, prefs.getString("sheetNumber", "")!!.toInt())
+            }
+        }
+
+        binding.buttonReloadworksheetInfo.setOnClickListener {
+            textView_SheetTitle.text = "로드 중....."
+            textView_WorkSheetTitle.text = "로드 중....."
+            homeViewModel.isLoadedSheetId = false
+            prefs.getString("sheetId", "")?.let {
+                homeViewModel.getSheet(
+                    root,
                     it, prefs.getString("sheetNumber", "")!!.toInt())
             }
         }
