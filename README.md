@@ -1,3 +1,7 @@
+<center>
+    <img src="https://capsule-render.vercel.app/api?type=rounded&height=300&color=gradient&text=BoothListManager-nl-For%20Android">
+</center>
+
 # BoothListManager For Android
 
 [BoothListManager][BoothListManager]를 기반으로 한 안드로이드용 앱
