@@ -56,11 +56,19 @@ class HomeFragment : Fragment() {
         }
 
         if (homeViewModel.isLoginToGoogleAPI == false) {
-            homeViewModel.loginToGoogleAPI(root)
+            binding.buttonReloadsheetInfo.isEnabled = false
+            homeViewModel.loginToGoogleAPI(root, binding.buttonReloadsheetInfo)
         }
         if (homeViewModel.isLoadedSheetId == false) {
             prefs.getString("sheetId", "")?.let { homeViewModel.getSheet(root, it) }
         }
+
+        binding.buttonReloadsheetInfo.setOnClickListener {
+            textView_SheetTitle.text = "로드 중....."
+            homeViewModel.isLoadedSheetId = false
+            prefs.getString("sheetId", "")?.let { homeViewModel.getSheet(root, it) }
+        }
+
         return root
     }
 

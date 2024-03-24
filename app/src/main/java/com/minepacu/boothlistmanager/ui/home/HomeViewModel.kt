@@ -1,6 +1,7 @@
 package com.minepacu.boothlistmanager.ui.home
 
 import android.view.View
+import android.widget.Button
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,7 +33,7 @@ class HomeViewModel : ViewModel() {
     var isLoginToGoogleAPI = false
     var isLoadedSheetId = false
 
-    fun loginToGoogleAPI(view : View) {
+    fun loginToGoogleAPI(view : View, buttonReloadSheetInfo: Button) {
         viewModelScope.launch {
             val result = try {
                 PythonClass.loginToGoogleAPI()
@@ -45,6 +46,7 @@ class HomeViewModel : ViewModel() {
                     _text_ServiceConnectionStatus.value = "로그인 됨"
                     isLoginToGoogleAPI = true
                     _image_login.value = R.drawable.check_circle_24dp
+                    buttonReloadSheetInfo.isEnabled = true
                 }
                 else -> {
                     _text_ServiceConnectionStatus.value = "로그인 불가"
