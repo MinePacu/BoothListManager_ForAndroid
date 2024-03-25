@@ -4,11 +4,19 @@
 
 # BoothListManager For Android
 
+[BoothListManager][BoothListManager]를 기반으로 한 안드로이드용 앱
+
+<br/>
+
+## 현재 적용 중인 동인 부스 행사
+
 <a href="https://docs.google.com/spreadsheets/d/1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM/edit#gid=0">
     <img alt="Static Badge" src="https://img.shields.io/badge/%ED%98%84%EC%9E%AC%20%EC%A0%81%EC%9A%A9%20%EC%A4%91%EC%9D%B8%20%EB%8F%99%EC%9D%B8%20%ED%96%89%EC%82%AC-%EC%A0%9C%204%ED%9A%8C%20%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%83%80%20%ED%8E%98%EC%8A%A4-yellow">
 </a>
+<br/><br/>
 
-[BoothListManager][BoothListManager]를 기반으로 한 안드로이드용 앱
+위의 '현재 적용 중인 동인 행사' 칸을 누르면 해당 Google 스프레드시트로 넘어갑니다.
+<br/><br/>
 
 ## 기능
 
