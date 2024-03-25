@@ -91,6 +91,8 @@ MapSheetNumber = None
 IsAlredyExisted = False
 
 sheetStartIndex = 3
+# 업데이트 로그의 가장 최신 로그가 자리할 열의 위치
+updateSheetStartIndex = 5
 
 class LogType(Enum):
   Pre_Order = 1
@@ -398,9 +400,6 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
       :param AuthorNickName: (선택) IsOwnAuthor의 값이 True인 경우에 사용되며, 작가님의 닉네임입니다. 기본값은 None입니다.
   """
 
-  # 업데이트 로그의 가장 최신 로그가 자리할 열의 위치
-  updatelog_Lastest_Low = 5
-
   # 업데이트 로그가 B행부터 시작이면 이렇게, 아닌 경우 이걸 수정
   updatelog_data = ['']
 
@@ -416,42 +415,42 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
   if logtype == LogType.Pre_Order:
     if IsOwnAuthor == True:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
       elif BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
     else:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 선입금 링크 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 선입금 링크 추가")'
       elif BoothName != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 선입금 링크 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 선입금 링크 추가")'
 
   elif logtype == LogType.Mail_Order:
     if IsOwnAuthor == True:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
       elif BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
     else:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 통판 링크 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 통판 링크 추가")'
       elif BoothName != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 통판 링크 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 통판 링크 추가")'
 
   elif logtype == LogType.Info:
     if IsOwnAuthor == True:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 인포 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 인포 추가")'
       elif BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 인포 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 인포 추가")'
     else:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 인포 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 인포 추가")'
       elif BoothName != None:
-        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 인포 추가")'
+        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 인포 추가")'
 
   updatelog_data.append(updatelog_string)
 
-  sheet.insert_row(updatelog_data, updatelog_Lastest_Low, value_input_option=ValueInputOption.user_entered)
+  sheet.insert_row(updatelog_data, updateSheetStartIndex, value_input_option=ValueInputOption.user_entered)
   fmt = gspread_formatting.CellFormat(
     borders=Borders(
       top=gspread_formatting.Border("SOLID"),
@@ -464,9 +463,9 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
   )
 
   gspread_formatting.format_cell_range(sheet,
-                                       f"{UpdateLogtime_ColAlphabet}{updatelog_Lastest_Low}:{UpdateLog_ColAlphabet}{updatelog_Lastest_Low}",
+                                       f"{UpdateLogtime_ColAlphabet}{updateSheetStartIndex}:{UpdateLog_ColAlphabet}{updateSheetStartIndex}",
                                        fmt)
-  gspread_formatting.set_row_height(sheet, str(updatelog_Lastest_Low), 30)
+  gspread_formatting.set_row_height(sheet, str(updateSheetStartIndex), 30)
 
 
 def UpdateLastestTime():
