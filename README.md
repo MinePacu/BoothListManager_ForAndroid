@@ -4,6 +4,10 @@
 
 # BoothListManager For Android
 
+<a href="https://docs.google.com/spreadsheets/d/1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM/edit#gid=0">
+    <img alt="Static Badge" src="https://img.shields.io/badge/%ED%98%84%EC%9E%AC%20%EC%A0%81%EC%9A%A9%20%EC%A4%91%EC%9D%B8%20%EB%8F%99%EC%9D%B8%20%ED%96%89%EC%82%AC-%EC%A0%9C%204%ED%9A%8C%20%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%83%80%20%ED%8E%98%EC%8A%A4-yellow">
+</a>
+
 [BoothListManager][BoothListManager]를 기반으로 한 안드로이드용 앱
 
 ## 기능
