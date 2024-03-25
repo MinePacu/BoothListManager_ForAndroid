@@ -260,7 +260,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                          fmt)
 
     updatetime = UpdateLastestTime()
-    hyperLinkCell = f"CONCATENATE(\"gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
+    hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
     AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet.id,
                               hyperLinkCell)
 
