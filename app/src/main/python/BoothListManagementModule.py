@@ -137,7 +137,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
   if '//' in genre:
     NewBoothGenre = f'=TEXTJOIN(CHAR(10), 0, '
     SplitedGenre = re.split('//', genre)
-    i = 0;
+    i = 0
     for OnelineGenre in SplitedGenre:
       NewBoothGenre += f'"{OnelineGenre}'
       if i != len(SplitedGenre) - 1:
