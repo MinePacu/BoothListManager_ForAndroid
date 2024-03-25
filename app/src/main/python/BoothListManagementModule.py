@@ -70,7 +70,6 @@ Pre_Order_Date_Col_Number = 7
 Pre_Order_Label_Col_Number = 8
 Pre_Order_link_Col_Number = 8
 
-UpdateTime_Col_Alphabet = 'A'
 BoothNumber_Col_Alphabet = 'B'
 BoothName_Col_Alphabet = 'C'
 Yoil_Col_Alphabet = 'E'
@@ -220,7 +219,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                            f"{BoothNumber_Col_Alphabet}{len(booth_list) + 1}:{Etc_Point_Col_Alphabet}{len(booth_list) + 1}",
                                            fmt)
 
-      updatetime = UpdateLastestTime()
+      updatetime = SetUpdateDates()
       AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet.id,
                                 f'{Pre_Order_link_Col_Alphabet}{len(booth_list) + 1}', boothnumber)
 
@@ -234,7 +233,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                            f"{BoothNumber_Col_Alphabet}{RecommandLocation}:{Etc_Point_Col_Alphabet}{RecommandLocation}",
                                            fmt)
 
-      updatetime = UpdateLastestTime()
+      updatetime = SetUpdateDates()
       AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet.id,
                                 f'{Pre_Order_link_Col_Alphabet}{RecommandLocation}', boothnumber)
 
@@ -261,10 +260,10 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                          f"{BoothNumber_Col_Alphabet}{len(booth_list)}:{Etc_Point_Col_Alphabet}{len(booth_list)}",
                                          fmt)
 
-    updatetime = UpdateLastestTime()
+    updatetime = SetUpdateDates()
     hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
     AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet.id,
-                              hyperLinkCell)
+                              hyperLinkCell, BoothName=boothname)
 
     if MapSheetNumber != None:
       SetLinkToMap(boothnumber)
@@ -415,38 +414,38 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
   if logtype == LogType.Pre_Order:
     if IsOwnAuthor == True:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
-      elif BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
+      elif BoothName != None:
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
     else:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 선입금 링크 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 선입금 링크 추가")'
       elif BoothName != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 선입금 링크 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 선입금 링크 추가")'
 
   elif logtype == LogType.Mail_Order:
     if IsOwnAuthor == True:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
-      elif BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
+      elif BoothName != None:
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
     else:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 통판 링크 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 통판 링크 추가")'
       elif BoothName != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 통판 링크 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 통판 링크 추가")'
 
   elif logtype == LogType.Info:
     if IsOwnAuthor == True:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 인포 추가")'
-      elif BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 인포 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 {AuthorNickName} 작가님의 인포 추가")'
+      elif BoothName != None:
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 {AuthorNickName} 작가님의 인포 추가")'
     else:
       if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothNumber} 부스의 인포 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 인포 추가")'
       elif BoothName != None:
-        updatelog_string = f'=HYPERLINK("{HyperLinkCell}", "{BoothName} 부스의 인포 추가")'
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 인포 추가")'
 
   updatelog_data.append(updatelog_string)
 
@@ -468,19 +467,19 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
   gspread_formatting.set_row_height(sheet, str(updateSheetStartIndex), 30)
 
 
-def UpdateLastestTime():
+def SetUpdateDates():
   """
   시트 내에 있는 마지막 업데이트 시간 셀을 업데이트한 후, 업데이트한 시간을 반환합니다.
   해당 셀의 위치는 a1Notation을 기준으로 셀의 행을 나타내는 전역 변수 BoothNumber_Col_Alphabet, 열을 나타내는 전역 변수 UpdateTime_Row_Number 값에 의해 결정됩니다.
   """
   print("UpdateLastestTime : 셀 전체 데이터를 가져오는 중...")
-  sh = gc.open_by_key(spreadsheetId)
+  sh = gc.open_by_key(sheetId)
   sheet = sh.get_worksheet(sheetNumber)
 
   print("UpdateLastestTime : 업데이트 시간 반영 중...")
   updatetime = datetime.now()
-  sheet.update_acell(f'{UpdateTime_Col_Alphabet}{UpdateTime_Row_Number}',
-                     f"마지막 업데이트 시간 : {updatetime.year}. {updatetime.month}. {updatetime.day} {updatetime.hour}:{str(updatetime.minute).zfill(2)}:{str(updatetime.second).zfill(2)}")
+  sheet.update_acell(f'{BoothNumber_Col_Alphabet}{UpdateTime_Row_Number}',
+                     f'마지막 업데이트 시간 : {updatetime.year}. {updatetime.month}. {updatetime.day} {updatetime.hour}:{str(updatetime.minute).zfill(2)}:{str(updatetime.second).zfill(2)}')
 
   return updatetime
 
@@ -491,7 +490,7 @@ def SetLinkToMap(BoothNumber: str):
   - 매개 변수
       :param BoothNumber: 서로 링크할 부스 번호
   """
-  sheet = gc.open_by_key(spreadsheetId)
+  sheet = gc.open_by_key(sheetId)
   BoothListSheet = sheet.get_worksheet(sheetNumber)
   BoothMapSheet = sheet.get_worksheet(MapSheetNumber)
 
