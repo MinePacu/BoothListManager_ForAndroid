@@ -70,7 +70,9 @@ Pre_Order_Date_Col_Number = 7
 Pre_Order_Label_Col_Number = 8
 Pre_Order_link_Col_Number = 8
 
+UpdateTime_Col_Alphabet = 'A'
 BoothNumber_Col_Alphabet = 'B'
+BoothName_Col_Alphabet = 'C'
 Yoil_Col_Alphabet = 'E'
 Pre_Order_link_Col_Alphabet = 'H'
 Etc_Point_Col_Alphabet = 'I'
@@ -258,8 +260,9 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                          fmt)
 
     updatetime = UpdateLastestTime()
+    hyperLinkCell = f"CONCATENATE(\"gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
     AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet.id,
-                              f'{Pre_Order_link_Col_Alphabet}{len(booth_list) + 1}', boothnumber)
+                              hyperLinkCell)
 
     if MapSheetNumber != None:
       SetLinkToMap(boothnumber)
@@ -377,18 +380,22 @@ def getRecommandLocation(booth_list_tmp: list[str], searchBoothNum: str):
     return AlreadyExistedLocation
 
 
-def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, sheetid_hyperlink: str, HyperLinkCell: str,
-                 BoothNumber: str, IsOwnAuthor: bool = False, AuthorNickName: str = None):
+def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetime, sheetid_hyperlink: str,
+                 HyperLinkCell: str, BoothNumber: str = None, BoothName: str = None, IsOwnAuthor: bool = False,
+                 AuthorNickName: str = None):
   """
   업데이트 로그를 추가합니다.
 
-  :param sheet: 업데이트 로그를 추가할 시트
-  :param logtype: 업데이트 로그의 추가 타입으로 선입금인 Pre_Order, 통판인 Mail_Order 둘 중 하나의 값입니다.
-  :param sheetid_hyperlink: 업데이트된 부스 정보가 위치한 시트의 Id
-  :param HyperLinkCell: 업데이트된 부스 정보의 선입금 또는 통판 또는 인포 링크가 담긴 셀의 a1Notation 값
-  :param BoothNumber: 업데이트된 부스의 부스 번호
-  :param IsOwnAuthor: (선택) 업데이트된 정보가 특정 작가님별로 업데이트된 정보인지 여부입니다. 기본값은 False입니다.
-  :param AuthorNickName: (선택) IsOwnAuthor의 값이 True인 경우에 사용되며, 작가님의 닉네임입니다. 기본값은 None입니다.
+  - 매개 변수
+      :param sheet: 업데이트 로그를 추가할 시트
+      :param logtype: 업데이트 로그의 추가 타입으로 선입금인 Pre_Order, 통판인 Mail_Order 둘 중 하나의 값입니다.
+      :param updatetime: 업데이트 시간
+      :param sheetid_hyperlink: 업데이트된 부스 정보가 위치한 시트의 Id
+      :param HyperLinkCell: 업데이트된 부스 정보의 선입금 또는 통판 또는 인포 링크가 담긴 셀의 a1Notation 값
+      :param BoothNumber: (선택) 업데이트된 부스의 부스 번호, 이 값이 None인 경우, BoothName은 None이 아니여야 합니다.
+      :param BoothName: (선택) 업데이트된 부스의 부스 이름, 이 값이 None인 경우, BoothNumber은 None이 아니여야 합니다.
+      :param IsOwnAuthor: (선택) 업데이트된 정보가 특정 작가님별로 업데이트된 정보인지 여부입니다. 기본값은 False입니다.
+      :param AuthorNickName: (선택) IsOwnAuthor의 값이 True인 경우에 사용되며, 작가님의 닉네임입니다. 기본값은 None입니다.
   """
 
   # 업데이트 로그의 가장 최신 로그가 자리할 열의 위치
@@ -401,22 +408,46 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, sheetid_hyperlink: 
   UpdateLogtime_ColAlphabet = 'B'
   UpdateLog_ColAlphabet = 'C'
 
-  updatelog_time = datetime.now()
+  updatelog_time = updatetime
   updatelog_data.append(
     f'{updatelog_time.month}.{updatelog_time.day} {updatelog_time.hour}:{str(updatelog_time.minute).zfill(2)}:{str(updatelog_time.second).zfill(2)}')
 
   updatelog_string = f''
   if logtype == LogType.Pre_Order:
     if IsOwnAuthor == True:
-      updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
+      if BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
+      elif BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 선입금 링크 추가")'
     else:
-      updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 선입금 링크 추가")'
+      if BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 선입금 링크 추가")'
+      elif BoothName != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 선입금 링크 추가")'
 
   elif logtype == LogType.Mail_Order:
     if IsOwnAuthor == True:
-      updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
+      if BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
+      elif BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 통판 링크 추가")'
     else:
-      updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 통판 링크 추가")'
+      if BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 통판 링크 추가")'
+      elif BoothName != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 통판 링크 추가")'
+
+  elif logtype == LogType.Info:
+    if IsOwnAuthor == True:
+      if BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 {AuthorNickName} 작가님의 인포 추가")'
+      elif BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 {AuthorNickName} 작가님의 인포 추가")'
+    else:
+      if BoothNumber != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothNumber} 부스의 인포 추가")'
+      elif BoothName != None:
+        updatelog_string = f'=HYPERLINK("#gid={sheetid_hyperlink}&range={HyperLinkCell}", "{BoothName} 부스의 인포 추가")'
 
   updatelog_data.append(updatelog_string)
 
@@ -449,7 +480,7 @@ def UpdateLastestTime():
 
   print("UpdateLastestTime : 업데이트 시간 반영 중...")
   updatetime = datetime.now()
-  sheet.update_acell(f'{BoothNumber_Col_Alphabet}{UpdateTime_Row_Number}',
+  sheet.update_acell(f'{UpdateTime_Col_Alphabet}{UpdateTime_Row_Number}',
                      f"마지막 업데이트 시간 : {updatetime.year}. {updatetime.month}. {updatetime.day} {updatetime.hour}:{str(updatetime.minute).zfill(2)}:{str(updatetime.second).zfill(2)}")
 
   return updatetime
