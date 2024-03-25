@@ -26,4 +26,9 @@
         android:summary="시트에 부스를 등록하면 로그를 기록할 시트의 이름입니다."
         android:defaultValue="업데이트 로그"/>
 
+    <EditTextPreference
+        android:key="updateSheetStartIndex"
+        android:title="업데이트 시트 추가 시작 위치 인덱스"
+        android:summary="시트에 부스를 등록하면 로그를 기록할 시트에 시작 인덱스입니다. 기본값은 5입니다."
+        android:defaultValue="5"/>
 </androidx.preference.PreferenceScreen>
