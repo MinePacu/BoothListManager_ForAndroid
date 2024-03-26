@@ -6,7 +6,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.chaquo.python.PyException
-import com.chaquo.python.Python
 import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.data.model.Result
 import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
@@ -17,6 +16,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     var sheetIdPreference: Preference? = null
     var sheetNumberPreference: Preference? = null
     var sheetStartIndex: Preference? = null
+    var updateSheetNumberPreference: Preference? = null
     var updateSheetNamePreference: Preference? = null
     var updateSheetStartIndexPreference: Preference? = null
 
@@ -27,6 +27,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             sheetIdPreference = findPreference("sheetId")
             sheetNumberPreference = findPreference("sheetNumber")
             sheetStartIndex = findPreference("sheetStartIndex")
+            updateSheetNumberPreference = findPreference("updateSheetNumber")
             updateSheetNamePreference = findPreference("updateSheetName")
             updateSheetStartIndexPreference = findPreference("updateSheetStartIndex")
         }
@@ -60,6 +61,15 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                     val sheetStartIndex_Set = prefs.getString("sheetStartIndex", "")
                     try {
                         PythonClass.setVariable("sheetStartIndex", sheetStartIndex_Set?.toInt())
+                    } catch (e: PyException) {
+                        Result.Error(Exception(e.message))
+                    }
+                }
+
+                "updateSheetNumber" -> {
+                    val updateSheetNumber_Set = prefs.getString("updateSheetNumber", "")
+                    try {
+                        PythonClass.setVariable("UpdateSheetNumber", updateSheetNumber_Set?.toInt())
                     } catch (e: PyException) {
                         Result.Error(Exception(e.message))
                     }

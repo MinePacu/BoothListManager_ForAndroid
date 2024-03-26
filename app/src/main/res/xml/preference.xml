@@ -2,23 +2,46 @@
 <androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditTextPreference
-        android:key="sheetId"
-        android:title="시트 ID"
-        android:summary="@string/preference_sheetId_Summary"
-        android:defaultValue="1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM"/>
+    <PreferenceCategory
+        android:key="normal_category"
+        android:title="일반">
+
+        <EditTextPreference
+            android:key="sheetId"
+            android:title="시트 ID"
+            android:summary="@string/preference_sheetId_Summary"
+            android:defaultValue="1TmZxEkJW17d0I1MmfNyzIIxjh1n_en1DKrwsbk2OzjM"/>
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:key="pre_order_category"
+        android:title="선입금 시트">
+
+        <EditTextPreference
+            android:key="sheetNumber"
+            android:title="선입금 링크 시트 인덱스"
+            android:summary="선입금 링크 또는 인포들을 담은 부스들의 정보를 등록할 시트의 인덱스입니다. 이 값은 0부터 시작합니다."
+            android:defaultValue="0"/>
+
+        <EditTextPreference
+            android:key="sheetStartIndex"
+            android:title="추가 시작 위치 인덱스"
+            android:summary="부스 번호가 없는 부스의 정보를 추가할 때, 어느 위치에 추가할지 설정합니다. 기본값은 3입니다."
+            android:defaultValue="3"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="update_category"
+        android:title="업데이트 로그 시트">
 
     <EditTextPreference
-        android:key="sheetNumber"
-        android:title="선입금 링크 시트 인덱스"
-        android:summary="선입금 링크 또는 인포들을 담은 부스들의 정보를 등록할 시트의 인덱스입니다. 이 값은 0부터 시작합니다."
-        android:defaultValue="0"/>
-
-    <EditTextPreference
-        android:key="sheetStartIndex"
-        android:title="추가 시작 위치 인덱스"
-        android:summary="부스 번호가 없는 부스의 정보를 추가할 때, 어느 위치에 추가할지 설정합니다. 기본값은 3입니다."
-        android:defaultValue="3"/>
+        android:key="updateSheetNumber"
+        android:title="업데이트 시트 인덱스"
+        android:summary="업데이트 로그를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 1입니다."
+        android:defaultValue="1"/>
 
     <EditTextPreference
         android:key="updateSheetName"
@@ -31,4 +54,6 @@
         android:title="업데이트 시트 추가 시작 위치 인덱스"
         android:summary="시트에 부스를 등록하면 로그를 기록할 시트에 시작 인덱스입니다. 기본값은 5입니다."
         android:defaultValue="5"/>
+
+    </PreferenceCategory>
 </androidx.preference.PreferenceScreen>
