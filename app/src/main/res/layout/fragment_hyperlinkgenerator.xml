@@ -9,117 +9,285 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_linkLabel_layout"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_hyperlink_Gen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="15dp"
-            android:ems="10"
-            android:hint="@string/label_linkLabel"
-            app:helperText="@string/explanation_linkLabel"
-            android:inputType="text"
-            app:errorEnabled="true"
+            android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_linklabel"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_link_layout"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="하이퍼링크 생성기"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="하이퍼링크 함수에 필요한 변수를 넣어서 클립보드에 복사합니다."
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_linkLabel_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="@string/label_linkLabel"
+                    app:helperText="@string/explanation_linkLabel"
+                    android:inputType="text"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_linklabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_link_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="@string/label_link"
+                    app:helperText="@string/explanation_link"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_linkLabel_layout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_link"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_link_sheetnumber_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="@string/label_linkshhetnumber"
+                    app:helperText="@string/explanation_linksheetNumber"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_link_layout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_link_sheetnumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_link_boothCell_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="@string/label_linkboothCell"
+                    app:helperText="@string/explanation_linkboothCell"
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_link_sheetnumber_layout">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_link_boothCell"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right">
+
+                    <Button
+                        android:id="@+id/filledCopyToClipBoardButton"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="21dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/button_CopyToClipboard"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_link_boothCell_layout" />
+
+                    <Button
+                        android:id="@+id/EmptyTextFieldButton"
+                        style="@style/Widget.Material3.Button.ElevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="24dp"
+                        android:text="@string/button_emptyText"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/filledCopyToClipBoardButton"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_link_sheetnumber_layout"
+                        app:layout_constraintVertical_bias="0.857" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="15dp"
-            android:ems="10"
-            android:hint="@string/label_link"
-            app:helperText="@string/explanation_link"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_linkLabel_layout">
+            app:layout_constraintTop_toBottomOf="@+id/card_hyperlink_Gen">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_link"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="16dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_link_sheetnumber_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="15dp"
-            android:ems="10"
-            android:hint="@string/label_linkshhetnumber"
-            app:helperText="@string/explanation_linksheetNumber"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_link_layout">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="럽데이트 로그 생성기"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_link_sheetnumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="지정한 내역과 업데이트 시간을 업데이트 로그와 선입금 시트에 반영합니다."
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/edit_link_boothCell_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="15dp"
-            android:ems="10"
-            android:hint="@string/label_linkboothCell"
-            app:helperText="@string/explanation_linkboothCell"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_link_sheetnumber_layout">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_boothname_update_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="@string/basic_boothname"
+                    app:helperText="\'(부스 이름) 부스의 (링크 이름) 추가\'에서 부스 이름을 나타냅니다."
+                    android:inputType="text"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_link_boothCell"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_boothname_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
+                </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/EmptyTextFieldButton"
-            style="@style/Widget.Material3.Button.ElevatedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="24dp"
-            android:text="@string/button_emptyText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/filledCopyToClipBoardButton"
-            app:layout_constraintTop_toBottomOf="@+id/edit_link_sheetnumber_layout"
-            app:layout_constraintVertical_bias="0.857" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_link_update_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="링크 이름"
+                    app:helperText="\'(부스 이름) 부스의 (링크 이름) 추가\'에서 링크 이름을 나타냅니다."
+                    android:inputType="text"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/filledCopyToClipBoardButton"
-            style="@style/Widget.Material3.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="21dp"
-            android:layout_marginBottom="16dp"
-            android:text="@string/button_CopyToClipboard"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_link_boothCell_layout" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_link_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_offset_update_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="오프셋"
+                    app:helperText="이미 있는 부스에 새로운 링크를 추가하는 경우, 이미 있는 링크의 개수입니다."
+                    android:inputType="number"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_offset_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/filledAdd_UpdateLog_dButton"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="21dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="로그 추가"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_link_boothCell_layout" />
+
+                    <Button
+                        android:id="@+id/Empty_Update_TextField_Button"
+                        style="@style/Widget.Material3.Button.ElevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="24dp"
+                        android:text="@string/button_emptyText"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/filledAdd_UpdateLog_dButton"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_link_sheetnumber_layout"
+                        app:layout_constraintVertical_bias="0.857" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
