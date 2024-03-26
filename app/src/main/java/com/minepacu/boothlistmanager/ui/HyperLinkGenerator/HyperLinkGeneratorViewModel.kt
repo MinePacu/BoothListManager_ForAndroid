@@ -11,6 +11,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
 import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 import com.minepacu.boothlistmanager.data.model.Result
+import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -38,6 +39,25 @@ class HyperLinkGeneratorViewModel : ViewModel() {
         clipboardManager.setPrimaryClip(ClipData.newPlainText("", textCopied))
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
             Toast.makeText(context, textCopied + " 복사됨", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun addUpdateLog(view: View, processingRing: ProgressPage?, boothname: String, linkName: String, offset: Int): Job {
+        return viewModelScope.launch {
+            val result = PythonClass.addUpdateLog(boothname, linkName, offset)
+
+            when (result) {
+                is Result.Success<Boolean> -> {
+                    processingRing?.hide()
+                    Snackbar.make(view, "업데이트 로그가 성공적으로 추가되었습니다.", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+                else -> {
+                    processingRing?.hide()
+                    Snackbar.make(view, "업데이트 로그가 추가되지 못했습니다.", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
         }
     }
 }

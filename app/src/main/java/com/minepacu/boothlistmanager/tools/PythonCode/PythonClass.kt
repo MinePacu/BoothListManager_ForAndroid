@@ -121,6 +121,32 @@ class PythonClass {
             }
         }
 
+        suspend fun addUpdateLog(boothname: String, linkname: String, offset: Int): Result<Boolean> {
+            return withContext(Dispatchers.IO) {
+                Log.d("Debug", "Fun addUpdateLog is Executed")
+                var result: PyObject? = null
+
+                result = boothListManagementModule.callAttr(
+                    "add_UpdateLog",
+                    boothname,
+                    linkname,
+                    offset)
+
+                Log.d(
+                    "Debug",
+                    when {
+                        (result == null) -> "IsNull of result from addUpdateLog : true"
+                        else -> "IsNull of result from addUpdateLog : false"
+                    }
+                )
+                if (result != null) {
+                    Result.Success(true)
+                } else {
+                    Result.Error(Exception("시트에 부스 정보를 추가하지 못했습니다."))
+                }
+            }
+        }
+
         /**
          * 지정한 매개 변수의 값에 해당하는 워크시트를 가져옵니다.
          * @param sheetId 워크시트가 있는 시트의 ID

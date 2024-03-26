@@ -175,7 +175,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="럽데이트 로그 생성기"
+                    android:text="업데이트 로그 생성기"
                     android:textAppearance="?attr/textAppearanceTitleMedium" />
 
                 <TextView
@@ -261,7 +261,7 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/filledAdd_UpdateLog_dButton"
+                        android:id="@+id/filledAdd_UpdateLog_Button"
                         style="@style/Widget.Material3.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -282,7 +282,7 @@
                         android:layout_marginRight="24dp"
                         android:text="@string/button_emptyText"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toLeftOf="@id/filledAdd_UpdateLog_dButton"
+                        app:layout_constraintRight_toLeftOf="@id/filledAdd_UpdateLog_Button"
                         app:layout_constraintTop_toBottomOf="@+id/edit_link_sheetnumber_layout"
                         app:layout_constraintVertical_bias="0.857" />
 

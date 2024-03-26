@@ -42,7 +42,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                 "sheetId" -> {
                     val sheetId_Set = prefs.getString("sheetId", "")
                     try {
-                        PythonClass.setVariable("spreadsheetId", sheetId_Set)
+                        PythonClass.setVariable("sheetId", sheetId_Set)
                     } catch (e: PyException) {
                         Result.Error(Exception(e.message))
                     }

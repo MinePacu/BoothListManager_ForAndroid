@@ -96,6 +96,8 @@ updateSheetStartIndex = 5
 class LogType(Enum):
   Pre_Order = 1
   Mail_Order = 2
+  Info = 3
+  Etc = 4
 
 
 def loginService():
@@ -242,7 +244,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
         k = 0
         for k in range(RecommandLocation - 1 - 1, -1, -1):
           if len(booth_list[k]) != 0:
-            break;
+            break
 
         sheet.merge_cells(f"{BoothNumber_Col_Alphabet}{k + 1}:{Yoil_Col_Alphabet}{RecommandLocation}",
                           MergeType.merge_columns)
@@ -252,24 +254,39 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
       return True
 
   else:
-    sheet = sh.get_worksheet(sheetNumber)
+    sheet_ = sh.get_worksheet(sheetNumber)
     NewRowData = ['', boothnumber, boothname, NewBoothGenre, yoil, NewInfoLink, NewPreOrderDate, NewPreOrderLink]
     print(f"RowData : {NewRowData}")
-    sheet.insert_row(NewRowData, sheetStartIndex, value_input_option=ValueInputOption.user_entered)
-    gspread_formatting.format_cell_range(sheet,
+    sheet_.insert_row(NewRowData, sheetStartIndex, value_input_option=ValueInputOption.user_entered)
+    gspread_formatting.format_cell_range(sheet_,
                                          f"{BoothNumber_Col_Alphabet}{len(booth_list)}:{Etc_Point_Col_Alphabet}{len(booth_list)}",
                                          fmt)
 
     updatetime = SetUpdateDates()
-    hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
-    AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet.id,
-                              hyperLinkCell, BoothName=boothname)
+    hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
+    AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet_.id,
+                 hyperLinkCell, BoothName=boothname)
 
     if MapSheetNumber != None:
       SetLinkToMap(boothnumber)
     return True
 
   print("Add_new_BoothData : 부스 추가 완료")
+
+def add_UpdateLog(boothname: string, linkname: string, offset: int):
+  updatetime = SetUpdateDates()
+  print("updatetime : " + str(updatetime))
+
+  sh = gc.open_by_key(sheetId)
+  print("sh : " + str(sh))
+  sheet_ = sh.get_worksheet(sheetNumber)
+  print("sheet_ : " + str(sheet_))
+  updatesheet = sh.get_worksheet(UpdateLogSheetNumber)
+  print("updatesheet : " + str(updatesheet))
+
+  hyperlinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", SUM(MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0), {str(offset)}))"
+  AddUpdateLog(updatesheet, LogType.Etc, updatetime, sheet_.id, hyperlinkCell, BoothName=boothname, LinkName=linkname)
+  return True
 
 def getRecommandLocation(booth_list_tmp: list[str], searchBoothNum: str):
   """
@@ -383,7 +400,7 @@ def getRecommandLocation(booth_list_tmp: list[str], searchBoothNum: str):
 
 def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetime, sheetid_hyperlink: str,
                  HyperLinkCell: str, BoothNumber: str = None, BoothName: str = None, IsOwnAuthor: bool = False,
-                 AuthorNickName: str = None):
+                 AuthorNickName: str = None, LinkName: str = None):
   """
   업데이트 로그를 추가합니다.
 
@@ -397,6 +414,7 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
       :param BoothName: (선택) 업데이트된 부스의 부스 이름, 이 값이 None인 경우, BoothNumber은 None이 아니여야 합니다.
       :param IsOwnAuthor: (선택) 업데이트된 정보가 특정 작가님별로 업데이트된 정보인지 여부입니다. 기본값은 False입니다.
       :param AuthorNickName: (선택) IsOwnAuthor의 값이 True인 경우에 사용되며, 작가님의 닉네임입니다. 기본값은 None입니다.
+      :param LinkName: (선택 ) logtype이 Etc인 경우, 링크 이름을 지정할 수 있습니다.
   """
 
   # 업데이트 로그가 B행부터 시작이면 이렇게, 아닌 경우 이걸 수정
@@ -446,6 +464,19 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
         updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 인포 추가")'
       elif BoothName != None:
         updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 인포 추가")'
+
+  elif logtype == LogType.Etc:
+    if IsOwnAuthor == True:
+      if BoothNumber != None:
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 {AuthorNickName} 작가님의 {LinkName} 추가")'
+      elif BoothName != None:
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 {AuthorNickName} 작가님의 {LinkName} 추가")'
+    else:
+      if BoothNumber != None:
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 {LinkName} 추가")'
+      elif BoothName != None:
+        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 {LinkName} 추가")'
+
 
   updatelog_data.append(updatelog_string)
 
