@@ -259,7 +259,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
     print(f"RowData : {NewRowData}")
     sheet_.insert_row(NewRowData, sheetStartIndex, value_input_option=ValueInputOption.user_entered)
     gspread_formatting.format_cell_range(sheet_,
-                                         f"{BoothNumber_Col_Alphabet}{len(booth_list)}:{Etc_Point_Col_Alphabet}{len(booth_list)}",
+                                         f"{BoothNumber_Col_Alphabet}{sheetStartIndex}:{Etc_Point_Col_Alphabet}{sheetStartIndex}",
                                          fmt)
 
     updatetime = SetUpdateDates()
