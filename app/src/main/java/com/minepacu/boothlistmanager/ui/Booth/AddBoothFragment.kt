@@ -8,10 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
+import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.data.model.BoothInfo
 import com.minepacu.boothlistmanager.databinding.FragmentAddboothBinding
 import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
@@ -42,6 +45,11 @@ class AddBoothFragment : Fragment() {
         val addboothButton = binding.filledAddBoothButton
         val emptyTextButton = binding.EmptyTextFieldButton
         val customProgressPage = this.context?.let { ProgressPage(it) }
+
+        val items = arrayOf("선입금", "통판")
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_sheettype, items)
+
+        (binding.selectionSheet.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         customProgressPage?.window?.setBackgroundDrawable(
             ColorDrawable(android.graphics.Color.TRANSPARENT))
@@ -122,15 +130,6 @@ class AddBoothFragment : Fragment() {
                 }
             }
         })
-    }
-
-    suspend fun printresult(result: Job, progressPage: ProgressPage?, view: View) {
-        if (result.isCompleted) {
-            progressPage?.hide()
-        } else {
-            Snackbar.make(view, "부스 정보가 추가되지 못했습니다.", Snackbar.LENGTH_LONG)
-                .show()
-        }
     }
 
     override fun onDestroyView() {

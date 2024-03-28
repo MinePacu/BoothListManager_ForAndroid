@@ -35,25 +35,55 @@
 
     <PreferenceCategory
         android:key="update_category"
-        android:title="업데이트 로그 시트">
+        android:title="업데이트 로그 시트 (선입금용)">
 
-    <EditTextPreference
-        android:key="updateSheetNumber"
-        android:title="업데이트 시트 인덱스"
-        android:summary="업데이트 로그를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 1입니다."
-        android:defaultValue="1"/>
+        <EditTextPreference
+            android:key="updateSheetNumber"
+            android:title="업데이트 시트 인덱스"
+            android:summary="업데이트 로그를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 1입니다."
+            android:defaultValue="1"/>
 
-    <EditTextPreference
-        android:key="updateSheetName"
-        android:title="업데이트 시트 이름"
-        android:summary="시트에 부스를 등록하면 로그를 기록할 시트의 이름입니다."
-        android:defaultValue="업데이트 로그"/>
+        <EditTextPreference
+            android:key="updateSheetName"
+            android:title="업데이트 시트 이름"
+            android:summary="시트에 부스를 등록하면 로그를 기록할 시트의 이름입니다."
+            android:defaultValue="업데이트 로그"/>
 
-    <EditTextPreference
-        android:key="updateSheetStartIndex"
-        android:title="업데이트 시트 추가 시작 위치 인덱스"
-        android:summary="시트에 부스를 등록하면 로그를 기록할 시트에 시작 인덱스입니다. 기본값은 5입니다."
-        android:defaultValue="5"/>
+        <EditTextPreference
+            android:key="updateSheetStartIndex"
+            android:title="업데이트 시트 추가 시작 위치 인덱스"
+            android:summary="시트에 부스를 등록하면 로그를 기록할 시트에 시작 인덱스입니다. 기본값은 5입니다."
+            android:defaultValue="5"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="mail_order_category"
+        android:title="통판 시트">
+
+        <EditTextPreference
+            android:key="mail_order_sheet_Index"
+            android:title="통판 시트 인덱스"
+            android:summary="시트 ID에 해당하는 시트 안에 있는 시트들의 인덱스 중 통판 시트에 해당하는 값입니다. 기본값은 2입니다."
+            android:defaultValue="2" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="update_mail_order_category"
+        android:title="업데이트 로그 시트 (통판용)">
+
+        <EditTextPreference
+            android:key="update_mail_order_sheetIndex"
+            android:title="업데이트 시트 인덱스"
+            android:summary="업데이트 로그 (통판용)를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 3입니다."
+            android:defaultValue="3" />
+
+        <EditTextPreference
+            android:key="update_mail_order_SheetStartIndex"
+            android:title="업데이트 시트 추가 시작 위치 인덱스"
+            android:summary="시트에 부스를 등록하면 로그를 기록할 시트의 시작 인덱스입니다 (통판용). 기본값은 5입니다."
+            android:defaultValue="5" />
 
     </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

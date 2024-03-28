@@ -14,22 +14,36 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     lateinit var prefs: SharedPreferences
 
     var sheetIdPreference: Preference? = null
+
     var sheetNumberPreference: Preference? = null
     var sheetStartIndex: Preference? = null
+
     var updateSheetNumberPreference: Preference? = null
     var updateSheetNamePreference: Preference? = null
     var updateSheetStartIndexPreference: Preference? = null
+
+    var mail_order_sheetNumber: Preference? = null
+
+    var update_mail_order_sheetIndex: Preference? = null
+    var update_mail_order_sheetStartIndex: Preference? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference, rootKey)
 
         if (rootKey == null) {
             sheetIdPreference = findPreference("sheetId")
+
             sheetNumberPreference = findPreference("sheetNumber")
             sheetStartIndex = findPreference("sheetStartIndex")
+
             updateSheetNumberPreference = findPreference("updateSheetNumber")
             updateSheetNamePreference = findPreference("updateSheetName")
             updateSheetStartIndexPreference = findPreference("updateSheetStartIndex")
+
+            mail_order_sheetNumber = findPreference("mail_order_sheet_Index")
+
+            update_mail_order_sheetIndex = findPreference("update_mail_order_sheetIndex")
+            update_mail_order_sheetStartIndex = findPreference("update_mail_order_SheetStartIndex")
         }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -88,6 +102,33 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                     val updateSheetName_Set = prefs.getString("updateSheetStartIndex", "")
                     try {
                         PythonClass.setVariable("updateSheetStartIndex", updateSheetName_Set?.toInt())
+                    } catch (e: PyException) {
+                        Result.Error(Exception(e.message))
+                    }
+                }
+
+                "mail_order_sheet_Index" -> {
+                    val mail_order_sheet_Index_Set = prefs.getString("mail_order_sheet_Index", "")
+                    try {
+                        PythonClass.setVariable("mail_order_sheetIndex", mail_order_sheet_Index_Set)
+                    } catch (e: PyException) {
+                        Result.Error(Exception(e.message))
+                    }
+                }
+
+                "update_mail_order_sheetIndex" -> {
+                    val update_mail_order_sheetIndex_Set = prefs.getString("update_mail_order_sheetIndex", "")
+                    try {
+                        PythonClass.setVariable("update_mail_order_sheetIndex", update_mail_order_sheetIndex_Set)
+                    } catch (e: PyException) {
+                        Result.Error(Exception(e.message))
+                    }
+                }
+
+                "update_mail_order_SheetStartIndex" -> {
+                    val update_mail_order_sheetStartIndex_Set = prefs.getString("update_mail_order_sheetStartIndex", "")
+                    try {
+                        PythonClass.setVariable("update_mail_order_sheetStartIndex", update_mail_order_sheetStartIndex_Set)
                     } catch (e: PyException) {
                         Result.Error(Exception(e.message))
                     }
