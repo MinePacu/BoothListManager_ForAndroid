@@ -60,7 +60,8 @@
             android:title="로그의 링크 이름 방식"
             android:summary="업데이트 로그에 등록되는 링크를 등록하는 방법입니다."
             android:entries="@array/updateLogType_list"
-            android:entryValues="@array/updateLogType_list_value"/>
+            android:entryValues="@array/updateLogType_list_value"
+            android:defaultValue="Custom"/>
 
     </PreferenceCategory>
 
