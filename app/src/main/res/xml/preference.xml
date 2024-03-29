@@ -55,6 +55,13 @@
             android:summary="시트에 부스를 등록하면 로그를 기록할 시트에 시작 인덱스입니다. 기본값은 5입니다."
             android:defaultValue="5"/>
 
+        <ListPreference
+            android:key="updateLogType"
+            android:title="로그의 링크 이름 방식"
+            android:summary="업데이트 로그에 등록되는 링크를 등록하는 방법입니다."
+            android:entries="@array/updateLogType_list"
+            android:entryValues="@array/updateLogType_list_value"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory

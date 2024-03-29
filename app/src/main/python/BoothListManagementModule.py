@@ -93,12 +93,13 @@ sheetStartIndex = 3
 # 업데이트 로그의 가장 최신 로그가 자리할 열의 위치
 updateSheetStartIndex = 5
 
+updateLogType = 4
+
 class LogType(Enum):
   Pre_Order = 1
   Mail_Order = 2
   Info = 3
   Etc = 4
-
 
 def loginService():
   try:
@@ -222,7 +223,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                            fmt)
 
       updatetime = SetUpdateDates()
-      AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet.id,
+      AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
                                 f'{Pre_Order_link_Col_Alphabet}{len(booth_list) + 1}', boothnumber)
 
       if MapSheetNumber != None:
@@ -236,7 +237,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                            fmt)
 
       updatetime = SetUpdateDates()
-      AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet.id,
+      AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
                                 f'{Pre_Order_link_Col_Alphabet}{RecommandLocation}', boothnumber)
 
       global IsAlredyExisted
@@ -264,7 +265,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 
     updatetime = SetUpdateDates()
     hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
-    AddUpdateLog(updatesheet, LogType.Pre_Order, updatetime, sheet_.id,
+    AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet_.id,
                  hyperLinkCell, BoothName=boothname)
 
     if MapSheetNumber != None:

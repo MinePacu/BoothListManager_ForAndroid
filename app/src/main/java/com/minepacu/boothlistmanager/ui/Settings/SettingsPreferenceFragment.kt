@@ -21,6 +21,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     var updateSheetNumberPreference: Preference? = null
     var updateSheetNamePreference: Preference? = null
     var updateSheetStartIndexPreference: Preference? = null
+    var updateLogType: Preference? = null
 
     var mail_order_sheetNumber: Preference? = null
 
@@ -39,6 +40,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             updateSheetNumberPreference = findPreference("updateSheetNumber")
             updateSheetNamePreference = findPreference("updateSheetName")
             updateSheetStartIndexPreference = findPreference("updateSheetStartIndex")
+            updateLogType = findPreference("updateLogType")
 
             mail_order_sheetNumber = findPreference("mail_order_sheet_Index")
 
@@ -102,6 +104,19 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                     val updateSheetName_Set = prefs.getString("updateSheetStartIndex", "")
                     try {
                         PythonClass.setVariable("updateSheetStartIndex", updateSheetName_Set?.toInt())
+                    } catch (e: PyException) {
+                        Result.Error(Exception(e.message))
+                    }
+                }
+
+                "updateLogType" -> {
+                    val updateLogType_Set = prefs.getString("updateLogType", "")
+                    try {
+                        if (updateLogType_Set == "Custom") {
+                            PythonClass.setVariable("updateLogType", 4)
+                        } else {
+                            PythonClass.setVariable("updateLogType", 1)
+                        }
                     } catch (e: PyException) {
                         Result.Error(Exception(e.message))
                     }
