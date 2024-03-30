@@ -224,7 +224,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 
       updatetime = SetUpdateDates()
       AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
-                                f'{Pre_Order_link_Col_Alphabet}{len(booth_list) + 1}', boothnumber)
+                                f'{Pre_Order_link_Col_Alphabet}{len(booth_list) + 1}', boothnumber, LinkName=preorder_Label)
 
       if MapSheetNumber != None:
         SetLinkToMap(boothnumber)
@@ -238,7 +238,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 
       updatetime = SetUpdateDates()
       AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
-                                f'{Pre_Order_link_Col_Alphabet}{RecommandLocation}', boothnumber)
+                                f'{Pre_Order_link_Col_Alphabet}{RecommandLocation}', boothnumber, LinkName=preorder_Label)
 
       global IsAlredyExisted
       if IsAlredyExisted == True:
@@ -266,7 +266,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
     updatetime = SetUpdateDates()
     hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
     AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet_.id,
-                 hyperLinkCell, BoothName=boothname)
+                 hyperLinkCell, BoothName=boothname, LinkName=preorder_Label)
 
     if MapSheetNumber != None:
       SetLinkToMap(boothnumber)
