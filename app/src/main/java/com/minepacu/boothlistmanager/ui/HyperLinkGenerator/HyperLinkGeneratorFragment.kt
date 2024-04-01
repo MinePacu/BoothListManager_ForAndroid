@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -20,7 +19,6 @@ import com.google.android.material.timepicker.TimeFormat
 import com.minepacu.boothlistmanager.databinding.FragmentHyperlinkgeneratorBinding
 import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 
 class HyperLinkGeneratorFragment : Fragment() {
