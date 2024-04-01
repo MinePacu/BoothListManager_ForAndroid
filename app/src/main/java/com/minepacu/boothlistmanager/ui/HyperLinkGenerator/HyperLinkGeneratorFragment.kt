@@ -1,5 +1,6 @@
 package com.minepacu.boothlistmanager.ui.HyperLinkGenerator
 
+import android.app.DatePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,11 +10,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.minepacu.boothlistmanager.databinding.FragmentHyperlinkgeneratorBinding
 import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class HyperLinkGeneratorFragment : Fragment() {
 
@@ -76,6 +84,54 @@ class HyperLinkGeneratorFragment : Fragment() {
             hyperLinkGeneratorViewModel.addUpdateLog(
                 root, customProgressPage,
                 binding.editBoothnameUpdate.text.toString(), binding.editLinkUpdate.text.toString(), binding.editOffsetUpdate.text.toString().toInt())
+        }
+
+
+        binding.addDateButton.setOnClickListener {
+            val datepicker = MaterialDatePicker.Builder.datePicker()
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setTitleText("마감 일자 선택").build()
+
+            datepicker.addOnPositiveButtonClickListener {
+                val sdf = SimpleDateFormat("M/d(EEE)", Locale.KOREA)
+                val date = sdf.format(it)
+
+                binding.editDate.setText(date)
+            }
+
+            datepicker.show(getParentFragmentManager(), "tag")
+        }
+
+        binding.addClockButton.setOnClickListener {
+            val timepicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(12).setMinute(0)
+                .setTitleText("마감 시간 선택").build()
+
+            timepicker.addOnPositiveButtonClickListener {
+                if (timepicker.minute != 0) {
+                    binding.editClock.setText(timepicker.hour.toString() + "시 " + timepicker.minute + "분")
+                } else {
+                    binding.editClock.setText(timepicker.hour.toString() + "시")
+                }
+            }
+
+            timepicker.show(parentFragmentManager, "tag")
+        }
+
+        binding.CopyToClipBoardButtonDate.setOnClickListener {
+            var copystring = ""
+            if (binding.editClock.text.toString() != "") {
+                copystring = "=TEXTJOIN(CHAR(10), 0, \"" + binding.editDate.text.toString() + "\", \"" + binding.editClock.text.toString() + "\")"
+            } else {
+                copystring = binding.editDate.text.toString()
+            }
+
+            hyperLinkGeneratorViewModel.textCopyThenPost(requireContext(), copystring)
+        }
+
+        binding.EmptyTextFieldButtonDate.setOnClickListener {
+            binding.editDate.setText("")
+            binding.editClock.setText("")
         }
 
         textWatcher()
