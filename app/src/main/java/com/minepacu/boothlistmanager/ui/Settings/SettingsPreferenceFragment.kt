@@ -49,7 +49,6 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        PreferenceManager.setDefaultValues(requireContext(), R.xml.preference, false)
     }
 
     val prefListener =

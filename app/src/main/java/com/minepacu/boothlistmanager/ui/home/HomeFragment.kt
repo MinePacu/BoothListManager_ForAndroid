@@ -13,7 +13,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.chaquo.python.Python
 import com.chaquo.python.android.AndroidPlatform
+import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.databinding.FragmentHomeBinding
+import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 import org.w3c.dom.Text
 
 class HomeFragment : Fragment() {
@@ -37,6 +39,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        PreferenceManager.setDefaultValues(requireContext(), R.xml.preference, false)
 
         val textView_ServiceConnectionStatus: TextView = binding.textServiceConnectionStatus
         homeViewModel.text_ServiceConnectionStatus.observe(viewLifecycleOwner) {
@@ -83,6 +86,9 @@ class HomeFragment : Fragment() {
                     it, prefs.getString("sheetNumber", "")!!.toInt())
             }
         }
+
+        val sheetId = prefs.getString("sheetId", "")
+        PythonClass.setVariable("sheetId", sheetId)
 
         binding.buttonReloadsheetInfo.setOnClickListener {
             textView_SheetTitle.text = "로드 중....."
