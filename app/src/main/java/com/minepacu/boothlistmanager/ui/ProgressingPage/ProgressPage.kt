@@ -8,6 +8,7 @@ import com.minepacu.boothlistmanager.R
 class ProgressPage(context : Context) : Dialog(context) {
     init {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setCancelable(false)
         setContentView(R.layout.page_progress)
     }
 }
