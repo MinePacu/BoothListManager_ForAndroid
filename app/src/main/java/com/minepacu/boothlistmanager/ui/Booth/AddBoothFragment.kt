@@ -13,13 +13,18 @@ import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.data.model.BoothInfo
 import com.minepacu.boothlistmanager.databinding.FragmentAddboothBinding
 import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
 import kotlinx.coroutines.Job
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class AddBoothFragment : Fragment() {
 
@@ -60,7 +65,8 @@ class AddBoothFragment : Fragment() {
             binding.editGenre.editText?.setText("")
             binding.editInfoLabel.editText?.setText("")
             binding.editInfoLabel.editText?.setText("")
-            binding.editPreOrderDate.editText?.setText("")
+            binding.editPreorderDateLayout.editText?.setText("")
+            binding.editPreorderClockLayout.editText?.setText("")
             binding.editPreOrderLabel.editText?.setText("")
             binding.editPreOrderLink.editText?.setText("")
         }
@@ -72,15 +78,20 @@ class AddBoothFragment : Fragment() {
             val yoil = binding.YoilGroup.checkedRadioButtonId
             val infolabel = binding.editInfoLabel.editText?.text.toString()
             val infolink = binding.editInfoLink.editText?.text.toString()
-            val preorder_date = binding.editPreOrderDate.editText?.text.toString()
             val preorder_label = binding.editPreOrderLabel.editText?.text.toString()
             val preorder_link = binding.editPreOrderLink.editText?.text.toString()
 
-            var new_yoil  = ""
+            var new_yoil = ""
             when {
                 yoil == binding.FesInSaturday.id -> new_yoil = "토"
                 yoil == binding.FesInSunday.id -> new_yoil = "일"
                 yoil == binding.FesInboth.id -> new_yoil = "토/일"
+            }
+
+            var preorder_date = ""
+            when {
+                binding.editPreOrderClock.text.toString() != "" -> preorder_date = binding.editPreOrderDate.text.toString() + "//" + binding.editPreOrderClock.text.toString()
+                else -> preorder_date = binding.editPreOrderDate.text.toString()
             }
 
             val boothInfo = BoothInfo(boothnumber, boothname, genre, new_yoil,
@@ -92,6 +103,39 @@ class AddBoothFragment : Fragment() {
 
             PythonClass.setVariable("sheetId", prefs.getString("sheetId", ""))
             addboothViewModel.addBoothInfoToSheet(root, customProgressPage, boothInfo)
+        }
+
+        binding.addPreorderdateButton.setOnClickListener {
+            val datepicker = MaterialDatePicker.Builder.datePicker()
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setTitleText("마감 일자 선택")
+                .build()
+
+            datepicker.addOnPositiveButtonClickListener {
+                val sdf = SimpleDateFormat("M/d(EEE)", Locale.KOREA)
+                val date = sdf.format(it)
+
+                binding.editPreOrderDate.setText(date)
+            }
+
+            datepicker.show(parentFragmentManager, "Tag")
+        }
+
+        binding.addPreorderclockButton.setOnClickListener {
+            val timepicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(12).setMinute(0)
+                .setTitleText("마감 시간 선택")
+                .build()
+
+            timepicker.addOnPositiveButtonClickListener {
+                if (timepicker.minute != 0) {
+                    binding.editPreOrderClock.setText(timepicker.hour.toString() + "시 " + timepicker.minute.toString() + "분")
+                } else {
+                    binding.editPreOrderClock.setText(timepicker.hour.toString() + "시")
+                }
+            }
+
+            timepicker.show(parentFragmentManager, "Tag")
         }
 
         textWatcher()
