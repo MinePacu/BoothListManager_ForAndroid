@@ -269,9 +269,9 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                          fmt)
     
     if (dateline_In_aRow != 1):
-      gspread_formatting.set_row_height(sheet_, sheetStartIndex, 21 + (14 * dateline_In_aRow))
+      gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 21 + (14 * dateline_In_aRow))
     else:
-      gspread_formatting.set_row_height(sheet_, sheetStartIndex, 30)
+      gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 30)
 
     updatetime = SetUpdateDates()
     hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
