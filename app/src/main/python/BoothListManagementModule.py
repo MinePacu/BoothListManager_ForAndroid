@@ -269,7 +269,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                          fmt)
     
     if (dateline_In_aRow != 1):
-      gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 21 + (14 * dateline_In_aRow))
+      gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 21 + (14 * (dateline_In_aRow - 1)))
     else:
       gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 30)
 
