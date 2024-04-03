@@ -93,6 +93,9 @@ sheetStartIndex = 3
 # 업데이트 로그의 가장 최신 로그가 자리할 열의 위치
 updateSheetStartIndex = 5
 
+# 한 행에 있는 데이터의 줄 수
+dateline_In_aRow = 1
+
 updateLogType = 4
 
 class LogType(Enum):
@@ -262,6 +265,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
     gspread_formatting.format_cell_range(sheet_,
                                          f"{BoothNumber_Col_Alphabet}{sheetStartIndex}:{Etc_Point_Col_Alphabet}{sheetStartIndex}",
                                          fmt)
+    gspread_formatting.set_row_height(sheet_, sheetStartIndex, 21 + (14 * dateline_In_aRow))
 
     updatetime = SetUpdateDates()
     hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"

@@ -94,6 +94,13 @@ class AddBoothFragment : Fragment() {
                 else -> preorder_date = binding.editPreOrderDate.text.toString()
             }
 
+            if (genre.contains("//") == true) {
+                val tempstr = genre.split("//")
+                PythonClass.setVariable("dateline_In_aRow", tempstr.count())
+            } else {
+                PythonClass.setVariable("dateline_In_aRow", 1)
+            }
+
             val boothInfo = BoothInfo(boothnumber, boothname, genre, new_yoil,
                 infolabel, infolink,
                 preorder_date, preorder_label, preorder_link)
