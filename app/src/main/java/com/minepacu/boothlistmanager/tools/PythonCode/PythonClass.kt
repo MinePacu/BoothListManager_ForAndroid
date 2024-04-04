@@ -121,6 +121,13 @@ class PythonClass {
             }
         }
 
+        /**
+         * 부스 이름, 링크 이름, 오프셋 값을 이용해 업데이트 로그를 수동으로 등록합니다.
+         * @param boothname 업데이트 로그에 들어갈 부스 이름
+         * @param linkname 업데이트 로그에 들어갈 링크 이름
+         * @param offset 해당 부스가 이미 가지고 있는 링크의 수로 해당 링크 수만큼 아래 행으로 내려가 링크를 지정합니다.
+         * @return 이 함수의 정상 실행 여부
+         */
         suspend fun addUpdateLog(boothname: String, linkname: String, offset: Int): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun addUpdateLog is Executed")
