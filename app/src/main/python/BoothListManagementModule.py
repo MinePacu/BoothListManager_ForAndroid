@@ -268,7 +268,11 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
     gspread_formatting.format_cell_range(sheet_,
                                          f"{BoothNumber_Col_Alphabet}{sheetStartIndex}:{Etc_Point_Col_Alphabet}{sheetStartIndex}",
                                          fmt)
-    gspread_formatting.set_row_height(sheet_, sheetStartIndex, 21 + (14 * dateline_In_aRow))
+    
+    if (dateline_In_aRow != 1):
+      gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 21 + (17 * (dateline_In_aRow - 1)))
+    else:
+      gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 30)
 
     updatetime = SetUpdateDates()
     if preorder_Label != "":
