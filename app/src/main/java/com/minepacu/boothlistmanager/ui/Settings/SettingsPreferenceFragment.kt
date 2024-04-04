@@ -16,7 +16,8 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
     var sheetIdPreference: Preference? = null
 
     var sheetNumberPreference: Preference? = null
-    var sheetStartIndex: Preference? = null
+    var sheetStartIndexPreference: Preference? = null
+    var sheetRowHeightPerLinePreference: Preference? = null
 
     var updateSheetNumberPreference: Preference? = null
     var updateSheetNamePreference: Preference? = null
@@ -35,7 +36,8 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             sheetIdPreference = findPreference("sheetId")
 
             sheetNumberPreference = findPreference("sheetNumber")
-            sheetStartIndex = findPreference("sheetStartIndex")
+            sheetStartIndexPreference = findPreference("sheetStartIndex")
+            sheetRowHeightPerLinePreference = findPreference("sheetRowHeightPerLine")
 
             updateSheetNumberPreference = findPreference("updateSheetNumber")
             updateSheetNamePreference = findPreference("updateSheetName")
@@ -76,6 +78,15 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                     val sheetStartIndex_Set = prefs.getString("sheetStartIndex", "")
                     try {
                         PythonClass.setVariable("sheetStartIndex", sheetStartIndex_Set?.toInt())
+                    } catch (e: PyException) {
+                        Result.Error(Exception(e.message))
+                    }
+                }
+
+                "sheetRowHeightPerLine" -> {
+                    val sheetRowHeightPerLine_Set = prefs.getString("sheetRowHeightPerLine", "")
+                    try {
+                        PythonClass.setVariable("sheetRowHeightPerLine", sheetRowHeightPerLine_Set?.toInt())
                     } catch (e: PyException) {
                         Result.Error(Exception(e.message))
                     }

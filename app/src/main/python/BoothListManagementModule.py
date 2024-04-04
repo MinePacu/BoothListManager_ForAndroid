@@ -97,6 +97,9 @@ updateSheetStartIndex = 5
 # 한 행에 있는 데이터의 줄 수
 dateline_In_aRow = 1
 
+# 선입금, 통판, 수요조사 시트에서 다중 줄을 포함하는 행의 커스텀 높이 값
+sheetRowHeightPerLine = 17
+
 updateLogType = 4
 
 class LogType(Enum):
@@ -270,7 +273,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                          fmt)
     
     if (dateline_In_aRow != 1):
-      gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 21 + (17 * (dateline_In_aRow - 1)))
+      gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 21 + (sheetRowHeightPerLine * (dateline_In_aRow - 1)))
     else:
       gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 30)
 

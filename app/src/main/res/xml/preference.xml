@@ -31,6 +31,12 @@
             android:summary="부스 번호가 없는 부스의 정보를 추가할 때, 어느 위치에 추가할지 설정합니다. 기본값은 3입니다."
             android:defaultValue="3"/>
 
+        <EditTextPreference
+            android:key="sheetRowHeightPerLine"
+            android:title="다중 줄 행 높이 설정"
+            android:summary="해당 행이 다중 줄의 셀을 포함하는 경우, 그 행의 높이 값을 설정합니다."
+            android:defaultValue="17"/>
+
     </PreferenceCategory>
 
     <PreferenceCategory
