@@ -73,6 +73,7 @@ Pre_Order_link_Col_Number = 8
 BoothNumber_Col_Alphabet = 'B'
 BoothName_Col_Alphabet = 'C'
 Yoil_Col_Alphabet = 'E'
+InfoLabel_Link_Col_Alphabet = 'F'
 Pre_Order_link_Col_Alphabet = 'H'
 Etc_Point_Col_Alphabet = 'I'
 
@@ -270,7 +271,12 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
     gspread_formatting.set_row_height(sheet_, sheetStartIndex, 21 + (14 * dateline_In_aRow))
 
     updatetime = SetUpdateDates()
-    hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
+    if preorder_Label != "":
+      hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
+    else:
+      hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={InfoLabel_Link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
+      
+
     AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet_.id,
                  hyperLinkCell, BoothName=boothname, LinkName=preorder_Label)
 
