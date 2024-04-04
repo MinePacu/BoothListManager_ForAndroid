@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
+import com.chaquo.python.Python
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -98,7 +99,11 @@ class AddBoothFragment : Fragment() {
                 val tempstr = genre.split("//")
                 PythonClass.setVariable("dateline_In_aRow", tempstr.count())
             } else {
-                PythonClass.setVariable("dateline_In_aRow", 1)
+                if (binding.editPreOrderClock.text.toString() != "") {
+                    PythonClass.setVariable("dateline_In_aRow", 2)
+                } else {
+                    PythonClass.setVariable("dateline_In_aRow", 1)
+                }
             }
 
             val boothInfo = BoothInfo(boothnumber, boothname, genre, new_yoil,

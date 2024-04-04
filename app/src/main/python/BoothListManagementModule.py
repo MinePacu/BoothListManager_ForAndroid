@@ -280,12 +280,12 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
     updatetime = SetUpdateDates()
     if preorder_Label != "":
       hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
+      AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet_.id,
+                   hyperLinkCell, BoothName=boothname, LinkName=preorder_Label)
     else:
       hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={InfoLabel_Link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
-      
-
-    AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet_.id,
-                 hyperLinkCell, BoothName=boothname, LinkName=preorder_Label)
+      AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet_.id,
+                 hyperLinkCell, BoothName=boothname, LinkName=infoLabel)
 
     if MapSheetNumber != None:
       SetLinkToMap(boothnumber)
