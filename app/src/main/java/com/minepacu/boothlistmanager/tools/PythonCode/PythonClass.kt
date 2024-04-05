@@ -154,6 +154,11 @@ class PythonClass {
             }
         }
 
+        /**
+         * 지정한 시트 ID에 해당하는 시트 데이터를 가져옵니다.
+         * @param sheetId 가져오려는 시트의 ID
+         * @return 함수의 정상 수행 여부
+         */
         suspend fun getSheet(sheetId: String): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun getGid is Executed")

@@ -165,6 +165,8 @@ class AddBoothFragment : Fragment() {
 
                         PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
                         PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
+
+                        Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
                     } catch (e: PyException) {
                         view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
                     }
@@ -175,6 +177,8 @@ class AddBoothFragment : Fragment() {
 
                         PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
                         PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
+
+                        Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
                     } catch (e: PyException) {
                         view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
                     }
@@ -185,6 +189,8 @@ class AddBoothFragment : Fragment() {
 
                         PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
                         PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
+
+                        Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
                     } catch (e: PyException) {
                         view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
                     }
