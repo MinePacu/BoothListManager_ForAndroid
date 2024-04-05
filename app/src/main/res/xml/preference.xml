@@ -14,16 +14,57 @@
 
     </PreferenceCategory>
 
-
     <PreferenceCategory
-        android:key="pre_order_category"
-        android:title="선입금 시트">
+        android:key="list_sheet_Index_category"
+        android:title="목록 시트 인덱스">
 
         <EditTextPreference
             android:key="sheetNumber"
             android:title="선입금 링크 시트 인덱스"
             android:summary="선입금 링크 또는 인포들을 담은 부스들의 정보를 등록할 시트의 인덱스입니다. 이 값은 0부터 시작합니다."
             android:defaultValue="0"/>
+
+        <EditTextPreference
+            android:key="mail_order_sheet_Index"
+            android:title="통판 시트 인덱스"
+            android:summary="시트 ID에 해당하는 시트 안에 있는 시트들의 인덱스 중 통판 시트에 해당하는 값입니다. 기본값은 2입니다."
+            android:defaultValue="2" />
+
+        <EditTextPreference
+            android:key="grasping_demand_sheet_Index"
+            android:title="수요조사 시트 인덱스"
+            android:summary="시트 ID에 해당하는 시트 안에 있는 시트들의 인덱스 중 수요조사 시트에 해당하는 값입니다. 기본값은 4입니다."
+            android:defaultValue="4"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="update_log_sheet_Index_category"
+        android:title="업데이트 로그 시트 인덱스">
+
+        <EditTextPreference
+            android:key="updateSheetNumber"
+            android:title="업데이트 시트 인덱스"
+            android:summary="업데이트 로그를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 1입니다."
+            android:defaultValue="1"/>
+
+        <EditTextPreference
+            android:key="update_mail_order_sheetIndex"
+            android:title="업데이트 시트 인덱스 (통판용)"
+            android:summary="업데이트 로그 (통판용)를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 3입니다."
+            android:defaultValue="3" />
+
+        <EditTextPreference
+            android:key="update_grasping_demand_sheetIndex"
+            android:title="업데이트 시트 인덱스 (수요조사용)"
+            android:summary="업데이트 로그 (수요조사용)를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 5입니다."
+            android:defaultValue="5" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="list_sheet_category"
+        android:title="목록 시트">
 
         <EditTextPreference
             android:key="sheetStartIndex"
@@ -41,13 +82,7 @@
 
     <PreferenceCategory
         android:key="update_category"
-        android:title="업데이트 로그 시트 (선입금용)">
-
-        <EditTextPreference
-            android:key="updateSheetNumber"
-            android:title="업데이트 시트 인덱스"
-            android:summary="업데이트 로그를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 1입니다."
-            android:defaultValue="1"/>
+        android:title="업데이트 로그 시트">
 
         <EditTextPreference
             android:key="updateSheetName"
@@ -72,26 +107,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="mail_order_category"
-        android:title="통판 시트">
-
-        <EditTextPreference
-            android:key="mail_order_sheet_Index"
-            android:title="통판 시트 인덱스"
-            android:summary="시트 ID에 해당하는 시트 안에 있는 시트들의 인덱스 중 통판 시트에 해당하는 값입니다. 기본값은 2입니다."
-            android:defaultValue="2" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="update_mail_order_category"
         android:title="업데이트 로그 시트 (통판용)">
-
-        <EditTextPreference
-            android:key="update_mail_order_sheetIndex"
-            android:title="업데이트 시트 인덱스"
-            android:summary="업데이트 로그 (통판용)를 담은 시트가 몇 번째 시트인지를 나타내는 인덱스 값입니다. 기본값은 3입니다."
-            android:defaultValue="3" />
 
         <EditTextPreference
             android:key="update_mail_order_SheetStartIndex"

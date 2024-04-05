@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
+import com.chaquo.python.PyException
 import com.chaquo.python.Python
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
@@ -52,7 +53,7 @@ class AddBoothFragment : Fragment() {
         val emptyTextButton = binding.EmptyTextFieldButton
         val customProgressPage = this.context?.let { ProgressPage(it) }
 
-        val items = arrayOf("선입금", "통판")
+        val items = arrayOf("선입금", "수요조사", "통판")
         val adapter = ArrayAdapter(requireContext(), R.layout.list_sheettype, items)
 
         (binding.selectionSheet.editText as? AutoCompleteTextView)?.setAdapter(adapter)
@@ -89,10 +90,9 @@ class AddBoothFragment : Fragment() {
                 yoil == binding.FesInboth.id -> new_yoil = "토/일"
             }
 
-            var preorder_date = ""
-            when {
-                binding.editPreOrderClock.text.toString() != "" -> preorder_date = binding.editPreOrderDate.text.toString() + "//" + binding.editPreOrderClock.text.toString()
-                else -> preorder_date = binding.editPreOrderDate.text.toString()
+            val preorder_date = when {
+                binding.editPreOrderClock.text.toString() != "" -> binding.editPreOrderDate.text.toString() + "//" + binding.editPreOrderClock.text.toString()
+                else -> binding.editPreOrderDate.text.toString()
             }
 
             if (genre.contains("//") == true) {
@@ -149,6 +149,48 @@ class AddBoothFragment : Fragment() {
 
             timepicker.show(parentFragmentManager, "Tag")
         }
+
+        binding.selectionSheetTextView.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.selectionSheetTextView.text!!.toString() == "선입금") {
+                    try {
+                        val sheetIndex_Set = prefs.getString("sheetNumber", "")
+                        val updatesheetIndex_Set = prefs.getString("updateSheetNumber", "")
+
+                        PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                        PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
+                    } catch (e: PyException) {
+                        view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
+                    }
+                } else if (binding.selectionSheetTextView.text!!.toString() == "통판") {
+                    try {
+                        val sheetIndex_Set = prefs.getString("mail_order_sheet_Index", "")
+                        val updatesheetIndex_Set = prefs.getString("update_mail_order_sheetIndex", "")
+
+                        PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                        PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
+                    } catch (e: PyException) {
+                        view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
+                    }
+                } else if (binding.selectionSheetTextView.text!!.toString() == "수요조사") {
+                    try {
+                        val sheetIndex_Set = prefs.getString("grasping_demand_sheet_Index", "")
+                        val updatesheetIndex_Set = prefs.getString("update_grasping_demand_sheetIndex", "")
+
+                        PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                        PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
+                    } catch (e: PyException) {
+                        view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
+                    }
+                }
+            }
+        })
 
         textWatcher()
         return root
