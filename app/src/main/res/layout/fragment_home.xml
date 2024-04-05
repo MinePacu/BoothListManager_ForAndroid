@@ -197,6 +197,118 @@
 
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/sheet_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:dividerInsetStart="16dp"
+            app:dividerInsetEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/card_workSheetTitle"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_sheet_updateTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sheet_divider">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시트 타이틀 현황"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="연결된 워크시트들의 타이틀"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary"
+                    />
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="3"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageView
+                        android:id="@+id/image_loadedworksheetInfo_sheet"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="7dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/worksheetTitle_sheet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="WorksheetTitle"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+
+                    <ImageView
+                        android:id="@+id/image_loadedworksheetInfo_mail_order_sheet"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="7dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/worksheetTitle_mail_order_sheet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="WorksheetTitle"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+
+                    <ImageView
+                        android:id="@+id/image_loadedworksheetInfo_grasping_demand_sheet"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="7dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/worksheetTitle_grasping_demand_sheet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="WorksheetTitle"
+                        android:textAppearance="?attr/textAppearanceBodyMedium"
+                        android:textColor="?android:attr/textColorSecondary"
+                        />
+
+                </GridLayout>
+
+                <Button
+                    android:id="@+id/button_reloadworksheetInfo_eachSheet"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:text="다시 불러오기"
+                    />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.core.widget.NestedScrollView>
