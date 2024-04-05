@@ -92,7 +92,7 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                     }
                 }
 
-                "grapsing_demand_sheet_Index" -> {
+                "grasping_demand_sheet_Index" -> {
 
                 }
 

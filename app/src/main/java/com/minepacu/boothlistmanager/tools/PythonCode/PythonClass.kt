@@ -154,13 +154,34 @@ class PythonClass {
             }
         }
 
+        suspend fun getSheet(sheetId: String): Result<Boolean> {
+            return withContext(Dispatchers.IO) {
+                Log.d("Debug", "Fun getGid is Executed")
+                now_WorkSheet = boothListManagementModule.callAttr("getSheet", sheetId)
+
+                Log.d(
+                    "Debug",
+                    when {
+                        (now_WorkSheet == null) -> "IsNull of result from getGid : true"
+                        else -> "IsNull of result from getGid : false"
+                    })
+
+                if (now_WorkSheet != null) {
+                    //Log.d("Debug", "Result : " + now_worksheet?.get("id").toString())
+                    Result.Success(true)
+                } else {
+                    Result.Error(Exception("시트 데이터를 불러오지 못했습니다."))
+                }
+            }
+        }
+
         /**
          * 지정한 매개 변수의 값에 해당하는 워크시트를 가져옵니다.
          * @param sheetId 워크시트가 있는 시트의 ID
          * @param sheetNumber 워크시트가 해당하는 인덱스 값, 0부터 시작합니다.
          * @return 함수의 정상 수행 여부
          */
-        suspend fun getSheet_WorkSheet(sheetId: String, sheetNumber: Int): Result<Boolean> {
+        suspend fun getWorkSheet(sheetId: String, sheetNumber: Int): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun getGid is Executed")
                 now_WorkSheet = boothListManagementModule.callAttr("getWorkSheet", sheetId, sheetNumber)
@@ -176,7 +197,7 @@ class PythonClass {
                     //Log.d("Debug", "Result : " + now_worksheet?.get("id").toString())
                     Result.Success(true)
                 } else {
-                    Result.Error(Exception("시트의 GID 값을 불러오지 못했습니다."))
+                    Result.Error(Exception("워크 시트 데이터를 불러오지 못했습니다."))
                 }
             }
         }

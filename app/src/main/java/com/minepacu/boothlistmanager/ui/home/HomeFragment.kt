@@ -38,27 +38,28 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         PreferenceManager.setDefaultValues(requireContext(), R.xml.preference, false)
 
+        // Google API Service Status
         val textView_ServiceConnectionStatus: TextView = binding.textServiceConnectionStatus
         homeViewModel.text_ServiceConnectionStatus.observe(viewLifecycleOwner) {
             textView_ServiceConnectionStatus.text = it
         }
 
-        val textView_SheetTitle: TextView = binding.sheetTitle
-        homeViewModel.text_sheetTitle.observe(viewLifecycleOwner) {
-            textView_SheetTitle.text = it
-        }
-
-        val textView_WorkSheetTitle: TextView = binding.worksheetTitle
-        homeViewModel.text_worksheetTitle.observe(viewLifecycleOwner) {
-            textView_WorkSheetTitle.text = it
-        }
-
+        // Google API Login Status Icon
         val image_Login: ImageView = binding.imageLogin
         homeViewModel.image_login.observe(viewLifecycleOwner) {
             image_Login.setImageResource(it)
+        }
+
+        // =======================================================================================
+
+        // Connected Sheet Title
+        val textView_SheetTitle: TextView = binding.sheetTitle
+        homeViewModel.text_sheetTitle.observe(viewLifecycleOwner) {
+            textView_SheetTitle.text = it
         }
 
         val image_loadedsheetInfo: ImageView = binding.imageLoadedsheetInfo
@@ -66,14 +67,59 @@ class HomeFragment : Fragment() {
             image_loadedsheetInfo.setImageResource(it)
         }
 
+        // =======================================================================================
+
+        // WorkSheet_TItle
+        val textView_WorkSheetTitle: TextView = binding.worksheetTitle
+        homeViewModel.text_worksheetTitle.observe(viewLifecycleOwner) {
+            textView_WorkSheetTitle.text = it
+        }
+
         val image_loadedworkSheetInfo: ImageView = binding.imageLoadedworksheetInfo
         homeViewModel.image_loadedworksheetInfo.observe(viewLifecycleOwner) {
             image_loadedworkSheetInfo.setImageResource(it)
         }
 
+        // ======================================================================================
+
+        val textView_preoder_info_sheetTitle: TextView = binding.preorderInfoSheetTitle
+        homeViewModel.text_preorder_info_sheetTitle.observe(viewLifecycleOwner) {
+            textView_preoder_info_sheetTitle.text = it
+        }
+
+        val textView_mail_order_sheetTitle: TextView = binding.mailOrderSheetTitle
+        homeViewModel.text_mail_order_sheetTitle.observe(viewLifecycleOwner) {
+            textView_mail_order_sheetTitle.text = it
+        }
+
+        val textView_grasping_demand_sheetTitle: TextView = binding.graspingDemandSheetTitle
+        homeViewModel.text_grasping_demand_sheetTitle.observe(viewLifecycleOwner) {
+            textView_grasping_demand_sheetTitle.text = it
+        }
+
+        val image_preorder_info_sheet: ImageView = binding.imagePreorderInfoSheet
+        homeViewModel.image_preorder_info_sheet.observe(viewLifecycleOwner) {
+            image_preorder_info_sheet.setImageResource(it)
+        }
+
+        val image_mail_order_sheet: ImageView = binding.imageMailOrderSheet
+        homeViewModel.image_mail_order_sheet.observe(viewLifecycleOwner) {
+            image_mail_order_sheet.setImageResource(it)
+        }
+
+        val image_grasping_demand_sheet: ImageView = binding.imageGraspingDemandSheet
+        homeViewModel.image_grasping_demand_sheet.observe(viewLifecycleOwner) {
+            image_grasping_demand_sheet.setImageResource(it)
+        }
+
+        // ========================================================================================
+
         if (!Python.isStarted()) {
             getContext()?.let { AndroidPlatform(it) }?.let { Python.start(it) }
         }
+
+        val sheetId = prefs.getString("sheetId", "")
+        PythonClass.setVariable("sheetId", sheetId)
 
         if (homeViewModel.isLoginToGoogleAPI == false) {
             binding.buttonReloadsheetInfo.isEnabled = false
@@ -83,12 +129,9 @@ class HomeFragment : Fragment() {
             binding.buttonReloadworksheetInfo.isEnabled = false
             prefs.getString("sheetId", "")?.let {
                 homeViewModel.getSheet(root,
-                    it, prefs.getString("sheetNumber", "")!!.toInt())
+                    it, prefs.getString("sheetNumber", "")!!.toInt(), prefs.getString("mail_order_sheet_Index", "")!!.toInt(), prefs.getString("grasping_demand_sheet_Index", "")!!.toInt())
             }
         }
-
-        val sheetId = prefs.getString("sheetId", "")
-        PythonClass.setVariable("sheetId", sheetId)
 
         binding.buttonReloadsheetInfo.setOnClickListener {
             textView_SheetTitle.text = "로드 중....."
@@ -96,7 +139,7 @@ class HomeFragment : Fragment() {
             homeViewModel.isLoadedSheetId = false
             prefs.getString("sheetId", "")?.let {
                 homeViewModel.getSheet(root,
-                    it, prefs.getString("sheetNumber", "")!!.toInt())
+                    it, prefs.getString("sheetNumber", "")!!.toInt(), prefs.getString("mail_order_sheet_Index", "")!!.toInt(), prefs.getString("grasping_demand_sheet_Index", "")!!.toInt())
             }
         }
 
@@ -107,7 +150,7 @@ class HomeFragment : Fragment() {
             prefs.getString("sheetId", "")?.let {
                 homeViewModel.getSheet(
                     root,
-                    it, prefs.getString("sheetNumber", "")!!.toInt())
+                    it, prefs.getString("sheetNumber", "")!!.toInt(), prefs.getString("mail_order_sheet_Index", "")!!.toInt(), prefs.getString("grasping_demand_sheet_Index", "")!!.toInt())
             }
         }
 

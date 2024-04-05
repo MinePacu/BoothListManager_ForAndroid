@@ -30,7 +30,7 @@ class HyperLinkGeneratorViewModel : ViewModel() {
      */
     fun getGid(view :View, context: Context, sheetId: String, sheetNumber: Int, boothcell: String, linkLabel: String): Job {
         return viewModelScope.launch {
-            val result = PythonClass.getSheet_WorkSheet(sheetId, sheetNumber)
+            val result = PythonClass.getWorkSheet(sheetId, sheetNumber)
 
             when (result) {
                 is Result.Success<Boolean> -> {

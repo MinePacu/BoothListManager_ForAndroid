@@ -241,7 +241,7 @@
                     app:layout_constraintEnd_toEndOf="parent">
 
                     <ImageView
-                        android:id="@+id/image_loadedworksheetInfo_sheet"
+                        android:id="@+id/image_preorder_info_sheet"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginTop="16dp"
@@ -249,7 +249,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/worksheetTitle_sheet"
+                        android:id="@+id/preorder_info_sheet_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -259,7 +259,7 @@
                         />
 
                     <ImageView
-                        android:id="@+id/image_loadedworksheetInfo_mail_order_sheet"
+                        android:id="@+id/image_mail_order_sheet"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginTop="16dp"
@@ -267,7 +267,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/worksheetTitle_mail_order_sheet"
+                        android:id="@+id/mail_order_sheetTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -277,7 +277,7 @@
                         />
 
                     <ImageView
-                        android:id="@+id/image_loadedworksheetInfo_grasping_demand_sheet"
+                        android:id="@+id/image_grasping_demand_sheet"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginTop="16dp"
@@ -285,7 +285,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/worksheetTitle_grasping_demand_sheet"
+                        android:id="@+id/grasping_demand_sheetTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
