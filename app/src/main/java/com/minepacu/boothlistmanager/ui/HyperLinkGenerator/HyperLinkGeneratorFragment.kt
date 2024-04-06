@@ -1,21 +1,28 @@
 package com.minepacu.boothlistmanager.ui.HyperLinkGenerator
 
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
+import com.chaquo.python.PyException
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
+import com.minepacu.boothlistmanager.R
 import com.minepacu.boothlistmanager.databinding.FragmentHyperlinkgeneratorBinding
+import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
 import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -39,6 +46,13 @@ class HyperLinkGeneratorFragment : Fragment() {
         _binding = FragmentHyperlinkgeneratorBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val customProgressPage = this.context?.let { ProgressPage(it) }
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+        val items = arrayOf("선입금", "수요조사", "통판")
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_sheettype, items)
+
+        (binding.selectionSheet.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         binding.filledCopyToClipBoardButton.setOnClickListener {
             val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -78,10 +92,25 @@ class HyperLinkGeneratorFragment : Fragment() {
             )
 
             customProgressPage?.show()
+
+            changeSheetNumber(it, prefs)
+
             hyperLinkGeneratorViewModel.addUpdateLog(
                 root, customProgressPage,
                 binding.editBoothnameUpdate.text.toString(), binding.editLinkUpdate.text.toString(), binding.editOffsetUpdate.text.toString().toInt())
         }
+
+        binding.selectionSheetTextView.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                changeSheetNumber(view!!, prefs)
+            }
+        })
 
 
         binding.addDateButton.setOnClickListener {
@@ -133,6 +162,75 @@ class HyperLinkGeneratorFragment : Fragment() {
 
         textWatcher()
         return root
+    }
+
+    fun changeSheetNumber(view: View?, prefs: SharedPreferences) {
+        if (binding.selectionSheetTextView.text!!.toString() == "선입금") {
+            try {
+                val sheetIndex_Set = prefs.getString("sheetNumber", "")
+                val updatesheetIndex_Set = prefs.getString("updateSheetNumber", "")
+
+                PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                PythonClass.setVariable(
+                    "UpdateLogSheetNumber",
+                    updatesheetIndex_Set?.toInt()
+                )
+
+                Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
+            } catch (e: PyException) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "Error : " + e.message,
+                        Snackbar.LENGTH_LONG
+                    )
+                }
+            }
+        } else if (binding.selectionSheetTextView.text!!.toString() == "통판") {
+            try {
+                val sheetIndex_Set = prefs.getString("mail_order_sheet_Index", "")
+                val updatesheetIndex_Set =
+                    prefs.getString("update_mail_order_sheetIndex", "")
+
+                PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                PythonClass.setVariable(
+                    "UpdateLogSheetNumber",
+                    updatesheetIndex_Set?.toInt()
+                )
+
+                Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
+            } catch (e: PyException) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "Error : " + e.message,
+                        Snackbar.LENGTH_LONG
+                    )
+                }
+            }
+        } else if (binding.selectionSheetTextView.text!!.toString() == "수요조사") {
+            try {
+                val sheetIndex_Set = prefs.getString("grasping_demand_sheet_Index", "")
+                val updatesheetIndex_Set =
+                    prefs.getString("update_grasping_demand_sheetIndex", "")
+
+                PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                PythonClass.setVariable(
+                    "UpdateLogSheetNumber",
+                    updatesheetIndex_Set?.toInt()
+                )
+
+                Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
+            } catch (e: PyException) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "Error : " + e.message,
+                        Snackbar.LENGTH_LONG
+                    )
+                }
+            }
+        }
     }
 
     fun textWatcher() {

@@ -192,6 +192,28 @@
                     android:textColor="?android:attr/textColorSecondary" />
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/selection_sheet"
+                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:hint="시트 타입"
+                    app:helperText="업데이트 로그를 등록할 시트의 타입입니다."
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/selection_sheet_TextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_boothname_update_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

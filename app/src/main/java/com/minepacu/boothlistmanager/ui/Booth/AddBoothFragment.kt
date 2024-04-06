@@ -1,5 +1,6 @@
 package com.minepacu.boothlistmanager.ui.Booth
 
+import android.content.SharedPreferences
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
@@ -113,6 +114,8 @@ class AddBoothFragment : Fragment() {
             Log.d("Debug", "BoothInfo : " + boothInfo.toString())
             customProgressPage?.show()
 
+            changeSheetNumber(it, prefs)
+
             PythonClass.setVariable("sheetId", prefs.getString("sheetId", ""))
             addboothViewModel.addBoothInfoToSheet(root, customProgressPage, boothInfo)
         }
@@ -158,48 +161,81 @@ class AddBoothFragment : Fragment() {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                if (binding.selectionSheetTextView.text!!.toString() == "선입금") {
-                    try {
-                        val sheetIndex_Set = prefs.getString("sheetNumber", "")
-                        val updatesheetIndex_Set = prefs.getString("updateSheetNumber", "")
-
-                        PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
-                        PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
-
-                        Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
-                    } catch (e: PyException) {
-                        view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
-                    }
-                } else if (binding.selectionSheetTextView.text!!.toString() == "통판") {
-                    try {
-                        val sheetIndex_Set = prefs.getString("mail_order_sheet_Index", "")
-                        val updatesheetIndex_Set = prefs.getString("update_mail_order_sheetIndex", "")
-
-                        PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
-                        PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
-
-                        Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
-                    } catch (e: PyException) {
-                        view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
-                    }
-                } else if (binding.selectionSheetTextView.text!!.toString() == "수요조사") {
-                    try {
-                        val sheetIndex_Set = prefs.getString("grasping_demand_sheet_Index", "")
-                        val updatesheetIndex_Set = prefs.getString("update_grasping_demand_sheetIndex", "")
-
-                        PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
-                        PythonClass.setVariable("UpdateLogSheetNumber", updatesheetIndex_Set?.toInt())
-
-                        Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
-                    } catch (e: PyException) {
-                        view?.let { Snackbar.make(it, "Error : " + e.message, Snackbar.LENGTH_LONG) }
-                    }
-                }
+                changeSheetNumber(view!!, prefs)
             }
         })
 
         textWatcher()
         return root
+    }
+
+    fun changeSheetNumber(view: View?, prefs: SharedPreferences) {
+        if (binding.selectionSheetTextView.text!!.toString() == "선입금") {
+            try {
+                val sheetIndex_Set = prefs.getString("sheetNumber", "")
+                val updatesheetIndex_Set = prefs.getString("updateSheetNumber", "")
+
+                PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                PythonClass.setVariable(
+                    "UpdateLogSheetNumber",
+                    updatesheetIndex_Set?.toInt()
+                )
+
+                Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
+            } catch (e: PyException) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "Error : " + e.message,
+                        Snackbar.LENGTH_LONG
+                    )
+                }
+            }
+        } else if (binding.selectionSheetTextView.text!!.toString() == "통판") {
+            try {
+                val sheetIndex_Set = prefs.getString("mail_order_sheet_Index", "")
+                val updatesheetIndex_Set =
+                    prefs.getString("update_mail_order_sheetIndex", "")
+
+                PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                PythonClass.setVariable(
+                    "UpdateLogSheetNumber",
+                    updatesheetIndex_Set?.toInt()
+                )
+
+                Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
+            } catch (e: PyException) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "Error : " + e.message,
+                        Snackbar.LENGTH_LONG
+                    )
+                }
+            }
+        } else if (binding.selectionSheetTextView.text!!.toString() == "수요조사") {
+            try {
+                val sheetIndex_Set = prefs.getString("grasping_demand_sheet_Index", "")
+                val updatesheetIndex_Set =
+                    prefs.getString("update_grasping_demand_sheetIndex", "")
+
+                PythonClass.setVariable("sheetNumber", sheetIndex_Set?.toInt())
+                PythonClass.setVariable(
+                    "UpdateLogSheetNumber",
+                    updatesheetIndex_Set?.toInt()
+                )
+
+                Log.d("Debug", "sheetNumber is updated to " + sheetIndex_Set)
+            } catch (e: PyException) {
+                view?.let {
+                    Snackbar.make(
+                        it,
+                        "Error : " + e.message,
+                        Snackbar.LENGTH_LONG
+                    )
+                }
+            }
+        }
     }
 
     fun textWatcher() {
