@@ -9,6 +9,12 @@ import com.minepacu.boothlistmanager.data.model.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+/**
+ * 구글의 스프레드시트와 연동할 수 있는 기능들을 담은 클래스
+ *
+ * @property py 파이썬 코드를 실행할 인스턴스
+ * @property boothListManagementModule 파이썬으로 코딩된 부스 관리 모듈
+ */
 class PythonClass {
 
     companion object {
@@ -30,10 +36,11 @@ class PythonClass {
         var now_WorkSheet: PyObject? = null
 
         /**
-         * 구글 API에 로그인하여 반환된 객체를 LoginInfo에 저장합니다.
-         * 이 LoginInfo 객체는 파이썬 내부의 boothListManagementModule 객체 안의 gc라는 변수에도
+         * 구글 API에 로그인하여 반환된 객체를 [loginInfo]에 저장합니다.
+         *
+         * 이 LoginInfo 객체는 파이썬 내부의 [boothListManagementModule] 객체 안의 gc라는 변수에도
          * 자동으로 저장됩니다.
-         * @return LoginInfo 객체의 유효 여부
+         * @return [loginInfo] 객체의 유효 여부
          * @see loginInfo
          */
         suspend fun loginToGoogleAPI(): Result<Boolean> {
@@ -84,7 +91,7 @@ class PythonClass {
         /**
          * 부스 정보를 시트에 추가합니다.
          * @param boothInfo: 추가할 부스의 정보
-         * @return 함수 addBoothInfoToSheet의 정상 수행 여부
+         * @return 함수 [addBoothInfoToSheet]의 정상 수행 여부
          * @throws PyException: 파이썬 모듈 내에 정의된 addBoothInfoToSheet 함수에서 throw한 예외
          */
         suspend fun addBoothInfoToSheet(boothInfo: BoothInfo): Result<Boolean> {

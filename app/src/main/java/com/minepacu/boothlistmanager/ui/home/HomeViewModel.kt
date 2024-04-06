@@ -89,6 +89,15 @@ class HomeViewModel : ViewModel() {
     var isLoginToGoogleAPI = false
     var isLoadedSheetId = false
 
+    /**
+     * 구글 API에 로그인합니다.
+     *
+     * API의 로그인 여부에 따라 일부 버튼들을 활성화하거나 비활성화합니다.
+     *
+     * @param view SnackBar를 표시할 View
+     * @param buttonReloadSheetInfo 활성화 또는 비활성화할 시트 정보 다시 로드 버튼
+     * @param buttonReloadWorkSheetInfo 활성화 또는 비활성화할 워크 시트 정보 다시 로드 버튼
+     */
     fun loginToGoogleAPI(view : View, buttonReloadSheetInfo: Button, buttonReloadWorkSheetInfo: Button) {
         viewModelScope.launch {
             val result = try {
@@ -115,6 +124,17 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 시트 정보를 가져옵니다.
+     *
+     * 이후에 자동으로 필요한 워크 시트들의 정보들을 같이 가져옵니다.
+     *
+     * @param view SnackBar를 표시할 View
+     * @param sheetId 워크 시트를 가져올 시트의 ID
+     * @param preorder_SheetNumber 가져올 선입금 시트의 인덱스
+     * @param mail_order_SheetNumber 가져올 통판 시트의 인덱스
+     * @param grasping_Demand_SheetNumber 가져올 수요조사 시트의 인덱스
+     */
     fun getSheet(view : View, sheetId: String, preorder_SheetNumber: Int, mail_order_SheetNumber: Int, grasping_Demand_SheetNumber: Int) {
         viewModelScope.launch {
             val result2 = try {
@@ -142,6 +162,18 @@ class HomeViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 지정한 워크 시트의 타이틀을 가져와 TextView UI에 반영합니다.
+     *
+     * 모든 인덱스 값은 0부터 시작합니다.
+     *
+     * @param view SnackBar를 표시할 View
+     * @param sheetId 워크 시트를 가져올 시트의 ID
+     * @param preorder_SheetNumber 가져올 선입금 시트의 인덱스
+     * @param mail_order_SheetNumber 가져올 통판 시트의 인덱스
+     * @param grasping_Demand_SheetNumber 가져올 수요조사 시트의 인덱스
+     * @param isLoadedSheetInfo 미리 시트가 로드되어 있는지 여부
+     */
     fun getWorksheetTitle(view: View, sheetId: String, preorder_SheetNumber: Int, mail_order_SheetNumber: Int, grasping_Demand_SheetNumber: Int, isLoadedSheetInfo: Boolean) {
         viewModelScope.launch {
             if (isLoadedSheetInfo == false) {
