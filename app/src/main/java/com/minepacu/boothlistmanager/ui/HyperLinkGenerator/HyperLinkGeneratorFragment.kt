@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.chaquo.python.PyException
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -48,11 +49,6 @@ class HyperLinkGeneratorFragment : Fragment() {
         val customProgressPage = this.context?.let { ProgressPage(it) }
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-
-        val items = arrayOf("선입금", "수요조사", "통판")
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_sheettype, items)
-
-        (binding.selectionSheet.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         binding.filledCopyToClipBoardButton.setOnClickListener {
             val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -93,24 +89,17 @@ class HyperLinkGeneratorFragment : Fragment() {
 
             customProgressPage?.show()
 
-            changeSheetNumber(it, prefs)
+            changeSheetNumber(it, prefs, binding.selectionSheet)
 
             hyperLinkGeneratorViewModel.addUpdateLog(
                 root, customProgressPage,
                 binding.editBoothnameUpdate.text.toString(), binding.editLinkUpdate.text.toString(), binding.editOffsetUpdate.text.toString().toInt())
         }
 
-        binding.selectionSheetTextView.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                changeSheetNumber(view!!, prefs)
-            }
-        })
+        binding.selectionSheet.addOnButtonCheckedListener { buttonToggleGroup, checkedId, isChecked ->
+            changeSheetNumber(view, prefs, buttonToggleGroup)
+        }
 
 
         binding.addDateButton.setOnClickListener {
@@ -164,8 +153,12 @@ class HyperLinkGeneratorFragment : Fragment() {
         return root
     }
 
-    fun changeSheetNumber(view: View?, prefs: SharedPreferences) {
-        if (binding.selectionSheetTextView.text!!.toString() == "선입금") {
+    fun changeSheetNumber(view: View?, prefs: SharedPreferences, buttonToggleGroup: MaterialButtonToggleGroup?) {
+        if (buttonToggleGroup == null) {
+            return
+        }
+
+        if (buttonToggleGroup.checkedButtonId == R.id.preorderButton) {
             try {
                 val sheetIndex_Set = prefs.getString("sheetNumber", "")
                 val updatesheetIndex_Set = prefs.getString("updateSheetNumber", "")
@@ -186,7 +179,7 @@ class HyperLinkGeneratorFragment : Fragment() {
                     )
                 }
             }
-        } else if (binding.selectionSheetTextView.text!!.toString() == "통판") {
+        } else if (buttonToggleGroup.checkedButtonId == R.id.maIlorderButton) {
             try {
                 val sheetIndex_Set = prefs.getString("mail_order_sheet_Index", "")
                 val updatesheetIndex_Set =
@@ -208,7 +201,7 @@ class HyperLinkGeneratorFragment : Fragment() {
                     )
                 }
             }
-        } else if (binding.selectionSheetTextView.text!!.toString() == "수요조사") {
+        } else if (buttonToggleGroup.checkedButtonId == R.id.graspingdemandButton) {
             try {
                 val sheetIndex_Set = prefs.getString("grasping_demand_sheet_Index", "")
                 val updatesheetIndex_Set =

@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.chaquo.python.PyException
 import com.chaquo.python.Python
+import com.google.android.material.button.MaterialButtonToggleGroup
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -53,11 +54,6 @@ class AddBoothFragment : Fragment() {
         val addboothButton = binding.filledAddBoothButton
         val emptyTextButton = binding.EmptyTextFieldButton
         val customProgressPage = this.context?.let { ProgressPage(it) }
-
-        val items = arrayOf("선입금", "수요조사", "통판")
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_sheettype, items)
-
-        (binding.selectionSheet.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         customProgressPage?.window?.setBackgroundDrawable(
             ColorDrawable(android.graphics.Color.TRANSPARENT))
@@ -114,7 +110,7 @@ class AddBoothFragment : Fragment() {
             Log.d("Debug", "BoothInfo : " + boothInfo.toString())
             customProgressPage?.show()
 
-            changeSheetNumber(it, prefs)
+            changeSheetNumber(it, prefs, binding.selectionSheet)
 
             PythonClass.setVariable("sheetId", prefs.getString("sheetId", ""))
             addboothViewModel.addBoothInfoToSheet(root, customProgressPage, boothInfo)
@@ -153,24 +149,20 @@ class AddBoothFragment : Fragment() {
             timepicker.show(parentFragmentManager, "Tag")
         }
 
-        binding.selectionSheetTextView.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                changeSheetNumber(view!!, prefs)
-            }
-        })
+        binding.selectionSheet.addOnButtonCheckedListener { buttonToggleGroup, checkedId, isChecked ->
+            changeSheetNumber(view, prefs, buttonToggleGroup)
+        }
 
         textWatcher()
         return root
     }
 
-    fun changeSheetNumber(view: View?, prefs: SharedPreferences) {
-        if (binding.selectionSheetTextView.text!!.toString() == "선입금") {
+    fun changeSheetNumber(view: View?, prefs: SharedPreferences, buttonToggleGroup: MaterialButtonToggleGroup?) {
+        if (buttonToggleGroup == null) {
+            return
+        }
+
+        if (buttonToggleGroup.checkedButtonId == R.id.preorderButton) {
             try {
                 val sheetIndex_Set = prefs.getString("sheetNumber", "")
                 val updatesheetIndex_Set = prefs.getString("updateSheetNumber", "")
@@ -191,7 +183,7 @@ class AddBoothFragment : Fragment() {
                     )
                 }
             }
-        } else if (binding.selectionSheetTextView.text!!.toString() == "통판") {
+        } else if (buttonToggleGroup.checkedButtonId == R.id.maIlorderButton) {
             try {
                 val sheetIndex_Set = prefs.getString("mail_order_sheet_Index", "")
                 val updatesheetIndex_Set =
@@ -213,7 +205,7 @@ class AddBoothFragment : Fragment() {
                     )
                 }
             }
-        } else if (binding.selectionSheetTextView.text!!.toString() == "수요조사") {
+        } else if (buttonToggleGroup.checkedButtonId == R.id.graspingdemandButton) {
             try {
                 val sheetIndex_Set = prefs.getString("grasping_demand_sheet_Index", "")
                 val updatesheetIndex_Set =

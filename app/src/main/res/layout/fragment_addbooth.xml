@@ -41,27 +41,36 @@
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
 
-
-                <com.google.android.material.textfield.TextInputLayout
+                <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/selection_sheet"
-                    style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="15dp"
-                    android:hint="시트 타입"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/selection_sheet_TextView"
-                        android:layout_width="match_parent"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="center"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/preorderButton"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
-
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:text="선입금, 인포"
+                        />
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/maIlorderButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="통신판매"
+                        />
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/graspingdemandButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수요조사"
+                        />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
 
             </LinearLayout>
 
