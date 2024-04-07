@@ -62,7 +62,7 @@ class HyperLinkGeneratorViewModel : ViewModel() {
      * 일부 매개 변수의 값들로 만들어지는 로그의 함수 식은 다음과 같습니다.
      * ```
      * =HYPERRINK(CONCATENATE("#gid={링크할 워크 시트의 ID}&range={링크할 시트의 a1Notation}",
-     *                        SUM(MATCH("{[boothname], '{링크할 워크 시트의 타이틀}!C:C, 0), offset), "{로그 내용}")
+     *                        SUM(MATCH("{[boothname]", '{링크할 워크 시트의 타이틀}!C:C, 0), offset), "{로그 내용}")
      * ```
      * @param view SnackBar를 출력할 View
      * @param processingRing 로딩 중 화면 오브젝트, 이 함수를 호출하기 전 [android.app.Dialog.show] 함수를 이미 호출한 상태여야 합니다.
