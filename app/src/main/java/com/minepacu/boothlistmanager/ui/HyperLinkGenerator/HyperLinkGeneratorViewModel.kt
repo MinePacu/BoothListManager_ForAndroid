@@ -18,8 +18,10 @@ import kotlinx.coroutines.launch
 class HyperLinkGeneratorViewModel : ViewModel() {
     /**
      * 해당 워크시트의 아이디(Gid) 값을 가져옵니다.
-     * @param view SnackBar를 출력할 View
-     * @param context 토스트를 띄울 context
+     *
+     * Gid 값을 가져오지 못한 경우, [Snackbar]에 오류 내용이 출력됩니다.
+     * @param view [SnackBar]를 출력할 [View]
+     * @param context [Toast]를 띄울 [context]
      * @param sheetId 가져올 시트의 ID
      * @param sheetNumber 가져올 워크 시트의 인덱스, 이 값은 0부터 시작합니다.
      * @param boothcell 링크로 설정할 a1Notation 값입니다.
@@ -56,11 +58,17 @@ class HyperLinkGeneratorViewModel : ViewModel() {
 
     /**
      * 업데이트 로그 시트에 업데이트 로그를 등록합니다.
+     *
+     * 일부 매개 변수의 값들로 만들어지는 로그의 함수 식은 다음과 같습니다.
+     * ```
+     * =HYPERRINK(CONCATENATE("#gid={링크할 워크 시트의 ID}&range={링크할 시트의 a1Notation}",
+     *                        SUM(MATCH("{[boothname], '{링크할 워크 시트의 타이틀}!C:C, 0), offset), "{로그 내용}")
+     * ```
      * @param view SnackBar를 출력할 View
-     * @param processingRing 로딩 중 화면 오브젝트, 이 함수를 호출하기 전 show() 함수를 이미 호출한 상태여야 합니다.
+     * @param processingRing 로딩 중 화면 오브젝트, 이 함수를 호출하기 전 [android.app.Dialog.show] 함수를 이미 호출한 상태여야 합니다.
      * @param boothname 업데이트 로그에 등록할 부스 이름
      * @param linkName 업데이트 로그에 등록할 링크 이름
-     * @param offset boothname에 해당하는 부스가 이미 가지고 있는 링크의 수
+     * @param offset boothname에 해당하는 부스가 이미 가지고 있는 링크의 수로 해당 값만큼 아래 행을 링크 대상으로 검색합니다.
      * @see Snackbar
      * @see ProgressPage
      */

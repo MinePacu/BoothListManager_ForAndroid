@@ -153,7 +153,18 @@ class HyperLinkGeneratorFragment : Fragment() {
         return root
     }
 
-    fun changeSheetNumber(view: View?, prefs: SharedPreferences, buttonToggleGroup: MaterialButtonToggleGroup?) {
+    /**
+     * UI [MaterialButtonToggleGroup]에서 선택된 버튼에 따라
+     *
+     * 부스 정보를 등록할 워크 시트를 파이썬 모듈 [PythonClass.boothListManagementModule]에 설정합니다.
+     *
+     * 매개 변수 [buttonToggleGroup]이 null이면 워크 시트가 설정되지 않습니다.
+     *
+     * @param view 오류가 생겼을 때, [Snackbar]를 출력할 [View]
+     * @param prefs 앱의 설정 값을 저장 중인 [SharedPreferences] 객체
+     * @param buttonToggleGroup 선입금, 통판, 수요조사 시트 중 하나를 선택할 수 있는 [MaterialButtonToggleGroup] UI 요소
+     */
+    private fun changeSheetNumber(view: View?, prefs: SharedPreferences, buttonToggleGroup: MaterialButtonToggleGroup?) {
         if (buttonToggleGroup == null) {
             return
         }

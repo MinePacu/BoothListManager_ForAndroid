@@ -15,6 +15,17 @@ import kotlinx.coroutines.launch
 
 class AddBoothViewModel : ViewModel() {
 
+    /**
+     * 지정한 워크 시트에 부스 정보를 추가합니다.
+     *
+     * 지정한 워크 시트는 [PythonClass.boothListManagementModule]에 있는 sheetNumber에 의해 결정됩니다.
+     *
+     * @param view 오류가 났을 떄, 오류 메시지를 출력할 [Snackbar]를 사용할 [View]
+     * @param progressPage [android.app.Dialog.show] 함수를 이미 사용한 [ProgressPage] 객체
+     * @param boothInfo 추가할 부스의 정보가 저장된 [BoothInfo] 객체
+     *
+     * @return 부스 추가 작업을 수행하는 [Job] 객체
+     */
     fun addBoothInfoToSheet(view : View, progressPage: ProgressPage?, boothInfo : BoothInfo): Job {
         return viewModelScope.launch {
             val result = async {  PythonClass.addBoothInfoToSheet(boothInfo) }
