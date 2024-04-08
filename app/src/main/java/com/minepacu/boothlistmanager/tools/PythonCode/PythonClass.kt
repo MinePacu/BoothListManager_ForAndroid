@@ -226,7 +226,7 @@ class PythonClass {
         suspend fun moveBoothData(originIndex: Int, moveIndex: Int) : Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun moveBoothData is Executed")
-                val result = boothListManagementModule.callAttr("MoveBoothData", originIndex, moveIndex)
+                val result = boothListManagementModule.callAttr("moveBoothData", originIndex, moveIndex)
 
                 Log.d(
                     "Debug",

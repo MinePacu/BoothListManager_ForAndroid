@@ -534,7 +534,7 @@ def SetUpdateDates():
 
   return updatetime
 
-def MoveBoothData(originIndex: int, moveIndex: int):
+def moveBoothData(originIndex: int, moveIndex: int):
   sh  = gc.open_by_key(sheetId)
   sheet = sh.get_worksheet(sheetNumber)
 
