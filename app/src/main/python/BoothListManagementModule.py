@@ -6,7 +6,7 @@ import re
 from enum import Enum
 from string import ascii_uppercase
 from datetime import datetime
-from gspread.utils import MergeType, ValueInputOption
+from gspread.utils import MergeType, ValueInputOption, ValueRenderOption
 from gspread_formatting.models import Borders
 import gspread_formatting
 
@@ -533,6 +533,22 @@ def SetUpdateDates():
                      f'마지막 업데이트 시간 : {updatetime.year}. {updatetime.month}. {updatetime.day} {updatetime.hour}:{str(updatetime.minute).zfill(2)}:{str(updatetime.second).zfill(2)}')
 
   return updatetime
+
+def MoveBoothData(originIndex: int, moveIndex: int):
+  sh  = gc.open_by_key(sheetId)
+  sheet = sh.get_worksheet(sheetNumber)
+
+  originBoothData = sheet.get(f"{BoothNumber_Col_Alphabet}{originIndex}:{Pre_Order_link_Col_Alphabet}{originIndex}", value_render_option=ValueRenderOption.formula)
+  originBoothData[0].insert(0, '')
+  # print(originBoothData)
+
+  sheet.insert_row(originBoothData[0], moveIndex, value_input_option=ValueInputOption.user_entered)
+  if originIndex > moveIndex : # 이동하려는 위치가 원래 위치보다 위인 경우
+    sheet.delete_rows(originIndex + 1)
+  elif originIndex < moveIndex : # 이동하려는 위치가 원래 위치보다 아래인 경우
+    sheet.delete_rows(originIndex)
+
+  return True
 
 def SetLinkToMap(BoothNumber: str):
   """

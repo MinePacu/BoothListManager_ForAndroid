@@ -90,4 +90,34 @@ class HyperLinkGeneratorViewModel : ViewModel() {
             }
         }
     }
+
+    /**
+     * 지정한 originIndex 위치에서 moveIndex 위치로 부스 데이터를 이동시킵니다.
+     *
+     * *매개 변수의 모든 인덱스는 이동학기 전의 인덱스 값을 기준으로 합니다.*
+     *
+     * @param view 오류가 생겼을 때, [Snackbar]를 출력할 [View] 객체
+     * @param processingRing 이동 중일 때, 출력할 로딩 창 ([ProgressPage]) 객체
+     * @param originIndex 이동하려는 부스 데이터가 있는 인덱스
+     * @param moveIndex 이동하려는 위치의 인덱스
+     * @return 백그라운드 작업 ([Job]) 객체
+     */
+    fun moveBoothData(view: View, processingRing: ProgressPage?, originIndex: Int, moveIndex: Int) : Job {
+        return viewModelScope.launch {
+            val result = PythonClass.moveBoothData(originIndex, moveIndex)
+
+            when (result) {
+                is Result.Success<Boolean> -> {
+                    processingRing?.hide()
+                    Snackbar.make(view, "부스 정보를 성공적으로 이동했습니다.", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+                else -> {
+                    processingRing?.hide()
+                    Snackbar.make(view, "부스 정보를 이동하지 못했습니다.", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
 }

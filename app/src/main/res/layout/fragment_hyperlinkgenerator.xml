@@ -504,6 +504,37 @@
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
 
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/selection_sheet_movingData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="center"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/preorderButton_movingData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="선입금, 인포"
+                        />
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/maIlorderButton_movingData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="통신판매"
+                        />
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/graspingdemandButton_movingData"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수요조사"
+                        />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_originrownumber_layout"
                     android:layout_width="match_parent"

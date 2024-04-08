@@ -214,6 +214,35 @@ class PythonClass {
             }
         }
 
+        /**
+         * 지정한 originIndex 위치에서 moveIndex 위치로 부스 데이터를 이동시킵니다.
+         *
+         * *매개 변수의 모든 인덱스는 이동학기 전의 인덱스 값을 기준으로 합니다.*
+         *
+         * @param originIndex 이동하려는 부스 데이터가 있는 인덱스
+         * @param moveIndex 이동하려는 위치의 인덱스
+         * @return 함수의 정상 실행 여부를 가진 [Result] 객체
+         */
+        suspend fun moveBoothData(originIndex: Int, moveIndex: Int) : Result<Boolean> {
+            return withContext(Dispatchers.IO) {
+                Log.d("Debug", "Fun moveBoothData is Executed")
+                val result = boothListManagementModule.callAttr("MoveBoothData", originIndex, moveIndex)
+
+                Log.d(
+                    "Debug",
+                    when {
+                        (result == null) -> "IsNull of result from getGid : true"
+                        else -> "IsNull of result from getGid : false"
+                    })
+
+                if (result != null) {
+                    Result.Success(true)
+                } else {
+                    Result.Error(Exception("부스 정보를 옮기지 못했습니다."))
+                }
+            }
+        }
+
         fun setVariable(variable_name: String, value: Any?) {
             boothListManagementModule.put(variable_name, value)
         }

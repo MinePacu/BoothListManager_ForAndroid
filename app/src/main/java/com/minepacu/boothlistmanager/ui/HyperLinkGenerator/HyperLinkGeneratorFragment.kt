@@ -149,6 +149,27 @@ class HyperLinkGeneratorFragment : Fragment() {
             binding.editClock.setText("")
         }
 
+        binding.selectionSheetMovingData.addOnButtonCheckedListener { buttonToggleGroup, checkedId, isChecked ->
+            changeSheetNumber(view, prefs, buttonToggleGroup)
+        }
+
+        binding.moveBoothDataButton.setOnClickListener {
+            val originRowIndex = binding.editOriginrownumber.text.toString().toInt()
+            val moveRowIndex = binding.editMovedrownumber.text.toString().toInt()
+
+            customProgressPage?.window?.setBackgroundDrawable(
+                ColorDrawable(Color.TRANSPARENT)
+            )
+            customProgressPage?.show()
+
+            hyperLinkGeneratorViewModel.moveBoothData(it, customProgressPage, originRowIndex, moveRowIndex)
+        }
+
+        binding.EmptyTextFieldButtonMoveinfotool.setOnClickListener {
+            binding.editOriginrownumber.setText("")
+            binding.editMovedrownumber.setText("")
+        }
+
         textWatcher()
         return root
     }
