@@ -499,8 +499,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="부스 데이트를 이전 행에서 지정한 행으로 옮깁니다.
-                    이전 행과 지정한 행 값은 옮기기 전 기준이며, 옮긴 후의 지정한 행의 데이터는 [옮기기 전 행 - 1]입니다."
+                    android:text="부스 데이트를 이전 행에서 지정한 행으로 옮깁니다. 이전 행과 지정한 행 값은 옮기기 전 기준이며, 옮긴 후의 지정한 행의 데이터는 [옮기기 전 행 - 1]입니다."
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="?android:attr/textColorSecondary" />
 
