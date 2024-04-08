@@ -85,6 +85,7 @@ class AddBoothFragment : Fragment() {
                 yoil == binding.FesInSaturday.id -> new_yoil = "토"
                 yoil == binding.FesInSunday.id -> new_yoil = "일"
                 yoil == binding.FesInboth.id -> new_yoil = "토/일"
+                yoil == binding.FesInUnknown.id -> new_yoil = "?"
             }
 
             val preorder_date = when {

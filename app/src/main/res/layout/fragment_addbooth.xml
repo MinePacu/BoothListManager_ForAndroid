@@ -240,6 +240,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="@string/Radio_Both" />
+
+                    <RadioButton
+                        android:id="@+id/FesInUnknown"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="알 수 없음" />
                 </RadioGroup>
 
             </LinearLayout>
