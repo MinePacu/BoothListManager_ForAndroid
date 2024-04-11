@@ -243,6 +243,26 @@ class PythonClass {
             }
         }
 
+        suspend fun putBoothNumbertoSpecificBooth(boothName: String, boothNumber: String) : Result<Boolean> {
+            return withContext(Dispatchers.IO) {
+                Log.d("Debug", "Fun putBoothNumbertoSpecificBooth is Executed")
+                val result = boothListManagementModule.callAttr("putBoothNumbertoSpecificBooth", boothName, boothNumber)
+
+                Log.d(
+                    "Debug",
+                    when {
+                        (result == null) -> "IsNull of result from putBoothNumbertoSpecificBooth : true"
+                        else -> "IsNull of result from putBoothNumbertoSpecificBooth : false"
+                    })
+
+                if (result != null) {
+                    Result.Success(true)
+                } else {
+                    Result.Error(Exception("부스 번호를 옮기지 못했습니다."))
+                }
+            }
+        }
+
         fun setVariable(variable_name: String, value: Any?) {
             boothListManagementModule.put(variable_name, value)
         }

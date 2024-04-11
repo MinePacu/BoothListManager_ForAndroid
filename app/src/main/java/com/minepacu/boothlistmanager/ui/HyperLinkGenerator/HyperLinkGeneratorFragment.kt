@@ -170,6 +170,27 @@ class HyperLinkGeneratorFragment : Fragment() {
             binding.editMovedrownumber.setText("")
         }
 
+        binding.selectionSheetPutBoothNumber.addOnButtonCheckedListener { buttonToggleGroup, checkedId, isChecked ->
+            changeSheetNumber(view, prefs, buttonToggleGroup)
+        }
+
+        binding.putBoothNumberButton.setOnClickListener {
+            val boothname_put = binding.editBoothnameToputBoothNumber.text.toString()
+            val boothNumber_put = binding.editBoothnumberToputBoothNumber.text.toString()
+
+            customProgressPage?.window?.setBackgroundDrawable(
+                ColorDrawable(Color.TRANSPARENT)
+            )
+            customProgressPage?.show()
+
+            hyperLinkGeneratorViewModel.putBoothNumberToSpecificBooth(it, customProgressPage, boothname_put, boothNumber_put)
+        }
+
+        binding.EmptyTextFieldButtonPutBoothNumber.setOnClickListener {
+            binding.editBoothnameToputBoothNumber.setText("")
+            binding.editBoothnumberToputBoothNumber.setText("")
+        }
+
         textWatcher()
         return root
     }

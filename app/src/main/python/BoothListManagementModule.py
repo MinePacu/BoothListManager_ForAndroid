@@ -535,6 +535,12 @@ def SetUpdateDates():
   return updatetime
 
 def moveBoothData(originIndex: int, moveIndex: int):
+  """
+  전역 변수 sheetId와 sheetNumber에 의해 지정된 워크 시트에서 매개 변수에 의해 지정된 인덱스에 있는 부스 데이터를 특정 인덱스로 이동합니다.
+
+  :param originIndex 이동시킬 부스 데이터가 있는 인덱스
+  :param moveIndex 이동시킬 위치 인덱스
+  """
   sh  = gc.open_by_key(sheetId)
   sheet = sh.get_worksheet(sheetNumber)
 
@@ -549,6 +555,26 @@ def moveBoothData(originIndex: int, moveIndex: int):
     sheet.delete_rows(originIndex)
 
   return True
+
+def putBoothNumbertoSpecificBooth(boothname: str, boothnumber: str):
+  """
+  매개 변수 boothname에 해당하는 부스 데이터에 지정한 부스 번호 (boothnumber) 를 할당합니다.
+  해당 부스를 찾지 못한 경우, None을 반환합니다.
+
+  :param boothname 부스 번호를 할당할 부스의 이름
+  :param boothnumber 할당할 부스 번호, 일반적으로 [부스 코드] + [숫자] 조합이며, [부스 코드]에 소문자 알파벳이 있을 경우, 자동으로 대문자로 변환합니다. 
+  """
+  sh  = gc.open_by_key(sheetId)
+  sheet = sh.get_worksheet(sheetNumber)
+
+  uppered_boothnumber = boothnumber.upper()
+
+  cell = sheet.find(boothname)
+  if cell != None:
+    return sheet.update_acell(f"{BoothNumber_Col_Alphabet}{cell.row}", uppered_boothnumber)
+  else:
+    return None  
+
 
 def SetLinkToMap(BoothNumber: str):
   """

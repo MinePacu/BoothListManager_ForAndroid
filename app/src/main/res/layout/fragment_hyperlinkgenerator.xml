@@ -615,5 +615,145 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_putBoothnumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_moveBoothInfo">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="부스 번호 붙이기"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="입력받은 부스 이름과 부스 번호로 시트에서 해당 부스를 찾아 부스 번호를 지정합니다."
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/selection_sheet_putBoothNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="center"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/preorderButton_putBoothNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="선입금, 인포"
+                        />
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/maIlorderButton_putBoothNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="통신판매"
+                        />
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/graspingdemandButton_putBoothNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수요조사"
+                        />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_boothname_layout_putBoothNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="부스 이름"
+                    app:helperText="부스 번호를 붙일 부스의 이름입니다. 워크 시트에 해당 부스가 없으면 번호가 등록되지 않습니다."
+                    android:inputType="text"
+                    app:errorEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_boothname_toputBoothNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_BoothNumber_layout_toputBoothNumer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="부스 번호"
+                    app:helperText="공식에서 해당 부스에 부여한 부스 번호입니다. 일반적으로 [부스 종류 코드] + [숫자] 조합입니다."
+                    android:inputType="text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_linkLabel_layout"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_boothnumber_toputBoothNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right">
+
+                    <Button
+                        android:id="@+id/putBoothNumberButton"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="21dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="부스 번호 등록"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edit_movedrownumber_layout" />
+
+                    <Button
+                        android:id="@+id/EmptyTextFieldButton_putBoothNumber"
+                        style="@style/Widget.Material3.Button.ElevatedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="24dp"
+                        android:text="@string/button_emptyText"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/moveBoothDataButton"
+                        app:layout_constraintTop_toBottomOf="@id/edit_movedrownumber_layout"
+                        app:layout_constraintVertical_bias="0.857" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

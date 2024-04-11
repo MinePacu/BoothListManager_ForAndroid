@@ -7,6 +7,7 @@ import android.os.Build
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
 import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
@@ -105,6 +106,25 @@ class HyperLinkGeneratorViewModel : ViewModel() {
     fun moveBoothData(view: View, processingRing: ProgressPage?, originIndex: Int, moveIndex: Int) : Job {
         return viewModelScope.launch {
             val result = PythonClass.moveBoothData(originIndex, moveIndex)
+
+            when (result) {
+                is Result.Success<Boolean> -> {
+                    processingRing?.hide()
+                    Snackbar.make(view, "부스 정보를 성공적으로 이동했습니다.", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+                else -> {
+                    processingRing?.hide()
+                    Snackbar.make(view, "부스 정보를 이동하지 못했습니다.", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
+    }
+
+    fun putBoothNumberToSpecificBooth(view: View, processingRing: ProgressPage?, boothName: String, boothNumber: String) : Job {
+        return viewModelScope.launch {
+            val result = PythonClass.putBoothNumbertoSpecificBooth(boothName, boothNumber)
 
             when (result) {
                 is Result.Success<Boolean> -> {
