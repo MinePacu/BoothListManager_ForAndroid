@@ -258,7 +258,7 @@ class PythonClass {
                 if (result != null) {
                     Result.Success(true)
                 } else {
-                    Result.Error(Exception("부스 번호를 옮기지 못했습니다."))
+                    Result.Error(Exception("부스 번호를 등록하지 못했습니다."))
                 }
             }
         }

@@ -129,12 +129,12 @@ class HyperLinkGeneratorViewModel : ViewModel() {
             when (result) {
                 is Result.Success<Boolean> -> {
                     processingRing?.hide()
-                    Snackbar.make(view, "부스 정보를 성공적으로 이동했습니다.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "부스 번호를 성공적으로 등록했습니다.", Snackbar.LENGTH_LONG)
                         .show()
                 }
                 else -> {
                     processingRing?.hide()
-                    Snackbar.make(view, "부스 정보를 이동하지 못했습니다.", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "부스 번호를 등록하지 못했습니다. : " + result.toString(), Snackbar.LENGTH_LONG)
                         .show()
                 }
             }
