@@ -122,6 +122,15 @@ class HyperLinkGeneratorViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 매개 변수 [boothname]에 해당하는 부스 데이터에 지정한 부스 번호 ([boothnumber])를 할당합니다.
+     *
+     * @param view 함수의 실행 결과를 출력하는 [Snackbar]를 출력할 [View] 객체
+     * @param processingRing 함수가 실행되는 동안, 출력할 로딩 창 ([ProgressPage]) 객체
+     * @param boothName 부스 번호를 할당할 부스의 이름
+     * @param boothNumber 할당할 부스 번호, 일반적으로 [부스 코드] + [숫자] 조합이며, [부스 코드]에 소문자 알파벳이 포홈된 경우, 자동으로 대문자로 변환합니다.
+     * @return 백그라운드에서 작동하는 코루틴 정보를 저정한 [Job] 객체
+     */
     fun putBoothNumberToSpecificBooth(view: View, processingRing: ProgressPage?, boothName: String, boothNumber: String) : Job {
         return viewModelScope.launch {
             val result = PythonClass.putBoothNumbertoSpecificBooth(boothName, boothNumber)

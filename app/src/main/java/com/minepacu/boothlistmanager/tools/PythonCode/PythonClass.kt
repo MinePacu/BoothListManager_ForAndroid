@@ -243,6 +243,13 @@ class PythonClass {
             }
         }
 
+        /**
+         * 매개 변수 [boothname]에 해당하는 부스 데이터에 지정한 부스 번호 ([boothnumber])를 할당합니다.
+         *
+         * @param boothName 부스 번호를 할당할 부스의 이름
+         * @param boothNumber 할당할 부스 번호, 일반적으로 [부스 코드] + [숫자] 조합이며, [부스 코드]에 소문자 알파벳이 포홈된 경우, 자동으로 대문자로 변환합니다.
+         * @return 파이썬 모듈 [boothListManagementModule] 에서 해당 부스를 찾으면 해당 셀을 업데이트한 결과를 저장한 JSONResponse 객체를 반환하여 [Result.Success]를 반환하며, 찾지 못하면 None을 반환하여 [Result.Error]를 반환합니다.
+         */
         suspend fun putBoothNumbertoSpecificBooth(boothName: String, boothNumber: String) : Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun putBoothNumbertoSpecificBooth is Executed")
