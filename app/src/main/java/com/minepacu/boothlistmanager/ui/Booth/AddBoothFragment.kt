@@ -155,6 +155,7 @@ class AddBoothFragment : Fragment() {
         }
 
         textWatcher()
+        //enterTestBooth()
         return root
     }
 
@@ -274,6 +275,16 @@ class AddBoothFragment : Fragment() {
                 }
             }
         })
+    }
+
+    fun enterTestBooth() {
+        binding.editTextBoothNumber.setText("")
+        binding.editTextBoothName.setText("")
+        binding.editTextGenre.setText("")
+        binding.FesInboth.isChecked = false
+        binding.editPreOrderDate.setText("")
+        binding.editTextPreOrderLabel.setText("")
+        binding.editTextPreOrderLink.setText("")
     }
 
     override fun onDestroyView() {

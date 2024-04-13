@@ -121,6 +121,9 @@ class HomeFragment : Fragment() {
         val sheetId = prefs.getString("sheetId", "")
         PythonClass.setVariable("sheetId", sheetId)
 
+        val sheetStartIndex = prefs.getString("sheetStartIndex", "")
+        PythonClass.setVariable("sheetStartIndex", sheetStartIndex?.toInt())
+
         if (homeViewModel.isLoginToGoogleAPI == false) {
             binding.buttonReloadsheetInfo.isEnabled = false
             homeViewModel.loginToGoogleAPI(root, binding.buttonReloadsheetInfo, binding.buttonReloadworksheetInfo)

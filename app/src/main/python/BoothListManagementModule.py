@@ -24,6 +24,10 @@ sheetId = "16yv58pKn7pQgU3z-SnSXytFp3XWRP57mlMNisc4WAG8"
 thrid_illustarfes_alphabet_list = list(ascii_uppercase)
 thrid_illustarfes_alphabet_list.append('가')
 thrid_illustarfes_alphabet_list.append('나')
+thrid_illustarfes_alphabet_list.append('다')
+thrid_illustarfes_alphabet_list.append('라')
+thrid_illustarfes_alphabet_list.append('마')
+thrid_illustarfes_alphabet_list.append('바')
 
 seoul_comic_alphabet_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S']
 
@@ -221,18 +225,19 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
       j = j + 1
 
     RecommandLocation = int(getRecommandLocation(booth_list_tmp, boothnumber))
+    print(f"GetRecommandLocation : {RecommandLocation}")
     NewRowData = ['', boothnumber, boothname, NewBoothGenre, yoil, NewInfoLink, NewPreOrderDate, NewPreOrderLink]
 
     if int(RecommandLocation) == 0:
-      sheet.append_row(NewRowData, value_input_option=ValueInputOption.user_entered)
+      sheet.insert_row(NewRowData, sheetStartIndex, value_input_option=ValueInputOption.user_entered)
       gspread_formatting.format_cell_range(sheet,
                                            f"{BoothNumber_Col_Alphabet}{len(booth_list) + 1}:{Etc_Point_Col_Alphabet}{len(booth_list) + 1}",
                                            fmt)
 
       updatetime = SetUpdateDates()
-      hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
+      hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
       AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
-                                hyperLinkCell, boothnumber, LinkName=preorder_Label)
+                                hyperLinkCell, boothnumber, BoothName=boothname, LinkName=preorder_Label)
 
       if MapSheetNumber != None:
         SetLinkToMap(boothnumber)
@@ -245,9 +250,9 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
                                            fmt)
 
       updatetime = SetUpdateDates()
-      hyperLinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
+      hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
       AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
-                                hyperLinkCell, boothnumber, LinkName=preorder_Label)
+                                hyperLinkCell, boothnumber, BoothName=boothname, LinkName=preorder_Label)
 
       global IsAlredyExisted
       if IsAlredyExisted == True:
