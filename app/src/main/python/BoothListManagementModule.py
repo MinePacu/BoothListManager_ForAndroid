@@ -487,14 +487,8 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
 
   elif logtype == LogType.Etc:
     if IsOwnAuthor == True:
-      if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 {AuthorNickName} 작가님의 {LinkName} 추가")'
-      elif BoothName != None:
         updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 {AuthorNickName} 작가님의 {LinkName} 추가")'
     else:
-      if BoothNumber != None:
-        updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothNumber} 부스의 {LinkName} 추가")'
-      elif BoothName != None:
         updatelog_string = f'=HYPERLINK({HyperLinkCell}, "{BoothName} 부스의 {LinkName} 추가")'
 
 
