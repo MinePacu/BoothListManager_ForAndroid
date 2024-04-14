@@ -35,7 +35,7 @@ alphabet_list = thrid_illustarfes_alphabet_list
 
 
 #  부스 열별 최댓값 리스트
-third_illustar_fes_booth_max_count = [25, 25, 25, 35, 35, 35, 35, 35, 35, 35, 35, 25, 25, 23, 23, 25, 25, 25, 25, 35, 35, 35, 35, 25, 16, 25, 25]
+third_illustar_fes_booth_max_count = [20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 40, 40, 40, 40, 40, 40]
 seoul_comic_world_booth_max_count = [41, 24, 24, 26, 26, 26, 24, 24, 24, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28]
 
 alphabet_max_count = third_illustar_fes_booth_max_count
@@ -105,6 +105,9 @@ dateline_In_aRow = 1
 sheetRowHeightPerLine = 17
 
 updateLogType = 4
+
+# 자동 위치 계산 기능을 무시할지 여부
+isIgnoreRecommandLocation = False
 
 class LogType(Enum):
   Pre_Order = 1
@@ -224,7 +227,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
         booth_list_tmp[j] = booth_list_tmp[j][0].split(", ")
       j = j + 1
 
-    RecommandLocation = int(getRecommandLocation(booth_list_tmp, boothnumber))
+    RecommandLocation = int(getRecommandLocation(booth_list_tmp, boothnumber)) if isIgnoreRecommandLocation == False else 0
     print(f"GetRecommandLocation : {RecommandLocation}")
     NewRowData = ['', boothnumber, boothname, NewBoothGenre, yoil, NewInfoLink, NewPreOrderDate, NewPreOrderLink]
 
@@ -344,7 +347,14 @@ def getRecommandLocation(booth_list_tmp: list[str], searchBoothNum: str):
 
   if IsAlreadyAdded == False:
     userSector = re.findall('[a-zA-Z]', searchBoothNum)
+    print(f"userSector after [a-zA-Z] : {userSector}")
+    if len(userSector) == 0:
+      print("userSector is \"\"")
+      userSector = re.sub(r"[^ㄱ-ㅣ가-힣\s]", "", searchBoothNum)
     userSectorNum = re.findall('\d', searchBoothNum)
+    
+    print(f"userSector : {userSector}")
+    print(f"userSectorNum : {userSectorNum}")
 
     userSectorNum_tmp = ""
     for k in userSectorNum:

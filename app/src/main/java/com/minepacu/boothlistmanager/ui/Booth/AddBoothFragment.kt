@@ -154,6 +154,10 @@ class AddBoothFragment : Fragment() {
             changeSheetNumber(view, prefs, buttonToggleGroup)
         }
 
+        binding.switchDisableAutoLocation.setOnCheckedChangeListener { buttonView, isChekced ->
+            PythonClass.setVariable("isIgnoreRecommandLocation", isChekced)
+        }
+
         textWatcher()
         //enterTestBooth()
         return root
@@ -278,10 +282,11 @@ class AddBoothFragment : Fragment() {
     }
 
     fun enterTestBooth() {
+        binding.preorderButton.isPressed = false
         binding.editTextBoothNumber.setText("")
         binding.editTextBoothName.setText("")
-        binding.editTextGenre.setText("")
-        binding.FesInboth.isChecked = false
+        binding.editTextGenre.setText(")")
+        binding.FesInSaturday.isChecked = false
         binding.editPreOrderDate.setText("")
         binding.editTextPreOrderLabel.setText("")
         binding.editTextPreOrderLink.setText("")
