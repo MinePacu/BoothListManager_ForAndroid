@@ -245,7 +245,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 			if dateline_In_aRow != 1:
 				sheet.rows_auto_resize(sheetStartIndex, sheetStartIndex)
 			else:
-				gspread_formatting.set_row_height(sheet, sheetStartIndex, 30)
+				gspread_formatting.set_row_height(sheet, str(sheetStartIndex), 30)
 
 
 			updatetime = SetUpdateDates()
@@ -268,9 +268,9 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 										f"{BoothNumber_Col_Alphabet}{RecommandLocation}:{Etc_Point_Col_Alphabet}{RecommandLocation}",
 										fmt)
 			if dateline_In_aRow != 1:
-				sheet.rows_auto_resize(getRecommandLocation, getRecommandLocation)
+				sheet.rows_auto_resize(RecommandLocation, RecommandLocation)
 			else:
-				gspread_formatting.set_row_height(sheet, getRecommandLocation, 30)
+				gspread_formatting.set_row_height(sheet, str(RecommandLocation), 30)
 
 			updatetime = SetUpdateDates()
 			if preorder_Label != "":
