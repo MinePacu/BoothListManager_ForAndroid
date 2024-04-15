@@ -635,10 +635,10 @@ def SetLinkToMap(BoothNumber: str):
 			BoothLocations.append(rowcol_to_a1(MapLocationData.row, MapLocationData.col))
 
 			BoothMapSheet.update_acell(rowcol_to_a1(MapLocationData.row, MapLocationData.col),
-																 f'=HYPERLINK("#gid{BoothListSheet.id}&range={rowcol_to_a1(BoothNumberCell_Data.row, BoothNumberCell_Data.col)}", "{MapLocationData.value}")')
+							  		f'=HYPERLINK("#gid{BoothListSheet.id}&range={rowcol_to_a1(BoothNumberCell_Data.row, BoothNumberCell_Data.col)}", "{MapLocationData.value}")')
 
 		BoothListSheet.update_acell(rowcol_to_a1(BoothNumberCell_Data.row, BoothNumberCell_Data.col),
-																f'=HYPERLINK("#gid={BoothMapSheet.id}&range={BoothLocations[0]}:{BoothLocations[len(BoothLocations) - 1]}", "{BoothNumber}")')
+							  		f'=HYPERLINK("#gid={BoothMapSheet.id}&range={BoothLocations[0]}:{BoothLocations[len(BoothLocations) - 1]}", "{BoothNumber}")')
 
 def find_duplicating_Indexes(_List, searchWord: str):
 	iterated_index_position_list = [
