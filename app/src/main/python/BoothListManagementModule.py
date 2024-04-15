@@ -547,8 +547,8 @@ def AddUpdateLog(sheet: gspread.Worksheet, logtype: LogType, updatetime: datetim
 	)
 
 	gspread_formatting.format_cell_range(sheet,
-																			 f"{UpdateLogtime_ColAlphabet}{updateSheetStartIndex}:{UpdateLog_ColAlphabet}{updateSheetStartIndex}",
-																			 fmt)
+										f"{UpdateLogtime_ColAlphabet}{updateSheetStartIndex}:{UpdateLog_ColAlphabet}{updateSheetStartIndex}",
+										fmt)
 	gspread_formatting.set_row_height(sheet, str(updateSheetStartIndex), 30)
 
 
