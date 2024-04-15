@@ -148,12 +148,16 @@ def getWorkSheet(sheetId : string, sheetNumber : int):
 		return None
 
 def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string, yoil : string,
-												infoLabel : string, infoLink : string, preorder_Date : string,
-												preorder_Label : string, preorder_Link : string):
+						infoLabel : string, infoLink : string, preorder_Date : string,
+						preorder_Label : string, preorder_Link : string):
+	dateline_In_aRow = 1	
+
 	NewBoothGenre = f''
 	if '//' in genre:
 		NewBoothGenre = f'=TEXTJOIN(CHAR(10), 0, '
 		SplitedGenre = re.split('//', genre)
+		if len(SplitedGenre) > dateline_In_aRow:
+			dateline_In_aRow = len(SplitedGenre)
 		i = 0
 		for OnelineGenre in SplitedGenre:
 			NewBoothGenre += f'"{OnelineGenre}'
@@ -170,6 +174,8 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 	if '//' in preorder_Date:
 		NewPreOrderDate = f'=TEXTJOIN(CHAR(10), 0, '
 		SplitedPreOrderDate = re.split('//', preorder_Date)
+		if len(SplitedPreOrderDate) > dateline_In_aRow:
+			dateline_In_aRow = len(SplitedPreOrderDate)
 		i = 0
 		for OnelinePreOrderDate in SplitedPreOrderDate:
 			NewPreOrderDate += f'"{OnelinePreOrderDate}'
@@ -234,18 +240,23 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 		if int(RecommandLocation) == 0:
 			sheet.insert_row(NewRowData, sheetStartIndex, value_input_option=ValueInputOption.user_entered)
 			gspread_formatting.format_cell_range(sheet,
-																					 f"{BoothNumber_Col_Alphabet}{len(booth_list) + 1}:{Etc_Point_Col_Alphabet}{len(booth_list) + 1}",
-																					 fmt)
+										f"{BoothNumber_Col_Alphabet}{len(booth_list) + 1}:{Etc_Point_Col_Alphabet}{len(booth_list) + 1}",
+										fmt)
+			if dateline_In_aRow != 1:
+				sheet.rows_auto_resize(sheetStartIndex, sheetStartIndex)
+			else:
+				gspread_formatting.set_row_height(sheet, sheetStartIndex, 30)
+
 
 			updatetime = SetUpdateDates()
 			if preorder_Label != "":
 				hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
 				AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
-																hyperLinkCell, boothnumber, BoothName=boothname, LinkName=preorder_Label)
+				 			hyperLinkCell, boothnumber, BoothName=boothname, LinkName=preorder_Label)
 			else:
 				hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={InfoLabel_Link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
 				AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
-																hyperLinkCell, boothnumber, BoothName=boothname, LinkName=infoLabel)
+				 			hyperLinkCell, boothnumber, BoothName=boothname, LinkName=infoLabel)
 
 			if MapSheetNumber != None:
 				SetLinkToMap(boothnumber)
@@ -254,18 +265,22 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 		else:
 			sheet.insert_row(NewRowData, RecommandLocation, value_input_option=ValueInputOption.user_entered)
 			gspread_formatting.format_cell_range(sheet,
-																					 f"{BoothNumber_Col_Alphabet}{RecommandLocation}:{Etc_Point_Col_Alphabet}{RecommandLocation}",
-																					 fmt)
+										f"{BoothNumber_Col_Alphabet}{RecommandLocation}:{Etc_Point_Col_Alphabet}{RecommandLocation}",
+										fmt)
+			if dateline_In_aRow != 1:
+				sheet.rows_auto_resize(getRecommandLocation, getRecommandLocation)
+			else:
+				gspread_formatting.set_row_height(sheet, getRecommandLocation, 30)
 
 			updatetime = SetUpdateDates()
 			if preorder_Label != "":
 				hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={Pre_Order_link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
 				AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
-																hyperLinkCell, boothnumber, BoothName=boothname, LinkName=preorder_Label)
+							hyperLinkCell, boothnumber, BoothName=boothname, LinkName=preorder_Label)
 			else:
 				hyperLinkCell = f"CONCATENATE(\"#gid={sheet.id}&range={InfoLabel_Link_Col_Alphabet}\", MATCH(\"{boothname}\", \'{sheet.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0))"
 				AddUpdateLog(updatesheet, LogType(updateLogType), updatetime, sheet.id,
-																hyperLinkCell, boothnumber, BoothName=boothname, LinkName=infoLabel)
+							hyperLinkCell, boothnumber, BoothName=boothname, LinkName=infoLabel)
 
 			global IsAlredyExisted
 			if IsAlredyExisted == True:
@@ -287,11 +302,11 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 		print(f"RowData : {NewRowData}")
 		sheet_.insert_row(NewRowData, sheetStartIndex, value_input_option=ValueInputOption.user_entered)
 		gspread_formatting.format_cell_range(sheet_,
-																				 f"{BoothNumber_Col_Alphabet}{sheetStartIndex}:{Etc_Point_Col_Alphabet}{sheetStartIndex}",
-																				 fmt)
+									   f"{BoothNumber_Col_Alphabet}{sheetStartIndex}:{Etc_Point_Col_Alphabet}{sheetStartIndex}",
+										 fmt)
 		
 		if (dateline_In_aRow != 1):
-			gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 21 + (sheetRowHeightPerLine * (dateline_In_aRow - 1)))
+			sheet_.rows_auto_resize(sheetStartIndex, sheetStartIndex)
 		else:
 			gspread_formatting.set_row_height(sheet_, str(sheetStartIndex), 30)
 
