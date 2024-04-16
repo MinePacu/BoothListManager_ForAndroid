@@ -188,15 +188,19 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 	else:
 		NewPreOrderDate = preorder_Date
 
+	NewInfoLabel = AddTextJoin(infoLabel, isAddEqualLetter=False)
+
 	# 부스 인포 링크 함수 생성
 	NewInfoLink = f''
 	if (infoLink != ''):
-		NewInfoLink = f'=HYPERLINK("{infoLink}", "{infoLabel}")'
+		NewInfoLink = f'=HYPERLINK("{infoLink}", {NewInfoLabel})'
+
+	NewPreOrderLabel = AddTextJoin(preorder_Label, isAddEqualLetter=False)
 
 	# 부스 선입금 링크 함수 생성
 	NewPreOrderLink = f''
 	if (preorder_Link != ''):
-		NewPreOrderLink = f'=HYPERLINK("{preorder_Link}", "{preorder_Label}")'
+		NewPreOrderLink = f'=HYPERLINK("{preorder_Link}", {NewPreOrderLabel})'
 
 	# print(BoothNumber, BoothName, Genre, Yoil, InfoLabel, InfoLink, Pre_Order_label, Pre_Order_Link)
 
@@ -645,3 +649,31 @@ def find_duplicating_Indexes(_List, searchWord: str):
 		i for i in range(len(_List)) if _List[i] == searchWord
 	]
 	return iterated_index_position_list
+
+def AddTextJoin(label: str, isAddEqualLetter: bool = True):
+	"""
+	지정한 `label`에 `//` 가 있는 경우, 스프레드시트의 `TextJoin` 함수를 사용하여 줄을 바꿉니다.
+	`//` 가 없는 경우에는 원래 매개 변수 `label` 값을 그대로 반환합니다.
+	또한 전역 변수 `dateLine_In_aRow` 값은 이 함수가 수행하기 전의 값보다 `label`의 줄 수가 많은 경우 갱신됩니다.
+
+	:param label TextJoin 함수를 적용할 문자열
+	:param isAddEqualLetter `=` 기호를 넣을지 여부
+	"""
+	global dateline_In_aRow
+	if '//' in label:
+		NewLabel= f'=TEXTJOIN(CHAR(10), 0, ' if isAddEqualLetter == True else f'TEXTJOIN(CHAR(10), 0, '
+		SplitedLabel = re.split('//', label)
+		if len(SplitedLabel) > dateline_In_aRow:
+			dateline_In_aRow = len(SplitedLabel)
+		i = 0
+		for OnelineLabel in SplitedLabel:
+			NewLabel += f'"{OnelineLabel}'
+			if i != len(SplitedLabel) - 1:
+				NewLabel += f'", '
+			else:
+				NewLabel += f'")'
+			i = i + 1
+		return NewLabel
+	else:
+		NewLabel = f"{label}"
+		return NewLabel
