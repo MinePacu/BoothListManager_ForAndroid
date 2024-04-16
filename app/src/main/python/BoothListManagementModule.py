@@ -675,5 +675,5 @@ def AddTextJoin(label: str, isAddEqualLetter: bool = True):
 			i = i + 1
 		return NewLabel
 	else:
-		NewLabel = f"{label}"
+		NewLabel = f"\"{label}\""
 		return NewLabel
