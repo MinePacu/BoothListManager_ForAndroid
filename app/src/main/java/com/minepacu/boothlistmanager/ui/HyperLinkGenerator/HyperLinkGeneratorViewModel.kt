@@ -150,6 +150,18 @@ class HyperLinkGeneratorViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 매개 변수 [link]와 [label]를 이용하여 스프레드시트의 하이퍼링크 함수를 생성합니다.
+     *
+     * 매개 변수 [label]에서 문자 `//`가 있는 경우, *TextJoin* 함수를 이용하여 줄 바꿈을 합니다.
+     *
+     * @param view 함수의 실행 결과를 출력하는 [Snackbar]를 출력할 [View] 객체
+     * @param context 클립보드에 복사하는데 쓰이는 [Context] 객체
+     * @param processingRing 함수가 실행되는 동안, 출력할 로딩 창 ([ProgressPage]) 객체
+     * @param link 하이퍼링크 함수에 들어가는 링크
+     * @param label 하이퍼링크 함수에서 들어가는 라벨
+     * @return 백그라운드에서 작동하는 코루틴 정보를 저정한 [Job] 객체
+     */
     fun getHyperLinkWithTextJoin(view: View, context: Context, processingRing: ProgressPage?, link: String, label: String) : Job {
         return viewModelScope.launch {
             val labelWithTextJoin = PythonClass.getLabelWithTextJoin(label)

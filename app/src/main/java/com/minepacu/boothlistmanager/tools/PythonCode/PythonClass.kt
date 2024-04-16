@@ -270,6 +270,14 @@ class PythonClass {
             }
         }
 
+        /**
+         * 매개 변수 [label]이 `//` 문자를 가진 경우, *TextJoin* 함수를 이용하여 줄 바꿈 합니다.
+         *
+         * `//` 문자가 없는 경ㅇ, 매개 변수 [label]를 그대로 반환합니다.
+         *
+         * @param label 줄 바꿈할 라벨
+         * @return 줄 바쑴 여부를 점검 및 적용한 라벨 문자열 또는 에러 문자열
+         */
         suspend fun getLabelWithTextJoin(label: String) : String {
             return withContext(Dispatchers.IO) {
                 try {
