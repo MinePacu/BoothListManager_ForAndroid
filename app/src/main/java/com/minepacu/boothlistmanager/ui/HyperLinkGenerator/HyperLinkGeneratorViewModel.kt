@@ -149,4 +149,27 @@ class HyperLinkGeneratorViewModel : ViewModel() {
             }
         }
     }
+
+    fun getHyperLinkWithTextJoin(view: View, context: Context, processingRing: ProgressPage?, link: String, label: String) : Job {
+        return viewModelScope.launch {
+            val labelWithTextJoin = PythonClass.getLabelWithTextJoin(label)
+            var result = ""
+
+            when {
+                labelWithTextJoin != "" && !labelWithTextJoin.contains("null") && !labelWithTextJoin.contains("Error") -> {
+                    result = "=HYPERLINK(\"${link}\", ${labelWithTextJoin})"
+                    textCopyThenPost(context, result)
+                    processingRing?.hide()
+                    Snackbar.make(view, "함수를 클립보드에 복사했습니다.", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+                else -> {
+                    processingRing?.hide()
+                    Snackbar.make(view, "함수를 클립보드에 복사하지 못습니다. : ${labelWithTextJoin}" , Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
+
+        }
+    }
 }

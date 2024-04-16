@@ -270,6 +270,33 @@ class PythonClass {
             }
         }
 
+        suspend fun getLabelWithTextJoin(label: String) : String {
+            return withContext(Dispatchers.IO) {
+                try {
+                    Log.d("Debug", "Fun getLabelWithTextJoin is Executed")
+                    val result = boothListManagementModule.callAttr("AddTextJoin", label, false)
+
+                    Log.d(
+                        "Debug",
+                        when {
+                            (result == null) -> "IsNull of result from AddTextJoin : true"
+                            else -> "IsNull of result from AddTextJoin : false"
+                        }
+                    )
+
+                    if (result != null) {
+                        result.toString()
+                    } else {
+                        "result is null"
+                    }
+                }
+
+                catch (e: PyException) {
+                    "Error : " + e.message.toString()
+                }
+            }
+        }
+
         fun setVariable(variable_name: String, value: Any?) {
             boothListManagementModule.put(variable_name, value)
         }

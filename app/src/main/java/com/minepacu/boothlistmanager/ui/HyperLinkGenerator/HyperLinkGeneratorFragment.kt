@@ -52,23 +52,19 @@ class HyperLinkGeneratorFragment : Fragment() {
 
         binding.filledCopyToClipBoardButton.setOnClickListener {
             val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            var copiedString = ""
 
             if ((binding.editLinkSheetnumber.text.toString() != "") &&
                 (binding.editLinkBoothCell.text.toString() != "")) {
                 val sheetId = prefs.getString("sheetId", "")
                 val sheetNumber = binding.editLinkSheetnumber.text.toString().toInt()
 
-                customProgressPage?.show()
+                //customProgressPage?.show()
                 val job = hyperLinkGeneratorViewModel.getGid(root, requireContext(),
                     sheetId!!, sheetNumber, binding.editLinkBoothCell.text.toString(), binding.editLinklabel.text.toString())
-                if (job.isCompleted) {
-                    customProgressPage?.hide()
-                }
+
             } else if (binding.editLinklabel.text.toString() != "") {
-                copiedString =
-                    "=HYPERLINK(\"" + binding.editLink.text.toString() + "\", \"" + binding.editLinklabel.text.toString() + "\")"
-                hyperLinkGeneratorViewModel.textCopyThenPost(requireContext(), copiedString)
+                customProgressPage?.show()
+                hyperLinkGeneratorViewModel.getHyperLinkWithTextJoin(it, requireContext(), customProgressPage, binding.editLink.text.toString(), binding.editLinklabel.text.toString())
             } else {
                 Snackbar.make(root, "하이퍼링크 함수를 만들 수 없습니다. [시트 넘버, 시트 a1 값] 또는 링크 라벨이 빈 칸이 아니여야 합니다.", Snackbar.LENGTH_SHORT)
                     .show()
