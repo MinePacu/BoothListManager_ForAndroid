@@ -135,6 +135,7 @@ class AddBoothFragment : Fragment() {
 
         binding.addPreorderclockButton.setOnClickListener {
             val timepicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_24H)
+                .setInputMode(MaterialTimePicker.INPUT_MODE_CLOCK)
                 .setHour(12).setMinute(0)
                 .setTitleText("마감 시간 선택")
                 .build()
