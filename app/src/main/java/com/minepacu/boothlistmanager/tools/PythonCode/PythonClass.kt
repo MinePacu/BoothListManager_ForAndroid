@@ -133,9 +133,9 @@ class PythonClass {
          * @param boothname 업데이트 로그에 들어갈 부스 이름
          * @param linkname 업데이트 로그에 들어갈 링크 이름
          * @param offset 해당 부스가 이미 가지고 있는 링크의 수로 해당 링크 수만큼 아래 행으로 내려가 링크를 지정합니다.
-         * @return 이 함수의 정상 실행 여부
+         * @param mode 해당 업데이트 로그 시트가 인포 Column에 링크해야 하는 경우, 1로 지정합니다. 그 이외에는 0 을 사용하세요.
          */
-        suspend fun addUpdateLog(boothname: String, linkname: String, offset: Int): Result<Boolean> {
+        suspend fun addUpdateLog(boothname: String, linkname: String, offset: Int, mode: Int): Result<Boolean> {
             return withContext(Dispatchers.IO) {
                 Log.d("Debug", "Fun addUpdateLog is Executed")
                 var result: PyObject? = null
@@ -144,7 +144,8 @@ class PythonClass {
                     "add_UpdateLog",
                     boothname,
                     linkname,
-                    offset)
+                    offset,
+                    mode)
 
                 Log.d(
                     "Debug",

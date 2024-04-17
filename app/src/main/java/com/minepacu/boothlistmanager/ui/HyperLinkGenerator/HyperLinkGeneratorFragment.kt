@@ -87,16 +87,23 @@ class HyperLinkGeneratorFragment : Fragment() {
 
             changeSheetNumber(it, prefs, binding.selectionSheet)
 
+            val mode = when (binding.typeinpredoerorInfo.checkedButtonId) {
+                R.id.info_Button_InSelection -> 1
+                else -> 0
+            }
+
             hyperLinkGeneratorViewModel.addUpdateLog(
                 root, customProgressPage,
-                binding.editBoothnameUpdate.text.toString(), binding.editLinkUpdate.text.toString(), binding.editOffsetUpdate.text.toString().toInt())
+                binding.editBoothnameUpdate.text.toString(), binding.editLinkUpdate.text.toString(), binding.editOffsetUpdate.text.toString().toInt(), mode)
         }
-
 
         binding.selectionSheet.addOnButtonCheckedListener { buttonToggleGroup, checkedId, isChecked ->
             changeSheetNumber(view, prefs, buttonToggleGroup)
+            when (checkedId) {
+                R.id.preorderButton -> binding.typeinpredoerorInfo.isEnabled = true
+                else -> binding.typeinpredoerorInfo.isEnabled = false
+            }
         }
-
 
         binding.addDateButton.setOnClickListener {
             val datepicker = MaterialDatePicker.Builder.datePicker()

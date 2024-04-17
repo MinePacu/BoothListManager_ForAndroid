@@ -70,12 +70,13 @@ class HyperLinkGeneratorViewModel : ViewModel() {
      * @param boothname 업데이트 로그에 등록할 부스 이름
      * @param linkName 업데이트 로그에 등록할 링크 이름
      * @param offset boothname에 해당하는 부스가 이미 가지고 있는 링크의 수로 해당 값만큼 아래 행을 링크 대상으로 검색합니다.
+     * @param mode 해당 업데이트 로그 시트가 인포 Column에 링크해야 하는 경우, 1로 지정합니다. 그 이외에는 0 을 사용하세요.
      * @see Snackbar
      * @see ProgressPage
      */
-    fun addUpdateLog(view: View, processingRing: ProgressPage?, boothname: String, linkName: String, offset: Int): Job {
+    fun addUpdateLog(view: View, processingRing: ProgressPage?, boothname: String, linkName: String, offset: Int, mode: Int): Job {
         return viewModelScope.launch {
-            val result = PythonClass.addUpdateLog(boothname, linkName, offset)
+            val result = PythonClass.addUpdateLog(boothname, linkName, offset, mode)
 
             when (result) {
                 is Result.Success<Boolean> -> {

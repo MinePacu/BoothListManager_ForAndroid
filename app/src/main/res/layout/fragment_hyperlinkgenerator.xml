@@ -202,23 +202,52 @@
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/preorderButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
                         android:text="선입금, 인포"
                         />
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/maIlorderButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="통신판매"
                         />
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/graspingdemandButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="수요조사"
+                        />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/typeinpredoerorInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_gravity="center"
+                    app:singleSelection="true"
+                    app:selectionRequired="true">
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/preorder_Button_InSelection"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="선입금"
+                        />
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/info_Button_InSelection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="인포"
                         />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 

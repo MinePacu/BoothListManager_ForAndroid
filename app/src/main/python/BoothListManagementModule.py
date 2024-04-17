@@ -330,18 +330,18 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 
 	print("Add_new_BoothData : 부스 추가 완료")
 
-def add_UpdateLog(boothname: string, linkname: string, offset: int):
+def add_UpdateLog(boothname: string, linkname: string, offset: int, mode: int = 0):
 	updatetime = SetUpdateDates()
 	print("updatetime : " + str(updatetime))
 
 	sh = gc.open_by_key(sheetId)
-	print("sh : " + str(sh))
+	#print("sh : " + str(sh))
 	sheet_ = sh.get_worksheet(sheetNumber)
-	print("sheet_ : " + str(sheet_))
+	#print("sheet_ : " + str(sheet_))
 	updatesheet = sh.get_worksheet(UpdateLogSheetNumber)
-	print("updatesheet : " + str(updatesheet))
+	#print("updatesheet : " + str(updatesheet))
 
-	hyperlinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", SUM(MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0), {str(offset)}))"
+	hyperlinkCell = f"CONCATENATE(\"#gid={sheet_.id}&range={Pre_Order_link_Col_Alphabet}\", SUM(MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0), {str(offset)}))" if mode == 0 else f"CONCATENATE(\"#gid={sheet_.id}&range={InfoLabel_Link_Col_Alphabet}\", SUM(MATCH(\"{boothname}\", \'{sheet_.title}\'!{BoothName_Col_Alphabet}:{BoothName_Col_Alphabet}, 0), {str(offset)}))" 
 	AddUpdateLog(updatesheet, LogType.Etc, updatetime, sheet_.id, hyperlinkCell, BoothName=boothname, LinkName=linkname)
 	return True
 
