@@ -150,7 +150,8 @@ def getWorkSheet(sheetId : string, sheetNumber : int):
 def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string, yoil : string,
 						infoLabel : string, infoLink : string, preorder_Date : string,
 						preorder_Label : string, preorder_Link : string):
-	dateline_In_aRow = 1	
+	global dateline_In_aRow
+	dateline_In_aRow = 1
 
 	NewBoothGenre = f''
 	if '//' in genre:
