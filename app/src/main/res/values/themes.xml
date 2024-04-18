@@ -1,5 +1,5 @@
 <resources>
-    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.BoothListManager" parent="Theme.Material3.Light">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -51,4 +51,12 @@
         <item name="colorCustomColor1Container">@color/colorCustomColor1Container</item>
         <item name="colorOnCustomColor1Container">@color/colorOnCustomColor1Container</item>
     </style>
+
+    <style name="Theme.BoothListManager.NoActionBar">
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.BoothListManager.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.BoothListManager.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
