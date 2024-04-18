@@ -99,7 +99,7 @@ class HyperLinkGeneratorFragment : Fragment() {
 
         binding.selectionSheet.addOnButtonCheckedListener { buttonToggleGroup, checkedId, isChecked ->
             changeSheetNumber(view, prefs, buttonToggleGroup)
-            when (checkedId) {
+            when (buttonToggleGroup.checkedButtonId) {
                 R.id.preorderButton -> binding.typeinpredoerorInfo.isEnabled = true
                 else -> binding.typeinpredoerorInfo.isEnabled = false
             }
