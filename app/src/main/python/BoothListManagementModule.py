@@ -628,7 +628,7 @@ def SetLinkToMap(BoothNumber: str):
 	BoothListSheet = sheet.get_worksheet(sheetNumber)
 	BoothMapSheet = sheet.get_worksheet(MapSheetNumber)
 
-	BoothNumberCell_Data = BoothMapSheet.find(BoothNumber)
+	BoothNumberCell_Data = BoothListSheet.find(BoothNumber)
 
 	BoothNumber_splited = BoothNumber.replace("\n", "").replace(" ", "").split(',') if ',' in BoothNumber else [BoothNumber]
 
