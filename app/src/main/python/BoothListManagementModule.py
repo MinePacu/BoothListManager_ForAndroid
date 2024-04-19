@@ -620,8 +620,10 @@ def SetLinkToMap(BoothNumber: str):
 	부스 번호 셀과 부스 지도에서의 해당 부스 위치 셀을 서로 링크합니다.
 
 	- 매개 변수
-			:param BoothNumber: 서로 링크할 부스 번호
+	:param BoothNumber: 서로 링크할 부스 번호
 	"""
+	global gc
+
 	sheet = gc.open_by_key(sheetId)
 	BoothListSheet = sheet.get_worksheet(sheetNumber)
 	BoothMapSheet = sheet.get_worksheet(MapSheetNumber)
@@ -629,9 +631,7 @@ def SetLinkToMap(BoothNumber: str):
 	BoothNumberCell_Data = BoothMapSheet.find(BoothNumber)
 
 	if ',' in BoothNumber:
-		BoothNumber_splited = BoothNumber.split(',')
-		for i in len(BoothNumber_splited):
-			BoothNumber_splited[i].replace(" ", "")
+		BoothNumber_splited = BoothNumber.replace("\n", "").replace(" ", "").split(',')
 
 		# key => 지도에서의 해당 부스의 a1 위치 값, value => 부스 위치에서의 a1 위치 값
 		BoothLocations = []
