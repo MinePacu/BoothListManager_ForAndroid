@@ -52,22 +52,25 @@
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/preorderButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
                         android:text="선입금, 인포"
                         />
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/maIlorderButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="통신판매"
                         />
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/graspingdemandButton"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="수요조사"
                         />
                 </com.google.android.material.button.MaterialButtonToggleGroup>

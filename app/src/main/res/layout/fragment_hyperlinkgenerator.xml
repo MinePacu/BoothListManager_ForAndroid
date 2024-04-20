@@ -543,22 +543,25 @@
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/preorderButton_movingData"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
                         android:text="선입금, 인포"
                         />
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/maIlorderButton_movingData"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="통신판매"
                         />
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/graspingdemandButton_movingData"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="수요조사"
                         />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -683,22 +686,25 @@
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/preorderButton_putBoothNumber"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
                         android:text="선입금, 인포"
                         />
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/maIlorderButton_putBoothNumber"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="통신판매"
                         />
                     <Button
                         style="?attr/materialButtonOutlinedStyle"
                         android:id="@+id/graspingdemandButton_putBoothNumber"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="수요조사"
                         />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
