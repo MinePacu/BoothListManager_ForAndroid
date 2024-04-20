@@ -292,6 +292,7 @@ def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string
 				k = 0 
 				for k in range(RecommandLocation - 1 - 1, -1, -1):
 					if len(booth_list[k]) != 0:
+						IsAlredyExisted = False
 						break
 
 				sheet.merge_cells(f"{BoothNumber_Col_Alphabet}{k + 1}:{Yoil_Col_Alphabet}{RecommandLocation}",
@@ -630,16 +631,19 @@ def SetLinkToMap(BoothNumber: str):
 
 	BoothNumberCell_Data = BoothListSheet.find(BoothNumber)
 
-	BoothNumber_splited = BoothNumber.replace("\n", "").replace(" ", "").split(',') if ',' in BoothNumber else [BoothNumber]
+	BoothNumber_splited = BoothNumber.replace("\n", " ").split(", ") if ',' in BoothNumber else [BoothNumber]
 
 	# key => 지도에서의 해당 부스의 a1 위치 값, value => 부스 위치에서의 a1 위치 값
 	BoothLocations = []
 	for Number in BoothNumber_splited:
-		MapLocationData = BoothMapSheet.find(Number)
+		temp = Number.replace(' ', '\n') if checkSpecialBooth(Number) == True else Number
+		MapLocationData = BoothMapSheet.find(temp)
 		BoothLocations.append(rowcol_to_a1(MapLocationData.row, MapLocationData.col))
+		
+		map_value = f'TEXTJOIN(CHAR(10), 0, "{Number.split(" ")[0]}", "{Number.split(" ")[1]}")' if checkSpecialBooth(Number) == True else f'"{Number}"'
 
 		BoothMapSheet.update_acell(rowcol_to_a1(MapLocationData.row, MapLocationData.col),
-						  		f'=HYPERLINK("#gid{BoothListSheet.id}&range={rowcol_to_a1(BoothNumberCell_Data.row, BoothNumberCell_Data.col)}", "{MapLocationData.value}")')
+						  		f'=HYPERLINK("#gid{BoothListSheet.id}&range={rowcol_to_a1(BoothNumberCell_Data.row, BoothNumberCell_Data.col)}", "{map_value}")')
 
 	BoothListSheet.update_acell(rowcol_to_a1(BoothNumberCell_Data.row, BoothNumberCell_Data.col),
 						  		f'=HYPERLINK("#gid={BoothMapSheet.id}&range={BoothLocations[0]}:{BoothLocations[len(BoothLocations) - 1]}", "{BoothNumber}")')
@@ -677,3 +681,12 @@ def AddTextJoin(label: str, isAddEqualLetter: bool = True):
 	else:
 		NewLabel = f"\"{label}\""
 		return NewLabel
+	
+def checkSpecialBooth(BoothNumber: str):
+	specialbooth_code_list = ['Vir', 'Cre', 'Psm', 'Adt', 'AZ', 'Voc']
+	for code in specialbooth_code_list:
+		if code in BoothNumber:
+			return True
+		else:
+			continue
+	return False
