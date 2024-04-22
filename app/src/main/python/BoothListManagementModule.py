@@ -89,7 +89,7 @@ UpdateLogSheetName = "업데이트 내용"
 UpdateLogSheetNumber = 1
 
 # 행사 지도 시트
-MapSheetNumber = None
+MapSheetNumber: int = None
 
 # 기타 비교용 변수
 IsAlredyExisted = False

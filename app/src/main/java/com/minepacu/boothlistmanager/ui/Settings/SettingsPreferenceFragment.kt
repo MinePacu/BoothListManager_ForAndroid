@@ -34,6 +34,8 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
     var update_mail_order_sheetStartIndex: Preference? = null
 
+    var boothMapSheetIndexPreference: Preference? = null
+
     var darkmode: Preference? = null
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -58,6 +60,8 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             updateLogType = findPreference("updateLogType")
 
             update_mail_order_sheetStartIndex = findPreference("update_mail_order_SheetStartIndex")
+
+            boothMapSheetIndexPreference = findPreference("booth_map_sheet_Index")
 
             darkmode = findPreference("DarkMode")
         }
@@ -183,6 +187,15 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                         PythonClass.setVariable("update_mail_order_sheetStartIndex", update_mail_order_sheetStartIndex_Set)
                     } catch (e: PyException) {
                         Result.Error(Exception(e.message))
+                    }
+                }
+
+                "booth_map_sheet_Index" -> {
+                    val booth_map_sheet_Index_Set = prefs.getString("booth_map_sheet_Index", "")
+                    try {
+                        PythonClass.setVariable("MapSheetNumber", booth_map_sheet_Index_Set?.toInt())
+                    } catch (e: PyException) {
+                        Result.Error(PyException(e.message))
                     }
                 }
 

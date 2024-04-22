@@ -119,6 +119,17 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="booth_map"
+        android:title="부스 지도">
+
+        <EditTextPreference
+            android:key="booth_map_sheet_Index"
+            android:title="부스 지도 시트 인덱스"
+            android:summary="시트 ID에 해당하는 시트 안에 있는 시트들의 인덱스 중 부스 지도 시트에 해당하는 값입니다. 기본값은 6입니다."
+            android:defaultValue="6" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="Etc"
         android:title="기타">
 
