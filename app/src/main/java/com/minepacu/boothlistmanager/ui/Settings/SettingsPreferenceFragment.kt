@@ -2,6 +2,8 @@ package com.minepacu.boothlistmanager.ui.Settings
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -32,6 +34,8 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
     var update_mail_order_sheetStartIndex: Preference? = null
 
+    var darkmode: Preference? = null
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference, rootKey)
 
@@ -54,6 +58,8 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
             updateLogType = findPreference("updateLogType")
 
             update_mail_order_sheetStartIndex = findPreference("update_mail_order_SheetStartIndex")
+
+            darkmode = findPreference("DarkMode")
         }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -179,17 +185,36 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
                         Result.Error(Exception(e.message))
                     }
                 }
+
+                "DarkMode" -> {
+
+                }
             }
         }
+
+    val darkmodeListener = Preference.OnPreferenceChangeListener { _, new_value ->
+        if (new_value == true) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            true
+        } else if (new_value == false) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            true
+        } else {
+            Log.d("Debug", "new Value is $new_value")
+            false
+        }
+    }
 
     override fun onResume() {
         super.onResume()
         prefs.registerOnSharedPreferenceChangeListener(prefListener)
+        darkmode?.onPreferenceChangeListener = darkmodeListener
     }
 
     override fun onPause() {
         super.onPause()
         prefs.unregisterOnSharedPreferenceChangeListener(prefListener)
+        darkmode?.onPreferenceChangeListener = null
     }
 
 }

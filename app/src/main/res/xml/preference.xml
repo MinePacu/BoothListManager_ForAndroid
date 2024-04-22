@@ -117,4 +117,16 @@
             android:defaultValue="5" />
 
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="Etc"
+        android:title="기타">
+
+        <SwitchPreferenceCompat
+            android:key="DarkMode"
+            android:title="다크 모드 사용하기"
+            android:summary="해당 앱을 다크 모드로 설정합니다."
+            android:defaultValue="false"
+            />
+    </PreferenceCategory>
 </androidx.preference.PreferenceScreen>
