@@ -89,7 +89,7 @@ UpdateLogSheetName = "업데이트 내용"
 UpdateLogSheetNumber = 1
 
 # 행사 지도 시트
-MapSheetNumber: int = None
+MapSheetNumber: int = 6
 
 # 기타 비교용 변수
 IsAlredyExisted = False
@@ -629,6 +629,9 @@ def SetLinkToMap(BoothNumber: str):
 	BoothListSheet = sheet.get_worksheet(sheetNumber)
 	BoothMapSheet = sheet.get_worksheet(MapSheetNumber)
 
+	if "통판" in BoothListSheet.title or "수요조사" in BoothListSheet.title:
+		return None
+
 	BoothNumberCell_Data = BoothListSheet.find(BoothNumber)
 
 	BoothNumber_splited = BoothNumber.replace("\n", " ").split(", ") if ',' in BoothNumber else [BoothNumber]
@@ -638,12 +641,13 @@ def SetLinkToMap(BoothNumber: str):
 	for Number in BoothNumber_splited:
 		temp = Number.replace(' ', '\n') if checkSpecialBooth(Number) == True else Number
 		MapLocationData = BoothMapSheet.find(temp)
+		BoothNameData = BoothListSheet.get(f'C{BoothNumberCell_Data.row}')
 		BoothLocations.append(rowcol_to_a1(MapLocationData.row, MapLocationData.col))
 		
 		map_value = f'TEXTJOIN(CHAR(10), 0, "{Number.split(" ")[0]}", "{Number.split(" ")[1]}")' if checkSpecialBooth(Number) == True else f'"{Number}"'
 
 		BoothMapSheet.update_acell(rowcol_to_a1(MapLocationData.row, MapLocationData.col),
-						  		f'=HYPERLINK("#gid{BoothListSheet.id}&range={rowcol_to_a1(BoothNumberCell_Data.row, BoothNumberCell_Data.col)}", "{map_value}")')
+						  		f'=HYPERLINK(CONCATENATE("#gid={BoothListSheet.id}&range=B", MATCH("{BoothNameData[0][0]}", \'{BoothListSheet.title}\'!C:C, 0)), {map_value})')
 
 	BoothListSheet.update_acell(rowcol_to_a1(BoothNumberCell_Data.row, BoothNumberCell_Data.col),
 						  		f'=HYPERLINK("#gid={BoothMapSheet.id}&range={BoothLocations[0]}:{BoothLocations[len(BoothLocations) - 1]}", "{BoothNumber}")')
@@ -661,7 +665,7 @@ def AddTextJoin(label: str, isAddEqualLetter: bool = True):
 	또한 전역 변수 `dateLine_In_aRow` 값은 이 함수가 수행하기 전의 값보다 `label`의 줄 수가 많은 경우 갱신됩니다.
 
 	:param label TextJoin 함수를 적용할 문자열
-	:param isAddEqualLetter `=` 기호를 넣을지 여부
+	:param isAddEqualLetter `=` 기호를 넣을지 여부로, 이 함수가 단독으로 쓰이는 경우에는 True, 이 함수가 다른 함수의 매개 변수로 같이 사용되는 경우에는, False를 권장합니다.
 	"""
 	global dateline_In_aRow
 	if '//' in label:
