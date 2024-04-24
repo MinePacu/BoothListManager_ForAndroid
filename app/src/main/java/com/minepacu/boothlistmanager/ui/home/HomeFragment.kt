@@ -124,6 +124,9 @@ class HomeFragment : Fragment() {
         val sheetStartIndex = prefs.getString("sheetStartIndex", "")
         PythonClass.setVariable("sheetStartIndex", sheetStartIndex?.toInt())
 
+        val mapSheetIndex = prefs.getString("booth_map_sheet_Index", "")
+        PythonClass.setVariable("MapSheetNumber", mapSheetIndex?.toInt())
+
         if (homeViewModel.isLoginToGoogleAPI == false) {
             binding.buttonReloadsheetInfo.isEnabled = false
             homeViewModel.loginToGoogleAPI(root, binding.buttonReloadsheetInfo, binding.buttonReloadworksheetInfo)
