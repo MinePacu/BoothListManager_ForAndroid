@@ -694,3 +694,28 @@ def checkSpecialBooth(BoothNumber: str):
 		else:
 			continue
 	return False
+
+def SearchBooth(boothNumber: str = None, boothName: str = None, boothGenre: str = None):
+	global gc
+	global sheetId
+	global sheetNumber
+
+	sheet = gc.open_by_key(sheetId)
+	BoothListSheet = sheet.get_worksheet(sheetNumber)
+
+	resultCell: gspread.Cell = None
+	if boothNumber != None:
+		resultCell = BoothListSheet.find(boothNumber)
+	
+	elif boothName != None:
+		resultCell = BoothListSheet.find(boothName)
+
+	elif boothGenre != None:
+		resultCell = BoothListSheet.find(boothGenre)
+	
+	if resultCell != None:
+		resultRow = BoothListSheet.get(f'{BoothNumber_Col_Alphabet}{resultCell.row}:{Pre_Order_link_Col_Alphabet}{resultCell.row}', ValueRenderOption.formatted)
+		print(f'Debug ResultRow : {resultRow[0]}')
+		return resultRow[0]
+	else:
+		return None
