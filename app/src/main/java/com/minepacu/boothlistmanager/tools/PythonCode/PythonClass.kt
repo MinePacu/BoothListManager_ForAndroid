@@ -306,6 +306,45 @@ class PythonClass {
             }
         }
 
+        suspend fun searchBoothInfo(boothNumber: String? = null, boothName: String? = null, boothGenre: String? = null) : BoothInfo? {
+            return withContext(Dispatchers.IO) {
+                try {
+                    Log.d("Debug", "Fun searchBoothInfo is Executed")
+                    val result = boothListManagementModule.callAttr("SearchBooth", boothNumber, boothName, boothGenre)
+
+                    Log.d(
+                        "Debug",
+                        when {
+                            (result == null) -> "IsNull of result from SearchBooth : true"
+                            else -> "IsNull of result from SearchBooth : false"
+                        }
+                    )
+
+                    when {
+                        result != null -> {
+                            val boothnumber: String = result.asList().get(0).toString()
+                            val boothname: String = result.asList().get(1).toString()
+                            val boothgenre: String = result.asList().get(2).toString()
+                            val yoil: String = result.asList().get(3).toString()
+                            val infoLabel: String = result.asList().get(4).toString()
+                            val infoLink: String = result.asList().get(4).toString()
+                            val pre_Order_Date: String = result.asList().get(5).toString()
+                            val pre_Order_Label: String = result.asList().get(6).toString()
+                            val pre_Order_Link: String = result.asList().get(7).toString()
+
+                            BoothInfo(boothnumber, boothname, boothgenre, yoil, infoLabel, infoLink, pre_Order_Date, pre_Order_Label, pre_Order_Link)
+                        }
+                        else -> null
+                    }
+                }
+
+                catch (e: PyException) {
+                    Log.d("Debug", "Error : ${e.message}")
+                    null
+                }
+            }
+        }
+
         fun setVariable(variable_name: String, value: Any?) {
             boothListManagementModule.put(variable_name, value)
         }

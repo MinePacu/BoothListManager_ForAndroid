@@ -703,19 +703,46 @@ def SearchBooth(boothNumber: str = None, boothName: str = None, boothGenre: str 
 	sheet = gc.open_by_key(sheetId)
 	BoothListSheet = sheet.get_worksheet(sheetNumber)
 
+	print(f'Current WorkSheet : {BoothListSheet.title}')
+	print(f'BoothNumber : {boothNumber}')
+	print(f'boothName : {boothName}')
+	print(f'boothGenre : {boothGenre}')
+
 	resultCell: gspread.Cell = None
 	if boothNumber != None:
+		print('boothNumber is not None')
 		resultCell = BoothListSheet.find(boothNumber)
 	
 	elif boothName != None:
+		print('boothName is not None')
 		resultCell = BoothListSheet.find(boothName)
 
 	elif boothGenre != None:
+		print('boothName is not None')
 		resultCell = BoothListSheet.find(boothGenre)
 	
+	print(f'resultCell : {resultCell}')
+
 	if resultCell != None:
-		resultRow = BoothListSheet.get(f'{BoothNumber_Col_Alphabet}{resultCell.row}:{Pre_Order_link_Col_Alphabet}{resultCell.row}', ValueRenderOption.formatted)
-		print(f'Debug ResultRow : {resultRow[0]}')
-		return resultRow[0]
+		resultRow_formatted = BoothListSheet.get(f'{BoothNumber_Col_Alphabet}{resultCell.row}:{Pre_Order_link_Col_Alphabet}{resultCell.row}', value_render_option=ValueRenderOption.formatted)
+		resultRow_formula = BoothListSheet.get(f'{BoothNumber_Col_Alphabet}{resultCell.row}:{Pre_Order_link_Col_Alphabet}{resultCell.row}', value_render_option=ValueRenderOption.formula)
+		
+		print(f'resultRow_formatted : {resultRow_formatted}')
+		print(f'resultRow_formula : {resultRow_formula}')
+
+		infoLink = str(resultRow_formula[0][4]).split(", ")[0].replace("=HYPERLINK(", "").replace("\"", "") if len(resultRow_formula[0]) >= 5 else ""
+		pre_order_link = str(resultRow_formula[0][6]).split(", ")[0].replace('\"', "").replace("=HYPERLINK(", "") if len(resultRow_formula[0]) >= 7 else ""
+		
+		# 부스 번호, 부스 이름, 장르, 참가 요일, 인포 라벨, 인포 링크, 마감 일자, 선입금 링크의 라벨
+		result = [str(resultRow_formatted[0][0]).replace('\n', ' '), 
+				str(resultRow_formatted[0][1]), 
+				str(resultRow_formatted[0][2]).replace('\n', ' '),
+				str(resultRow_formatted[0][3]),
+				str(resultRow_formatted[0][4]),
+				infoLink,
+				str(resultRow_formatted[0][5]).replace("\n", "") if len(resultRow_formatted[0]) >= 6 else "",
+				str(resultRow_formatted[0][6]) if len(resultRow_formatted[0]) >= 6 else "",
+				pre_order_link]
+		return result
 	else:
 		return None

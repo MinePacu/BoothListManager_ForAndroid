@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import com.minepacu.boothlistmanager.data.model.BoothInfo
 
 class DataSource {
-    private var initialBoothList: List<BoothInfo> = listOf()
+    val temp_: BoothInfo = BoothInfo("Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test", "Test")
+
+    private var initialBoothList: List<BoothInfo> = listOf(temp_)
     private val boothsLiveData = MutableLiveData(initialBoothList)
 
     fun addBooth(boothInfo: BoothInfo) {
@@ -25,6 +27,15 @@ class DataSource {
             val updateedList = currentList.toMutableList()
             updateedList.remove(boothInfo)
             boothsLiveData.postValue(updateedList)
+        }
+    }
+
+    fun removeAllBoothInfo() {
+        val currentList = boothsLiveData.value
+        if (currentList != null) {
+            val updatedList = currentList.toMutableList()
+            updatedList.clear()
+            boothsLiveData.postValue(updatedList)
         }
     }
 

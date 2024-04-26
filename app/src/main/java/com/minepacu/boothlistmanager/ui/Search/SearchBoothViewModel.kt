@@ -1,20 +1,28 @@
 package com.minepacu.boothlistmanager.ui.Search
 
 import android.content.Context
+import android.view.View
 import androidx.compose.runtime.internal.illegalDecoyCallException
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.google.android.material.snackbar.Snackbar
 import com.minepacu.boothlistmanager.data.DataSource
 import com.minepacu.boothlistmanager.data.model.BoothInfo
+import com.minepacu.boothlistmanager.tools.PythonCode.PythonClass
+import com.minepacu.boothlistmanager.ui.ProgressingPage.ProgressPage
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class SearchBoothViewModel(val dataSource: DataSource) : ViewModel() {
 
+    /*
     private val _text = MutableLiveData<String>().apply {
         value = "개발 중....."
     }
     val text: LiveData<String> = _text
+
+    */
 
     val boothsLiveData = dataSource.getBoothInfoList()
 
@@ -24,6 +32,34 @@ class SearchBoothViewModel(val dataSource: DataSource) : ViewModel() {
         }
 
         dataSource.addBooth(boothInfo)
+    }
+
+    fun removeAllBoothInfo() {
+        dataSource.removeAllBoothInfo()
+    }
+
+    fun searchBoothInfo(view: View, progressPage: ProgressPage?, boothnumber: String? = null, boothname: String? = null, boothgenre: String? = null) : Job {
+        return viewModelScope.launch {
+            removeAllBoothInfo()
+            val result = PythonClass.searchBoothInfo(boothnumber, boothname, boothgenre)
+
+            when {
+                result != null -> {
+                    insertBooth(result)
+                    Snackbar.make(view, "검색이 완료되었습니다.",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    progressPage?.hide()
+                }
+                else -> {
+                    Snackbar.make(
+                        view, "검색에 오류가 있습니다.",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                    progressPage?.hide()
+                }
+            }
+        }
     }
 }
 
