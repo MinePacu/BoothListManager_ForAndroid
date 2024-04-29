@@ -53,4 +53,7 @@
     <string name="explanation_link">연결하려는 링크</string>
 
     <string name="button_CopyToClipboard">클립보드로 복사</string>
+
+    <string name="open_Drawer">Opened Drawer</string>
+    <string name="close_Drawer">Closed Drawer</string>
 </resources>

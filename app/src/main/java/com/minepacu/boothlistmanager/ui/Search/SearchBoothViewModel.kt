@@ -6,6 +6,7 @@ import androidx.compose.runtime.internal.illegalDecoyCallException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.minepacu.boothlistmanager.data.DataSource
 import com.minepacu.boothlistmanager.data.model.BoothInfo
@@ -38,6 +39,15 @@ class SearchBoothViewModel(val dataSource: DataSource) : ViewModel() {
         dataSource.removeAllBoothInfo()
     }
 
+    /**
+     * 지정한 매개 변수를 검색어로 활용하여 부스 인포를 검색한 후, [RecyclerView]에 출력합니다.
+     *
+     * @param view 함수의 실행 결과를 출력하는 [Snackbar]를 출력할 [View] 객체
+     * @param processingRing 함수가 실행되는 동안, 출력할 로딩 창 ([ProgressPage]) 객체
+     * @param boothnumber 검색어로 쓸 부스 번호
+     * @param boothname 검색어로 쓸 부스 이름
+     * @param boothgenre 검색어로 쓸 장르
+     */
     fun searchBoothInfo(view: View, progressPage: ProgressPage?, boothnumber: String? = null, boothname: String? = null, boothgenre: String? = null) : Job {
         return viewModelScope.launch {
             removeAllBoothInfo()

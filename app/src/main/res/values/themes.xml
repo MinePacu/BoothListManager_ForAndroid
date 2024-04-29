@@ -52,10 +52,6 @@
         <item name="colorOnCustomColor1Container">@color/colorOnCustomColor1Container</item>
     </style>
 
-    <style name="Theme.BoothListManager.NoActionBar">
-        <item name="windowNoTitle">true</item>
-    </style>
-
     <style name="Theme.BoothListManager.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.BoothListManager.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
