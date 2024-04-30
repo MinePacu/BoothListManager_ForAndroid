@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentManager.OnBackStackChangedListener
 import androidx.fragment.app.FragmentManager.findFragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -54,12 +55,14 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_addbooth, R.id.nav_serach, R.id.nav_hyperlinkgenerator, R.id.nav_preference), binding.drawerlayout
             )
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        val appBarConfiguration_ = AppBarConfiguration(navController.graph)
+        setupActionBarWithNavController(navController, appBarConfiguration_)
         navView.setupWithNavController(navController)
     }
 

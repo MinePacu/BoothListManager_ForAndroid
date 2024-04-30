@@ -16,12 +16,11 @@
         tools:context=".MainActivity"
         android:id="@+id/linearLayout">
 
-        <include
-            android:id="@+id/app_bar_main"
-            layout="@layout/app_bar_main"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_Bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/nav_host_fragment_activity_main">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/app_Bar"
             android:layout_width="match_parent"
@@ -30,7 +29,8 @@
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:layout_constraintBottom_toTopOf="@id/nav_host_fragment_activity_main"/>
+            app:navigationIcon="@drawable/ic_arrow_back"/>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <fragment
             android:id="@+id/nav_host_fragment_activity_main"
@@ -40,8 +40,8 @@
             app:layout_constraintBottom_toTopOf="@id/nav_view"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/app_Bar"
-            app:navGraph="@navigation/mobile_navigation" />
+            app:layout_constraintTop_toTopOf="@id/app_Bar_layout"
+            app:navGraph="@navigation/mobile_navigation"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
