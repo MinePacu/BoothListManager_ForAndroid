@@ -3,6 +3,7 @@ package com.minepacu.boothlistmanager.ui.home
 import android.content.SharedPreferences
 import android.media.Image
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -126,6 +127,7 @@ class HomeFragment : Fragment() {
 
         val mapSheetIndex = prefs.getString("booth_map_sheet_Index", "")
         PythonClass.setVariable("MapSheetNumber", mapSheetIndex?.toInt())
+        Log.d("Debug", "boothmapSheet Index - $mapSheetIndex")
 
         if (homeViewModel.isLoginToGoogleAPI == false) {
             binding.buttonReloadsheetInfo.isEnabled = false

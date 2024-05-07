@@ -45,10 +45,18 @@ class MainActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        */
-        setSupportActionBar(findViewById(R.id.app_Bar))
+
+        toolbar = findViewById(R.id.app_Bar)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        toolbar.setNavigationOnClickListener { it.setOnClickListener {
+            onBackPressed()
+        } }
+
+        setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        */
+
         //supportActionBar?.show()
         //supportActionBar?.subtitle = "Test"
         //supportActionBar?.hide()
@@ -59,21 +67,11 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_addbooth, R.id.nav_serach, R.id.nav_hyperlinkgenerator, R.id.nav_preference), binding.drawerlayout
+                R.id.nav_home, R.id.nav_addbooth, R.id.nav_serach, R.id.nav_hyperlinkgenerator, R.id.nav_preference)
             )
         val appBarConfiguration_ = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration_)
+        //setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-             android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
     }
 
     class BackStackListener(activity: MainActivity): FragmentManager.OnBackStackChangedListener {
