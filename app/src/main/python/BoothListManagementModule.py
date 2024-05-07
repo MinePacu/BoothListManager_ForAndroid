@@ -67,19 +67,22 @@ sheetNumber = sheetNumber_illustar_fes
 BoothNumber_Col_Number = 2
 BoothName_Col_Number = 3
 Genre_Col_Number = 4
-Yoil_Col_Number = 5
-InfoLabel_Col_Number = 6
-InfoLink_Col_Number = 6
-Pre_Order_Date_Col_Number = 7
-Pre_Order_Label_Col_Number = 8
-Pre_Order_link_Col_Number = 8
+Authors_Col_Number = 5
+Yoil_Col_Number = 6
+InfoLabel_Col_Number = 7
+InfoLink_Col_Number = 7
+Pre_Order_Date_Col_Number = 8
+Pre_Order_Label_Col_Number = 9
+Pre_Order_link_Col_Number = 9
+Etc_Point_Col_Number = 10
 
 BoothNumber_Col_Alphabet = 'B'
 BoothName_Col_Alphabet = 'C'
-Yoil_Col_Alphabet = 'E'
-InfoLabel_Link_Col_Alphabet = 'F'
-Pre_Order_link_Col_Alphabet = 'H'
-Etc_Point_Col_Alphabet = 'I'
+Authors_Col_Alphabet = 'E'
+Yoil_Col_Alphabet = 'F'
+InfoLabel_Link_Col_Alphabet = 'G'
+Pre_Order_link_Col_Alphabet = 'I'
+Etc_Point_Col_Alphabet = 'J'
 
 # 선입금 시트 내의 열 인덱싱
 UpdateTime_Row_Number = 1
