@@ -190,6 +190,88 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_authors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_basic_boothInfo">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="작가"
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="이 부스에 참여한 작가분들의 정보를 설정합니다."
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?android:attr/textColorSecondary" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_AuthorsNickNames"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="작가 닉네임"
+                    android:inputType="text"
+                    app:helperText="한 줄당 한 명의 닉네임입니다."
+                    app:hintAnimationEnabled="true"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editText_AuthorsNickNames"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_AuthorsLinks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:ems="10"
+                    android:hint="작가님들의 링크"
+                    android:inputType="text"
+                    app:hintAnimationEnabled="true"
+                    app:errorEnabled="true"
+                    app:helperTextEnabled="true"
+                    app:helperText="각 줄당 한 명의 링크입니다."
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_AuthorsNickNames"
+                    app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editText_AuthorsLinks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_yoil"
             android:layout_width="match_parent"
@@ -197,7 +279,7 @@
             android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/card_basic_boothInfo">
+            app:layout_constraintTop_toBottomOf="@id/card_authors">
 
             <LinearLayout
                 android:layout_width="match_parent"
