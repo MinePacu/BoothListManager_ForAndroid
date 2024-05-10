@@ -1,6 +1,6 @@
 package com.minepacu.boothlistmanager.data.model
 
-data class BoothInfo(var boothnumber: String?, var boothname : String, var genres : String,
+data class BoothInfo(var boothnumber: String?, var boothname : String, var genres : String, var authorsNickNames: List<String>, var authorsLinks: List<String>,
                      var yoil : String,
                      var InfoLabel : String?, var InfoLink : String?,
                      var preorder_Date : String?, var preorder_Label : String?,

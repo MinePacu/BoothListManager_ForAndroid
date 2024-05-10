@@ -103,6 +103,8 @@ class PythonClass {
                     boothInfo.boothnumber,
                     boothInfo.boothname,
                     boothInfo.genres,
+                    boothInfo.authorsNickNames,
+                    boothInfo.authorsLinks,
                     boothInfo.yoil,
                     boothInfo.InfoLabel,
                     boothInfo.InfoLink,
@@ -325,6 +327,8 @@ class PythonClass {
                             val boothnumber: String = result.asList().get(0).toString()
                             val boothname: String = result.asList().get(1).toString()
                             val boothgenre: String = result.asList().get(2).toString()
+                            val authorsNickNames: List<String> = listOf("")
+                            val authorsLinks: List<String> = listOf("")
                             val yoil: String = result.asList().get(3).toString()
                             val infoLabel: String = result.asList().get(4).toString()
                             val infoLink: String = result.asList().get(4).toString()
@@ -332,7 +336,7 @@ class PythonClass {
                             val pre_Order_Label: String = result.asList().get(6).toString()
                             val pre_Order_Link: String = result.asList().get(7).toString()
 
-                            BoothInfo(boothnumber, boothname, boothgenre, yoil, infoLabel, infoLink, pre_Order_Date, pre_Order_Label, pre_Order_Link)
+                            BoothInfo(boothnumber, boothname, boothgenre, authorsNickNames, authorsLinks, yoil, infoLabel, infoLink, pre_Order_Date, pre_Order_Label, pre_Order_Link)
                         }
                         else -> null
                     }

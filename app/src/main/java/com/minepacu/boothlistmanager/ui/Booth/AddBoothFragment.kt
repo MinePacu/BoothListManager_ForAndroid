@@ -93,6 +93,9 @@ class AddBoothFragment : Fragment() {
                 else -> binding.editPreOrderDate.text.toString()
             }
 
+            var authors_Nicknames = binding.editAuthorsNickNames.editText?.text.toString().split("\n")
+            var authors_Links = binding.editAuthorsLinks.editText?.text.toString().split("\n")
+
             if (genre.contains("//") == true) {
                 val tempstr = genre.split("//")
                 PythonClass.setVariable("dateline_In_aRow", tempstr.count())
@@ -104,7 +107,7 @@ class AddBoothFragment : Fragment() {
                 }
             }
 
-            val boothInfo = BoothInfo(boothnumber, boothname, genre, new_yoil,
+            val boothInfo = BoothInfo(boothnumber, boothname, genre, authors_Nicknames, authors_Links, new_yoil,
                 infolabel, infolink,
                 preorder_date, preorder_label, preorder_link)
 

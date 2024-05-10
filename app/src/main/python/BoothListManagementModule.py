@@ -150,7 +150,7 @@ def getWorkSheet(sheetId : string, sheetNumber : int):
 	except gspread.exceptions.APIError:
 		return None
 
-def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string, yoil : string,
+def addBoothInfoToSheet(boothnumber : string, boothname : string, genre : string, authorsNickNames: list[str], authorsLinks: list[str], yoil : string,
 						infoLabel : string, infoLink : string, preorder_Date : string,
 						preorder_Label : string, preorder_Link : string):
 	global dateline_In_aRow
