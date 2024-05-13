@@ -308,11 +308,11 @@ class PythonClass {
             }
         }
 
-        suspend fun searchBoothInfo(boothNumber: String? = null, boothName: String? = null, boothGenre: String? = null) : BoothInfo? {
+        suspend fun searchBoothInfo(boothNumber: String? = null, boothName: String? = null, boothGenre: String? = null, authorNickName: String? = null) : BoothInfo? {
             return withContext(Dispatchers.IO) {
                 try {
                     Log.d("Debug", "Fun searchBoothInfo is Executed")
-                    val result = boothListManagementModule.callAttr("SearchBooth", boothNumber, boothName, boothGenre)
+                    val result = boothListManagementModule.callAttr("SearchBooth", boothNumber, boothName, boothGenre, authorNickName)
 
                     Log.d(
                         "Debug",

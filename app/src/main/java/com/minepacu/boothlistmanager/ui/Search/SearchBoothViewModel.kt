@@ -48,7 +48,7 @@ class SearchBoothViewModel(val dataSource: DataSource) : ViewModel() {
      * @param boothname 검색어로 쓸 부스 이름
      * @param boothgenre 검색어로 쓸 장르
      */
-    fun searchBoothInfo(view: View, progressPage: ProgressPage?, boothnumber: String? = null, boothname: String? = null, boothgenre: String? = null) : Job {
+    fun searchBoothInfo(view: View, progressPage: ProgressPage?, boothnumber: String? = null, boothname: String? = null, boothgenre: String? = null, authorNickName: String? = null) : Job {
         return viewModelScope.launch {
             removeAllBoothInfo()
             val result = PythonClass.searchBoothInfo(boothnumber, boothname, boothgenre)

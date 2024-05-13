@@ -138,6 +138,14 @@
                         android:layout_weight="1"
                         android:text="장르"
                         />
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:id="@+id/author_search"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="작가 닉네임"
+                        />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
             </LinearLayout>

@@ -79,6 +79,8 @@ class SearchBoothFragment : Fragment() {
                     searchBoothViewModel.searchBoothInfo(it, customProgressPage, boothnumber = binding.editTextSearchword.text.toString())
                 binding.selectionSearchType.checkedButtonId == R.id.genre_search && binding.editTextSearchword.text.toString() != "" ->
                     searchBoothViewModel.searchBoothInfo(it, customProgressPage, boothgenre = binding.editTextSearchword.text.toString())
+                binding.selectionSearchType.checkedButtonId == R.id.author_search && binding.editTextSearchword.text.toString() != "" ->
+                    searchBoothViewModel.searchBoothInfo(it, customProgressPage, authorNickName = binding.editTextSearchword.text.toString())
             }
         }
         return root
